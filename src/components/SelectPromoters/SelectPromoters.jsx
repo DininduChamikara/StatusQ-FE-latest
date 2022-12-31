@@ -1,16 +1,7 @@
-import {
-  Box,
-  Button,
-  Divider,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { changeSelectedPromotersList } from "../../store/reducers/saveCampaign";
-import BarChart from "../BarChart/BarChart";
 import DataTable from "../DataTable/DataTable";
 import SelectedPromoterStatistics from "../SelectedPromoterStatistics/SelectedPromoterStatistics";
 
@@ -26,12 +17,12 @@ function SelectPromoters() {
     <Box>
       <Box
         sx={{
-          display: "flex",
+          display: { xs: "block", lg: "flex" },
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ width: "50%", p: 1 }}>
+        <Box sx={{ width: { xs: "100%", lg: "50%" }, p: 1 }}>
           <DataTable
             selectedPromoterCount={selectedPromoterCount}
             setSelectedPromoterCount={setSelectedPromoterCount}
@@ -42,8 +33,9 @@ function SelectPromoters() {
         </Box>
 
         {/* Statistics */}
-        <SelectedPromoterStatistics/>
-
+        <Box sx={{ width: { xs: "100%", lg: "50%" } }}>
+          <SelectedPromoterStatistics />
+        </Box>
       </Box>
 
       {selectedPromoterCount > 0 && (
@@ -67,7 +59,7 @@ function SelectPromoters() {
                   selectedPromoterIdList: selectedPromotersList,
                 })
               );
-              setListSaved(true)
+              setListSaved(true);
             }}
           >
             Save Selections ({selectedPromoterCount})
@@ -79,7 +71,7 @@ function SelectPromoters() {
             color="secondary"
             onClick={() => {
               // need to clear details
-              setListSaved(false)
+              setListSaved(false);
             }}
           >
             Edit Selections

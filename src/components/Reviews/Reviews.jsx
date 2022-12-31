@@ -23,6 +23,7 @@ function Reviews() {
     });
   }, []);
 
+ 
   return (
     <Paper elevation={3} sx={{ p: 2 }}>
       <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold", pb: 1 }}>
@@ -30,12 +31,13 @@ function Reviews() {
       </Typography>
       <Box
         sx={{
-          display: "flex",
+          display: 'flex',
           alignItems: "flex-start",
           justifycontent: "center",
           flexdirection: "row",
         }}
       >
+        {/* just changing slidesPerView = 1 mobile responsiveness working */}
         <Swiper spacebetween={10} slidesPerView={2.8} grabCursor={true} >
           {reviewResponses.map((review, index) => {
             return (

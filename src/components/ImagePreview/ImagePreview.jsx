@@ -293,11 +293,11 @@ function ImagePreview() {
             }}
           >
             <Button
-              sx={{ ml: 1, width: 300 }}
+              sx={{ ml: {xs:0, lg:1}, width: {xs:'100%', lg:300}, mb:{xs:1, lg:0} }}
               disabled={advertisementSavedForUpload}
               variant="contained"
               onClick={() => {
-                console.log("button clicked", advertisements);
+                // console.log("button clicked", advertisements);
 
                 // setSaveClicked(true);
 
@@ -341,12 +341,12 @@ function ImagePreview() {
                 );
               }}
             >
-              SUBMIT ONLY {advertisements.length} ADVERTISEMENTS
+              Submit only {advertisements.length} advertisements
               {advertisements.length === 1 ? "" : "S"}
             </Button>
 
             <Button
-              sx={{ ml: 1, width: 300 }}
+              sx={{ ml: {xs:0, lg:1}, width: {xs:'100%', lg:300} }}
               variant="contained"
               color="secondary"
               onClick={() => {
