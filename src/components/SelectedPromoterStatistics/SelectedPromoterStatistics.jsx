@@ -279,13 +279,13 @@ function SelectedPromoterStatistics() {
   return (
     <Box
       sx={{
-        width: "50%",
+        width: "100%",
         border: 1,
         borderRadius: 1,
         m: 1,
         // borderColor: "#E0E0E0",
         borderColor: "primary.dark",
-        p: 2,
+        p: 1,
       }}
     >
       <Typography
@@ -304,13 +304,13 @@ function SelectedPromoterStatistics() {
       <Box
         sx={{
           mt: 2,
-          display: "flex",
+          display: {xs:'block', lg:'flex'},
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", width: "75%" }}>
+        <Box sx={{ display: {xs:'block', lg:'flex'}, width: "75%" }}>
           <Typography sx={{ mr: 1, color:'primary.dark' }}>PromoterId:</Typography>
           <Typography
             sx={{color:'secondary.dark'}}
@@ -320,7 +320,7 @@ function SelectedPromoterStatistics() {
               : ""}
           </Typography>
         </Box>
-        <Box sx={{ width: "25%" }}>
+        <Box sx={{ width: {xs:'100%', lg:'25%'}, mb:{xs:1, lg:0} }}>
           <Select
             fullWidth
             size="small"

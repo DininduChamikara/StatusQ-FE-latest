@@ -12,8 +12,8 @@ function CardPayment() {
   const [focus, setFocus] = useState("");
 
   return (
-    <Box sx={{ width: "100%", display: "flex", flexDirection: "row", height:'210px' }}>
-      <Box sx={{ width: "30%", p: 2 }}>
+    <Box sx={{ width: "100%", display: {xs:'block', lg:'flex'}, flexDirection: "row" }}>
+      <Box sx={{ width: {xs:'100%', lg:'30%'}, p: {xs:0, lg:2} }}>
         <Cards
           number={number}
           name={name}
@@ -22,7 +22,7 @@ function CardPayment() {
           focused={focus}
         />
       </Box>
-      <Box sx={{ width: "35%", p: 2, mt:2 }}>
+      <Box sx={{ width: {xs:'100%', lg:'35%'}, p: 2, mt: {xs:0, lg:2} }}>
         <TextField
           sx={{ my: 1 }}
           fullWidth
@@ -53,7 +53,7 @@ function CardPayment() {
           onFocus={(e) => setFocus(e.target.name)}
         />
       </Box>
-      <Box sx={{ width: "35%", p: 2, mt:2 }}>
+      <Box sx={{ width: {xs:'100%', lg:'35%'}, p: 2, mt: {xs:0, lg:2} }}>
         <TextField
           sx={{ my: 1 }}
           fullWidth

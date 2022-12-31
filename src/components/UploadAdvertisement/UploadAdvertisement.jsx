@@ -57,7 +57,7 @@ function UploadAdvertisement() {
       <Paper 
       // elevation={6}
       variant="outlined" 
-      sx={{ width: "75vw", p: 1, mb: 1 }}>
+      sx={{ width: "100%", p: 1, mb: 1 }}>
         <Typography sx={{ fontWeight: "bold", fontSize: "1.1rem", mb: 1, color:'primary.darker' }}>
           Upload the advertisement
         </Typography>
@@ -67,22 +67,22 @@ function UploadAdvertisement() {
       </Paper>
       <Paper variant="outlined" sx={{ width: "75vw", p: 1, mb: 1 }}>
         <Box
-          sx={{ display: "flex", flexDirection: "row", width: "100%", mt: 1 }}
+          sx={{ display: {xs:'block', lg:'flex'}, flexDirection: "row", width: "100%", mt: 1 }}
         >
           <Box
             sx={{
-              width: "40%",
+              width: {xs:'100%', lg:'40%'},
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: {xs:'flex-start', lg:'flex-end'},
               alignItems: "center",
               px: 1,
             }}
           >
-            <Typography sx={{ color: "secondary.dark" }}>
+            <Typography sx={{ color: "secondary.dark", my:{xs:1, lg:0} }}>
               Select the required amount of views
             </Typography>
           </Box>
-          <Box sx={{ width: "60%" }}>
+          <Box sx={{ width: {xs:'100%', lg:'60%'}}}>
             <FormControl sx={{ mx: 1, width: "95%" }} size="small">
               <Select
                 sx={{
@@ -106,21 +106,21 @@ function UploadAdvertisement() {
         </Box>
 
         <Box
-          sx={{ display: "flex", flexDirection: "row", width: "100%", mt: 1 }}
+          sx={{ display: {xs:'block', lg:'flex'}, flexDirection: "row", width: "100%", mt: 1 }}
         >
           <Box
             sx={{
-              width: "40%",
+              width: {xs:'100%', lg:'40%'},
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: {xs:'flex-start', lg:'flex-end'},
               alignItems: "center",
               px: 1,
             }}
           >
-            <Typography sx={{ color: "secondary.dark" }}>Required Payment</Typography>
+            <Typography sx={{ color: "secondary.dark", my:{xs:1, lg:0} }}>Required Payment</Typography>
           </Box>
 
-          <Box sx={{ width: "60%" }}>
+          <Box sx={{ width: {xs:'100%', lg:'60%'}}}>
             <TextField
               disabled
               sx={{ pl: 1, width: "96%" }}
@@ -131,22 +131,22 @@ function UploadAdvertisement() {
         </Box>
 
         <Box
-          sx={{ display: "flex", flexDirection: "row", width: "100%", mt: 1 }}
+          sx={{ display: {xs:'block', lg:'flex'}, flexDirection: "row", width: "100%", mt: 1 }}
         >
           <Box
             sx={{
-              width: "40%",
+              width: {xs:'100%', lg:'40%'},
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: {xs:'flex-start', lg:'flex-end'},
               alignItems: "center",
               px: 1,
             }}
           >
-            <Typography sx={{ color: "secondary.dark" }}>
+            <Typography sx={{ color: "secondary.dark", my:{xs:1, lg:0} }}>
               Select the required amount of views from each promoter
             </Typography>
           </Box>
-          <Box sx={{ width: "60%", alignItems: "center" }}>
+          <Box sx={{ width: {xs:'100%', lg:'60%'}, alignItems: "center" }}>
             <FormControl sx={{ mx: 1, width: "95%" }} size="small">
               <Select
                 sx={{
@@ -169,23 +169,23 @@ function UploadAdvertisement() {
         </Box>
 
         <Box
-          sx={{ display: "flex", flexDirection: "row", width: "100%", mt: 1 }}
+          sx={{ display: {xs:'block', lg:'flex'}, flexDirection: "row", width: "100%", mt: 1 }}
         >
           <Box
             sx={{
-              width: "40%",
+              width: {xs:'100%', lg:'40%'},
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: {xs:'flex-start', lg:'flex-end'},
               alignItems: "center",
               px: 1,
             }}
           >
-            <Typography sx={{ color: "secondary.dark" }}>
+            <Typography sx={{ color: "secondary.dark", my:{xs:1, lg:0} }}>
               Number of promoters required
             </Typography>
           </Box>
 
-          <Box sx={{ width: "60%" }}>
+          <Box sx={{ width: {xs:'100%', lg:'60%'}}}>
             <TextField
               disabled
               sx={{ pl: 1, width: "96%" }}
