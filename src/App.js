@@ -95,6 +95,14 @@ function App() {
               }
             />
             <Route
+              path="/profile"
+              element={
+                <NormalUserProtectedRoute>
+                  <Profile />
+                </NormalUserProtectedRoute>
+              }
+            />
+            <Route
               path="/help"
               element={
                 <NormalUserProtectedRoute>

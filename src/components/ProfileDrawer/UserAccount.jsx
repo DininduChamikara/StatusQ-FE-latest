@@ -9,6 +9,8 @@ import useTabs from "../../hooks/useTabs";
 // components
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import KeyIcon from "@mui/icons-material/Key";
+import AccountChangePassword from "../User/Account/AccountChangePassword";
+import AccountGeneral from "../User/Account/AccountGeneral";
 // import AccountGeneral from "../User/Account/AccountGeneral";
 // import AccountChangePassword from "../User/Account/AccountChangePassword";
 
@@ -17,7 +19,6 @@ import KeyIcon from "@mui/icons-material/Key";
 // ----------------------------------------------------------------------
 
 export default function UserAccount() {
-  const { themeStretch } = useSettings();
 
   const { currentTab, onChangeTab } = useTabs("general");
 
@@ -28,22 +29,22 @@ export default function UserAccount() {
         <AccountBoxIcon icon={"ic:round-account-box"} width={20} height={20} />
       ),
 
-      // component: (
-      //   <AccountGeneral />
-      // ),
+      component: (
+        <AccountGeneral />
+      ),
     },
    
     {
       value: "change_password",
       icon: <KeyIcon icon={"ic:round-vpn-key"} width={20} height={20} />,
 
-      // component: <AccountChangePassword/>,
+      component: <AccountChangePassword/>,
     },
   ];
 
   return (
 
-    <Box sx={{ px: 2 }}>
+    <Box sx={{ px: 0 }}>
       <Tabs
         allowScrollButtonsMobile
         variant="scrollable"

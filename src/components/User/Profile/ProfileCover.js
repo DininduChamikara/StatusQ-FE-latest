@@ -2,12 +2,14 @@ import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 import MyAvatar from "./MyAvatar";
+import cssStyles from "../../../utils/cssStyles";
+import { useSelector } from "react-redux";
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled("div")(({ theme }) => ({
   "&:before": {
-    // ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
+    ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
     top: 0,
     zIndex: 9,
     content: "''",
@@ -42,6 +44,8 @@ ProfileCover.propTypes = {
 
 export default function ProfileCover() {
 
+  const { contactName, firstName, lastName } = useSelector((state) => state.login);
+
   return (
     <RootStyle>
       <InfoStyle>
@@ -64,7 +68,7 @@ export default function ProfileCover() {
             textAlign: { xs: "center", md: "left" },
           }}
         >
-          <Typography variant="h4">Dinindu Chamikara</Typography>
+          <Typography variant="h4">{contactName ? contactName : (firstName + " " + lastName)}</Typography>
         </Box>
       </InfoStyle>
     </RootStyle>

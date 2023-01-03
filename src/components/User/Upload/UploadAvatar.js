@@ -1,10 +1,9 @@
-import PropTypes from "prop-types";
 import isString from "lodash/isString";
+import PropTypes from "prop-types";
 import { useDropzone } from "react-dropzone";
 // @mui
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import FaceIcon from "@mui/icons-material/Face";
 // import Image from "../Image";
 // import Iconify from "../Iconify";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";

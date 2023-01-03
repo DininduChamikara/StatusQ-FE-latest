@@ -1,5 +1,5 @@
 import {
-  AccountBox, Campaign, Dashboard,
+  AccountBox, AccountCircle, Campaign, Dashboard,
   ExitToApp,
   Help,
   Home, Payments, Reviews,
@@ -13,6 +13,7 @@ const ICONS = {
   promoterView: <Campaign />,
   payments: <Payments />,
   settings: <Settings />,
+  profile: <AccountCircle/>,
   help: <Help />,
   feedback: <Reviews />,
   logout: <ExitToApp />,
@@ -40,10 +41,16 @@ const navConfig = [
         icon: ICONS.payments,
         authUser: "NORMAL_USER",
       },
+      // {
+      //   title: "Settings",
+      //   path: "/settings",
+      //   icon: ICONS.settings,
+      //   authUser: "NORMAL_USER",
+      // },
       {
-        title: "Settings",
-        path: "/settings",
-        icon: ICONS.settings,
+        title: "Profile",
+        path: "/profile",
+        icon: ICONS.profile,
         authUser: "NORMAL_USER",
       },
       {
@@ -82,12 +89,12 @@ const navConfig = [
         icon: ICONS.home,
         authUser: "ADMIN_USER",
       },
-      {
-        title: "Logout",
-        path: "/login",
-        icon: ICONS.logout,
-        authUser: "",
-      },
+      // {
+      //   title: "Logout",
+      //   path: "/login",
+      //   icon: ICONS.logout,
+      //   authUser: "",
+      // },
     ],
     subheader: "1",
   },

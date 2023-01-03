@@ -942,7 +942,7 @@ function PromoterSurveyStepper() {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep}>
+        <Stepper sx={{display:{xs:'none', lg:'flex'}}} activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
