@@ -10,18 +10,12 @@ import cssStyles from "../../../utils/cssStyles";
 // config
 import { HEADER, NAVBAR } from "../../../config";
 // components
-// import Logo from '../../../components/Logo';
-// import Iconify from "../../../components/Iconify";
 import IconButtonAnimate from "../../../components/animate/IconButtonAnimate";
 //
-import { Menu, Search } from "@mui/icons-material";
+import { Menu } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-// import PopoverView from "../../../components/PopoverView";
 import palette from "../../../theme/palette";
-// import AccountPopover from "./AccountPopover";
-// import LanguagePopover from "./LanguagePopover";
-// import ContactsPopover from "./ContactsPopover";
-// import NotificationsPopover from "./NotificationsPopover";
+import PopoverView from "../../../components/PopoverView/PopoverView";
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +62,7 @@ export default function DashboardHeader({
   isCollapse = false,
   verticalLayout = false,
 }) {
-  const { name } = useSelector((state) => state.login);
+  const { contactName } = useSelector((state) => state.login);
 
   const isOffset =
     useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
@@ -102,13 +96,13 @@ export default function DashboardHeader({
 
         <Box sx={{ flexGrow: 1 }} />
 
-        {/* <Stack
+        <Stack
           direction="row"
           alignItems="center"
           spacing={{ xs: 0.5, sm: 1.5 }}
         >
-          <PopoverView name={name} />
-        </Stack> */}
+          <PopoverView contactName={contactName} />
+        </Stack>
       </Toolbar>
     </RootStyle>
   );

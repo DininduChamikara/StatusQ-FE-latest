@@ -7,18 +7,31 @@ import loaderSlice from "./reducers/loader.slice";
 import savePromoterSlice from "./reducers/savePromoter";
 import activeStepSlice from "./reducers/activeStep.slice";
 import saveCampaignSlice from "./reducers/saveCampaign";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+ 
+const persistConfig = {
+    key: "root",
+    storage,
+  
+  };
 
-
-const rootReducer = combineReducers({
+  const rootReducer = combineReducers({
     login: loginReducer,
     newAlert: alertSlice,
     Custom_API_Loader: loaderSlice,
     savePromoter: savePromoterSlice,
     saveCampaign: saveCampaignSlice,
     activeStep: activeStepSlice,
-});
+  });
 
-export const store = configureStore({
-    reducer: rootReducer,
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+  export const store = configureStore({
+    reducer: persistedReducer,
     middleware: [thunk],
-})
+  });
+
+export const persistor = persistStore(store);
+
+

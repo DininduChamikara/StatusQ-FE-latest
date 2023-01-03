@@ -5,7 +5,7 @@ import React from "react";
 import ProfilePopListItems from "../../lib/ProfilePopListItems";
 import ProfileAvatar from "../ProfileAvatar/ProfileAvatar";
 
-function PopoverView({ name }) {
+function PopoverView({ contactName }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,9 +28,9 @@ function PopoverView({ name }) {
       >
         <ProfileAvatar />
 
-        {/* <Box sx={{ m:0.5 }}>
+        <Box sx={{ m:0.5 }}>
           <KeyboardArrowDown />
-        </Box> */}
+        </Box>
       </Box>
 
       <Popover
@@ -51,7 +51,7 @@ function PopoverView({ name }) {
       >
         <Box sx={{ p: 0 }}>
           <List component="nav">
-            <ProfilePopListItems />
+            <ProfilePopListItems handleClose={handleClose} />
           </List>
         </Box>
       </Popover>

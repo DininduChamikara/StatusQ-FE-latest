@@ -10,17 +10,16 @@ function BecomePromoterBanner() {
       sx={{
         p: 3,
         width: "100%",
-        display: "flex",
+        display: {xs:'block', lg:'flex'},
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
-        mt: 2,
       }}
     >
-      <Box sx={{ width: "50%" }}>
-        <img width={500} height={300} src={PromotersImage} alt={""} />
+      <Box sx={{ display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', width: {xs:'100%', lg:'50%'} }}>
+        <img height={300} src={PromotersImage} alt={""} />
       </Box>
-      <Box sx={{ width: "50%", alignItems: "center", p: 2 }}>
+      <Box sx={{ width: {xs:'100%', lg:'50%'}, alignItems: "center", p: 2 }}>
         <Typography sx={{ fontSize: "1.8rem", fontWeight: "bold", mt: 2, color:'primary.darker' }}>
           Become a promoter
         </Typography>

@@ -43,9 +43,9 @@ export default function UserProfile() {
     <Box>
       <Card
         sx={{
-          mb: 1,
+          mb: 2,
           height: 200,
-          width: "78.5vw",
+          width: "100%",
           position: "relative",
         }}
       >

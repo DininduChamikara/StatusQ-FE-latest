@@ -1,92 +1,73 @@
 import PropTypes from "prop-types";
 // @mui
-import { styled } from "@mui/material/styles";
-import { Link, Card, Typography, CardHeader, Stack, Icon } from "@mui/material";
+import { Card, CardHeader, Link, Stack, Typography } from "@mui/material";
 // components
 // import Iconify from '../../../../components/Iconify';
-import PublicIcon from "@mui/icons-material/Public";
+import AttachEmailOutlinedIcon from '@mui/icons-material/AttachEmailOutlined';
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import PhoneIcon from "@mui/icons-material/Phone";
-
-import BusinessIcon from "@mui/icons-material/Business";
-import { useState } from "react";
-import { useEffect } from "react";
-
-// ----------------------------------------------------------------------
-
-const IconStyle = styled(Icon)(({ theme }) => ({
-  width: 20,
-  // height: 20,
-  marginTop: 1,
-  flexShrink: 0,
-  marginRight: theme.spacing(2),
-}));
-
-// ----------------------------------------------------------------------
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import { useSelector } from "react-redux";
 
 ProfileAbout.propTypes = {
   profile: PropTypes.object,
 };
 
 export default function ProfileAbout() {
-  // const { email, country, companyName, mobileNo } = profile;
-  const [countryName, setCountryName] = useState();
 
-  useEffect(() => {
-    // setCountryName(profile.country);
-    setCountryName("Country Name");
-  }, []);
-
+  const {
+    email,
+    contactName,
+    contactEmail,
+    contactPhone,
+  } = useSelector((state) => state.login);
+  
   return (
     <Card>
-      <CardHeader title="About" />
+      <CardHeader title="About You" />
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        {/* <Typography variant="body2">{quote}</Typography> */}
 
         <Stack direction="row">
           <MailOutlineIcon style={{ marginRight: "10px" }} />
 
           <Typography variant="body2">
             <Link component="span" variant="subtitle2" color="text.primary">
-              Email : &nbsp;
+              Sign-In Email : &nbsp;
             </Link>
-            {/* {email} */}
-            test@gmail.com
+            {email ? email : ""}
+            {/* test@gmail.com */}
           </Typography>
         </Stack>
 
         <Stack direction="row">
-          <PublicIcon style={{ marginRight: "10px" }} />
+          <PortraitIcon style={{ marginRight: "10px" }} />
           <Typography variant="body2">
             <Link component="span" variant="subtitle2" color="text.primary">
-              Lives at : &nbsp;
+              Contact name : &nbsp;
             </Link>
-            {/* {country} */}
-            Sri Lanka
+            {contactName ? contactName : ""}
           </Typography>
         </Stack>
 
         <Stack direction="row">
-          <BusinessIcon style={{ marginRight: "10px" }} />
+          <AttachEmailOutlinedIcon style={{ marginRight: "10px" }} />
           <Typography variant="body2">
             <Link component="span" variant="subtitle2" color="text.primary">
-              Company : &nbsp;
+              Contact email : &nbsp;
             </Link>
-            {/* {companyName} */}
-            conpany name here
+            {contactEmail ? contactEmail : ""}
           </Typography>
         </Stack>
 
         <Stack direction="row">
-          <PhoneIcon style={{ marginRight: "10px" }} />
+          <PhoneOutlinedIcon style={{ marginRight: "10px" }} />
 
           <Typography variant="body2">
             <Link component="span" variant="subtitle2" color="text.primary">
-              Contact Number : &nbsp;
+              Contact Phone : &nbsp;
             </Link>
-            {/* {mobileNo} */}
-            07788994252
+            {contactPhone ? contactPhone : ""}
           </Typography>
         </Stack>
       </Stack>

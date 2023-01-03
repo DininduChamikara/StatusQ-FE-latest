@@ -4,13 +4,12 @@
 // import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 // @mui
-import { Stack, Card, Button, Box, Typography } from "@mui/material";
+import { Box, Button, Card, Stack } from "@mui/material";
+import { useState } from "react";
 import FormProvider from "../../hook-form/FormProvider";
 import RHFTextField from "../../hook-form/RHFTextField";
-import { useState } from "react";
-import { store } from "../../../app/store";
-import { showAlert } from "../../../reducers/alertSlice";
-import { ALERT_tYPES } from "../../../utils/constants";
+// import { store } from "../../../app/store";
+// import { showAlert } from "../../../reducers/alertSlice";
 import UserService from "../../../api/services/UserService";
 
 // ----------------------------------------------------------------------
@@ -127,34 +126,34 @@ export default function AccountChangePassword() {
 
     if (!isInValid) {
       if (password.newPassword !== password.confirmNewPassword) {
-        store.dispatch(
-          showAlert({
-            message: `new password does not match confirm password`,
-            isVisible: true,
-            severity: ALERT_tYPES.error,
-          })
-        );
+        // store.dispatch(
+        //   showAlert({
+        //     message: `new password does not match confirm password`,
+        //     isVisible: true,
+        //     severity: ALERT_tYPES.error,
+        //   })
+        // );
       } else {
         let passwordUpdate = UserService.updateUserPassword(requestBody);
         passwordUpdate.then((res) => {
           if (res) {
             if (res.data.responseCode === "00") {
-              store.dispatch(
-                showAlert({
-                  message: "Password updated successfully!",
-                  isVisible: true,
-                  severity: ALERT_tYPES.success,
-                  title: "Success",
-                })
-              );
+              // store.dispatch(
+              //   showAlert({
+              //     message: "Password updated successfully!",
+              //     isVisible: true,
+              //     severity: ALERT_tYPES.success,
+              //     title: "Success",
+              //   })
+              // );
             } else {
-              store.dispatch(
-                showAlert({
-                  message: `Something went wrong`,
-                  isVisible: true,
-                  severity: ALERT_tYPES.error,
-                })
-              );
+              // store.dispatch(
+              //   showAlert({
+              //     message: `Something went wrong`,
+              //     isVisible: true,
+              //     severity: ALERT_tYPES.error,
+              //   })
+              // );
             }
           }
         });
