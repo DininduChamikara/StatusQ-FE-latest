@@ -10,6 +10,14 @@ class PromoterCampaignService {
         return await apiService.apiGET(`/promoterCampaigns/${promoterId}`)
     }
 
+    async getJobDetails(jobId){
+        return await apiService.apiGET(`/promoterCampaigns/job/${jobId}`)
+    }
+
+    async updateState(updateStateRequestBody){
+        return await apiService.apiPATCH(`/promoterCampaigns/updateState`, updateStateRequestBody.jobId, updateStateRequestBody)
+    }
+
 }
 
 export default new PromoterCampaignService();
