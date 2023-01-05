@@ -1,39 +1,52 @@
 import {
   AccountBalanceWallet,
   AccountBox,
-  Close, RemoveRedEye, StarBorderOutlined, WorkHistoryOutlined
+  Close,
+  RemoveRedEye,
+  StarBorderOutlined,
+  WorkHistoryOutlined
 } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Card, Divider,
+  Card,
+  Divider,
   IconButton,
   Modal,
   Paper,
   Stack,
   Typography
 } from "@mui/material";
+import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import CountDownTimer from "../CountDownTimer/CountDownTimer";
 
-function JobDataView({ open, handleClose, setOpen, jobId }) {
+const downloadImage = (imgUrl, index) => {
+  const currentTime = new Date().getTime();
+  const filename = "AD_" + index + "_" + currentTime;
 
+  saveAs(imgUrl, filename);
+};
+
+function JobDataView({ open, handleClose, setOpen, jobId }) {
   const handleOnClickAcceptJob = () => {
     const updateStateRequestBody = {
       jobId: jobId,
       state: "ACCEPTED",
     };
-  
-    const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
-  
+
+    const apiCallUpdateState = PromoterCampaignService.updateState(
+      updateStateRequestBody
+    );
+
     apiCallUpdateState.then((res) => {
       console.log(res);
       // Do refreshing with alert box
       // refreshPage();
-    })
-  }
+    });
+  };
 
   const [jobDetails, setJobDetails] = useState();
   const [advertisements, setAdvertisements] = useState();
@@ -105,64 +118,70 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
           <Card sx={{ width: "60%", px: 2 }}>
             <Box sx={{ my: 1 }}>
               <Swiper spacebetween={10} slidesPerView={3.3} grabCursor={true}>
-                {advertisements && advertisements.map((item, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <Paper
-                        elevation={6}
-                        sx={{
-                          height: "100%",
-                          width: "170px",
-                        }}
-                      >
-                        <Box sx={{ p: 0.5 }}>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              px: 1,
-                            }}
-                          >
-                            <Typography>Order Index</Typography>
-                            <Typography>{index + 1}</Typography>
-                          </Box>
-                          <Divider />
-                          <Box sx={{ mt: 0.5 }}>
-                            {item.file ? (
-                              <Box>
-                                <img
-                                  style={{ borderRadius: "5%" }}
-                                  src={item.file}
-                                  width={"100%"}
-                                  height={250}
-                                  alt=""
-                                />
+                {advertisements &&
+                  advertisements.map((item, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Paper
+                          elevation={6}
+                          sx={{
+                            height: "100%",
+                            width: "170px",
+                          }}
+                        >
+                          <Box sx={{ p: 0.5 }}>
+                            <Box
+                              sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                px: 1,
+                              }}
+                            >
+                              <Typography>Order Index</Typography>
+                              <Typography>{index + 1}</Typography>
+                            </Box>
+                            <Divider />
+                            <Box sx={{ mt: 0.5 }}>
+                              {item.file ? (
+                                <Box>
+                                  <img
+                                    // onClick={downloadImage(item.file, index)}
+                                    style={{ borderRadius: "5%" }}
+                                    src={item.file}
+                                    width={"100%"}
+                                    height={250}
+                                    alt=""
+                                  />
+                                  <Box
+                                    sx={{
+                                      my: 0.5,
+                                      height: 60,
+                                      overflowY: "auto",
+                                    }}
+                                  >
+                                    <Typography>{item.description}</Typography>
+                                  </Box>
+                                </Box>
+                              ) : (
                                 <Box
                                   sx={{
                                     my: 0.5,
-                                    height: 60,
+                                    height: 314,
                                     overflowY: "auto",
                                   }}
                                 >
                                   <Typography>{item.description}</Typography>
                                 </Box>
-                              </Box>
-                            ) : (
-                              <Box
-                                sx={{ my: 0.5, height: 314, overflowY: "auto" }}
-                              >
-                                <Typography>{item.description}</Typography>
-                              </Box>
-                            )}
+                              )}
+                            </Box>
                           </Box>
-                        </Box>
-                      </Paper>
-                    </SwiperSlide>
-                  );
-                })}
+                        </Paper>
+                      </SwiperSlide>
+                    );
+                  })}
               </Swiper>
             </Box>
 
@@ -176,7 +195,19 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
                 justifyContent: "center",
               }}
             >
-              <Button variant="outlined">Download Advertisement</Button>
+              <Button
+                onClick={() => {
+                  // eslint-disable-next-line array-callback-return
+                  advertisements.map((item, index) => {
+                    if (item.file && item.file !== "") {
+                      return downloadImage(item.file, index);
+                    }
+                  });
+                }}
+                variant="outlined"
+              >
+                Download Advertisement
+              </Button>
             </Box>
           </Card>
           {/* <Divider orientation="vertical" flexItem /> */}
@@ -308,7 +339,11 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
                   <Button type="submit" variant="contained" color="secondary">
                     Dicline Job
                   </Button>
-                  <Button type="submit" variant="contained" onClick={handleOnClickAcceptJob}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={handleOnClickAcceptJob}
+                  >
                     Accept Job
                   </Button>
                 </Stack>
