@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CampaignService from "../../api/services/CampaignService";
+import paymentService from "../../api/services/paymentService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import PromoterService from "../../api/services/PromoterService";
 import { showAlert } from "../../store/reducers/alert.slice";
@@ -346,10 +347,33 @@ function CreateCampaignStepper() {
         if (response) {
           response = response.data;
           if (response.responseCode === "00") {
+///  payments working without validating
+            const paymentInfo = {
+              userId: userId,
+              dateTime: currentTime.format(),
+              senderRole: "CLIENT",
+              senderID: userId,
+              purpose: "CREATE_CAMPAIGN",
+              campaignId: response.campaign._id,
+              receiverId: "HOLD_IN_SYSTEM",
+              amount: finalizedCampaignCost,
+              state: "ACTIVE",
+            };
+      
+            const apiCallSavePayment = paymentService.savePayment(paymentInfo);
+            apiCallSavePayment.then((response) => {
+              if(response){
+                response = response.data;
+                if(response.responseCode === "00"){
+                  console.log("save promoter response",response)
+                }
+              }
+            })
+////
             const responsePromoterIdList =
               response.campaign.selectedPromoterIdList;
 
-              console.log("response is ", response)
+            console.log("response is ", response);
 
             responsePromoterIdList.map((item) => {
               const promoterCampaignRequestBody = {
@@ -360,14 +384,16 @@ function CreateCampaignStepper() {
                 paymentApproved: false,
               };
 
-              let apiCallSecondary = PromoterCampaignService.savePromoterCampaign(promoterCampaignRequestBody);
+              let apiCallSecondary =
+                PromoterCampaignService.savePromoterCampaign(
+                  promoterCampaignRequestBody
+                );
               apiCallSecondary.then((responseSecondary) => {
-                if(responseSecondary){
-                  console.log(responseSecondary)
+                if (responseSecondary) {
+                  console.log(responseSecondary);
                 }
-              }) 
+              });
 
-              console.log(promoterCampaignRequestBody)
               return 0;
             });
           }
@@ -416,7 +442,10 @@ function CreateCampaignStepper() {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <Stepper sx={{display: {xs:'none', lg:'flex'}}} activeStep={activeStep}>
+        <Stepper
+          sx={{ display: { xs: "none", lg: "flex" } }}
+          activeStep={activeStep}
+        >
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -458,7 +487,7 @@ function CreateCampaignStepper() {
                 color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                sx={{ mr: 1, color:'secondary.main' }}
+                sx={{ mr: 1, color: "secondary.main" }}
               >
                 Back
               </Button>

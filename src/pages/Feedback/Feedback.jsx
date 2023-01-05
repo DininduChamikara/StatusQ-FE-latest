@@ -63,6 +63,7 @@ function Feedback({ userInfo }) {
 
   return (
     <Paper
+      elevation={3}
       sx={{
         p: 3,
         py: 8,
@@ -71,7 +72,7 @@ function Feedback({ userInfo }) {
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
-        mt: 2,
+        // mt: 2,
       }}
     >
       <Box
@@ -86,7 +87,7 @@ function Feedback({ userInfo }) {
         <img src={RateUsImage} alt="Ratings" width="400" />
       </Box>
       <Box sx={{ width: "45%", px: 4 }}>
-        <Paper elevation={3} sx={{ borderRadius: 5, p: 2 }}>
+        <Paper elevation={6} sx={{ borderRadius: 5, p: 2 }}>
           <Box
             sx={{
               display: "flex",

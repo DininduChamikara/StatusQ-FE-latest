@@ -10,12 +10,13 @@ import LinearProgressBar from "../../components/LinearProgressBar/LinearProgress
 function Payments() {
   return (
     <Paper
+      elevation={3}
       sx={{
         p: 3,
-        mt: 2,
+        // mt: 2,
       }}
     >
-      <Paper variant="outlined" sx={{ width: "75vw", p: 1, mb: 2 }}>
+      <Paper  elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>
         <Box
           sx={{
             display: "flex",
@@ -57,10 +58,10 @@ function Payments() {
           </Typography>
         </Box>
       </Paper>
-      <Paper variant="outlined" sx={{ width: "75vw", p: 1, mb: 2 }}>
-        <Typography sx={{ fontWeight: "bold", fontSize: "1.2rem", m: 1 }}>
+      <Paper elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>
+        {/* <Typography sx={{ fontWeight: "bold", fontSize: "1.2rem", m: 1 }}>
           Transactions
-        </Typography>
+        </Typography> */}     
         <TransactionTable/>
       </Paper>
     </Paper>

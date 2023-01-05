@@ -58,8 +58,6 @@ function ImagePreview() {
     const reader = new FileReader();
 
     reader.addEventListener("load", () => {
-      // setTempImage(reader.result);
-      // console.log(reader.result)
       advertisementObj.id = "id" + Math.random().toString(16).slice(2);
       advertisementObj.file = reader.result;
       advertisementObj.description = "";
