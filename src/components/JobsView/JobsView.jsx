@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import EnhancedTable from "../../components/Table/EnhancedTable";
+import JobCompleteView from "../modals/JobCompleteView";
 import JobDataView from "../modals/JobDataView";
 import ActionButton from "../Table/ActionButton";
 
@@ -64,7 +65,54 @@ const HEAD_CELLS = [
     id: "datetime",
     numeric: false,
     disablePadding: false,
-    label: "Date/Time",
+    label: "Date/Time (Job Created)",
+  },
+  {
+    id: "Actions",
+    numeric: true,
+    disablePadding: false,
+    label: "Actions",
+    align: "center",
+    sorting: false,
+  },
+];
+
+const HEAD_CELLS_ONGOING_JOBS = [
+  {
+    id: "id",
+    numeric: true,
+    disablePadding: true,
+    label: "No",
+  },
+  {
+    id: "jobId",
+    numeric: false,
+    disablePadding: false,
+    label: "Job ID",
+  },
+  {
+    id: "numOfAds",
+    numeric: true,
+    disablePadding: false,
+    label: "Ads Count",
+  },
+  {
+    id: "viewsRequired",
+    numeric: true,
+    disablePadding: false,
+    label: "Required Views Amount",
+  },
+  {
+    id: "budget",
+    numeric: false,
+    disablePadding: false,
+    label: "Budget",
+  },
+  {
+    id: "datetime",
+    numeric: false,
+    disablePadding: false,
+    label: "Date/Time (Job Accepted)",
   },
   {
     id: "Actions",
@@ -194,7 +242,7 @@ function JobsView() {
                 item.adsCount ? item.adsCount : 0,
                 item.requiredViews ? item.requiredViews : 0,
                 item.budget ? item.budget : 0,
-                item.dateTime ? item.dateTime : "",
+                item.acceptedTime ? item.acceptedTime : "",
               );
             })
           );
@@ -214,6 +262,10 @@ function JobsView() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [openOngoing, setOpenOngoing] = useState(false);
+  const handleOpenOngoing = () => setOpenOngoing(true);
+  const handleCloseOngoing = () => setOpenOngoing(false);
+
   const [jobId, setJobId] = useState();
 
   const viewClickHandler = (jobId) => {
@@ -221,6 +273,11 @@ function JobsView() {
     setJobId(jobId);
     handleOpen();
   };
+
+  const completeClickHandler = (jobId) => {
+    setJobId(jobId);
+    handleOpenOngoing();
+  }
 
   return (
     <Box>
@@ -260,7 +317,7 @@ function JobsView() {
         />
 
         <EnhancedTable
-          headCells={HEAD_CELLS}
+          headCells={HEAD_CELLS_ONGOING_JOBS}
           rows={ongoingJobsRows}
           page={page}
           setPage={setPage}
@@ -276,7 +333,7 @@ function JobsView() {
                 <ActionButton
                   text="Complete"
                   // icon={<BorderColor />}
-                  actionClickHandler={() => viewClickHandler(index)}
+                  actionClickHandler={() => completeClickHandler(index)}
                 />
                 {/* <ActionButton text="" icon={<RemoveCircle />} /> */}
               </>
@@ -312,6 +369,7 @@ function JobsView() {
         />
       </Paper>
       <JobDataView open={open} onClose={handleClose} setOpen={setOpen} jobId={jobId} />
+      <JobCompleteView open={openOngoing} onClose={handleCloseOngoing} setOpen={setOpenOngoing} jobId={jobId} />
     </Box>
   );
 }

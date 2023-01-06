@@ -24,15 +24,15 @@ function CountDownTimer({ createdTime, jobId }) {
     return formattedNumber;
   };
 
-  useEffect(() => {
-    setRemainingTime(
-      setNumFormat(timerHours) +
-        ":" +
-        setNumFormat(timerMinutes) +
-        ":" +
-        setNumFormat(timerSeconds)
-    );
-  }, [timerHours, timerMinutes, timerSeconds]);
+  // useEffect(() => {
+  //   setRemainingTime(
+  //     setNumFormat(timerHours) +
+  //       ":" +
+  //       setNumFormat(timerMinutes) +
+  //       ":" +
+  //       setNumFormat(timerSeconds)
+  //   );
+  // }, [timerHours, timerMinutes, timerSeconds]);
 
   const ct = new Date(createdTime);
 
@@ -50,7 +50,6 @@ function CountDownTimer({ createdTime, jobId }) {
     const tempCurrentTime = new Date().getTime();
 
     if (countDownDate - tempCurrentTime < 0) {
-      console.log("This campaign is expired!");
 
       const updateStateRequestBody = {
         jobId: jobId,
@@ -64,13 +63,12 @@ function CountDownTimer({ createdTime, jobId }) {
 
         // Do refreshing with alert box
         // refreshPage();
-
+        clearInterval(interval.current);
       })
     }
 
     interval = setInterval(() => {
       const now = new Date().getTime();
-
       const distance = countDownDate - now;
 
       const hours = Math.floor(
@@ -85,9 +83,16 @@ function CountDownTimer({ createdTime, jobId }) {
         // console.log("This campaign is expired!")
       } else {
         // Update Timer
-        setTimerHours(hours);
-        setTimerMinutes(minutes);
-        setTimerSeconds(seconds);
+        // setTimerHours(hours);
+        // setTimerMinutes(minutes);
+        // setTimerSeconds(seconds);
+        setRemainingTime(
+          setNumFormat(hours) +
+            ":" +
+            setNumFormat(minutes) +
+            ":" +
+            setNumFormat(seconds)
+        );
       }
     });
   };
