@@ -22,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import CountDownTimer from "../CountDownTimer/CountDownTimer";
+import ImagePreview from "../ImagePreview/ImagePreview";
 
 const downloadImage = (imgUrl, index) => {
   const currentTime = new Date().getTime();
@@ -30,51 +31,11 @@ const downloadImage = (imgUrl, index) => {
   saveAs(imgUrl, filename);
 };
 
-function JobDataView({ open, handleClose, setOpen, jobId }) {
-
-  const handleOnClickAcceptJob = () => {
-    const tempCurrentTime = new Date();
-    const updateStateRequestBody = {
-      jobId: jobId,
-      state: "ACCEPTED",
-      acceptedTime: tempCurrentTime,
-    };
-
-    const apiCallUpdateState = PromoterCampaignService.updateState(
-      updateStateRequestBody
-    );
-
-    apiCallUpdateState.then((res) => {
-      console.log(res);
-      // Do refreshing with alert box
-      // refreshPage();
-    });
-  };
-
-  const handleOnClickDeclineJob = () => {
-    const tempCurrentTime = new Date();
-    const updateStateRequestBody = {
-      jobId: jobId,
-      state: "DECLINED",
-      declinedTime: tempCurrentTime,
-    };
-
-    const apiCallUpdateState = PromoterCampaignService.updateState(
-      updateStateRequestBody
-    );
-
-    apiCallUpdateState.then((res) => {
-      console.log(res);
-      // Do refreshing with alert box
-      // refreshPage();
-    });
-  };
+function JobCompleteView({ open, handleClose, setOpen, jobId }) {
 
   const [jobDetails, setJobDetails] = useState();
   const [advertisements, setAdvertisements] = useState();
-  const [createdTime, setCreatedTime] = useState();
-
-  const [isTimeRemaining, setIsTimeRemaining] = useState(true);
+  const [acceptedTime, setCreatedTime] = useState();
 
   useEffect(() => {
     let apiCall = PromoterCampaignService.getJobDetails(jobId);
@@ -83,7 +44,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
         console.log("JOB DETAILS", res.data);
         setJobDetails(res.data);
         setAdvertisements(res.data.campaign.selectedAdvertisements);
-        setCreatedTime(res.data.campaign.createdTime);
+        setCreatedTime(res.data.campaign.acceptedTime);
       }
     });
   }, [jobId]);
@@ -124,7 +85,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
               Time Remaining
             </Typography>
             {/* <Chip color="secondary" label={"05:59 s"}></Chip> */}
-            <CountDownTimer createdTime={createdTime} jobId={jobId} />
+            <CountDownTimer createdTime={acceptedTime} jobId={jobId} />
           </Box>
 
           <IconButton
@@ -139,72 +100,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
         <Box sx={{ display: "flex", my: 1 }}>
           <Card sx={{ width: "60%", px: 2 }}>
             <Box sx={{ my: 1 }}>
-              <Swiper spacebetween={10} slidesPerView={3.3} grabCursor={true}>
-                {advertisements &&
-                  advertisements.map((item, index) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <Paper
-                          elevation={6}
-                          sx={{
-                            height: "100%",
-                            width: "170px",
-                          }}
-                        >
-                          <Box sx={{ p: 0.5 }}>
-                            <Box
-                              sx={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                px: 1,
-                              }}
-                            >
-                              <Typography>Order Index</Typography>
-                              <Typography>{index + 1}</Typography>
-                            </Box>
-                            <Divider />
-                            <Box sx={{ mt: 0.5 }}>
-                              {item.file ? (
-                                <Box>
-                                  <img
-                                    // onClick={downloadImage(item.file, index)}
-                                    style={{ borderRadius: "5%" }}
-                                    src={item.file}
-                                    width={"100%"}
-                                    height={250}
-                                    alt=""
-                                  />
-                                  <Box
-                                    sx={{
-                                      my: 0.5,
-                                      height: 60,
-                                      overflowY: "auto",
-                                    }}
-                                  >
-                                    <Typography>{item.description}</Typography>
-                                  </Box>
-                                </Box>
-                              ) : (
-                                <Box
-                                  sx={{
-                                    my: 0.5,
-                                    height: 314,
-                                    overflowY: "auto",
-                                  }}
-                                >
-                                  <Typography>{item.description}</Typography>
-                                </Box>
-                              )}
-                            </Box>
-                          </Box>
-                        </Paper>
-                      </SwiperSlide>
-                    );
-                  })}
-              </Swiper>
+              <ImagePreview/>
             </Box>
 
             <Divider />
@@ -358,15 +254,14 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
 
               <Box sx={{ px: 3, py: 1 }}>
                 <Stack spacing={1} direction="row">
-                  <Button onClick={handleOnClickDeclineJob} type="submit" variant="contained" color="secondary">
-                    Dicline Job
+                  <Button type="submit" variant="contained" color="secondary">
+                    Cancel
                   </Button>
                   <Button
                     type="submit"
                     variant="contained"
-                    onClick={handleOnClickAcceptJob}
                   >
-                    Accept Job
+                    Submit as Completed
                   </Button>
                 </Stack>
               </Box>
@@ -378,4 +273,4 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
   );
 }
 
-export default JobDataView;
+export default JobCompleteView;

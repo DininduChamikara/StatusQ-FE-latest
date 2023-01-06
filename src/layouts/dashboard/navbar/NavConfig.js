@@ -84,7 +84,7 @@ const navConfig = [
         authUser: "ADMIN_USER",
       },
       {
-        title: "Complaints",
+        title: "Complaints / Chats",
         path: "/admin_complaints",
         icon: ICONS.home,
         authUser: "ADMIN_USER",
