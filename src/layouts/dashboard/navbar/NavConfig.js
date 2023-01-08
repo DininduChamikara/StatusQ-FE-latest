@@ -2,7 +2,7 @@ import {
   AccountBox, AccountCircle, Campaign, Dashboard,
   ExitToApp,
   Help,
-  Home, Payments, Reviews,
+  Home, Payments, QuestionAnswer, Reviews,
   Settings
 } from "@mui/icons-material";
 
@@ -16,6 +16,7 @@ const ICONS = {
   profile: <AccountCircle/>,
   help: <Help />,
   feedback: <Reviews />,
+  chat : <QuestionAnswer/>,
   logout: <ExitToApp />,
 };
 
@@ -51,7 +52,7 @@ const navConfig = [
         title: "Profile",
         path: "/profile",
         icon: ICONS.profile,
-        authUser: "NORMAL_USER",
+        authUser: "",
       },
       {
         title: "Help",
@@ -85,9 +86,9 @@ const navConfig = [
       },
       {
         title: "Complaints / Chats",
-        path: "/admin_complaints",
-        icon: ICONS.home,
-        authUser: "ADMIN_USER",
+        path: "/chat_complaints",
+        icon: ICONS.chat,
+        authUser: "",
       },
       // {
       //   title: "Logout",

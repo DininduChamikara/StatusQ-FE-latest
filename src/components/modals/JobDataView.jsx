@@ -124,7 +124,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
               Time Remaining
             </Typography>
             {/* <Chip color="secondary" label={"05:59 s"}></Chip> */}
-            <CountDownTimer createdTime={createdTime} jobId={jobId} />
+            <CountDownTimer createdTime={createdTime} jobId={jobId} jobType={"AVAILABLE"} />
           </Box>
 
           <IconButton

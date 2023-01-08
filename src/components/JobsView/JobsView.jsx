@@ -8,6 +8,7 @@ import PromoterCampaignService from "../../api/services/PromoterCampaignService"
 import EnhancedTable from "../../components/Table/EnhancedTable";
 import JobCompleteView from "../modals/JobCompleteView";
 import JobDataView from "../modals/JobDataView";
+import JobFinishedView from "../modals/JobFinishedView";
 import ActionButton from "../Table/ActionButton";
 
 // function createData(no, campaignId, clientID, numOfAds, budget, datetime,) {
@@ -124,6 +125,53 @@ const HEAD_CELLS_ONGOING_JOBS = [
   },
 ];
 
+const HEAD_CELLS_FINISHED_JOBS = [
+  {
+    id: "id",
+    numeric: true,
+    disablePadding: true,
+    label: "No",
+  },
+  {
+    id: "jobId",
+    numeric: false,
+    disablePadding: false,
+    label: "Job ID",
+  },
+  {
+    id: "numOfAds",
+    numeric: true,
+    disablePadding: false,
+    label: "Ads Count",
+  },
+  {
+    id: "viewsRequired",
+    numeric: true,
+    disablePadding: false,
+    label: "Required Views Amount",
+  },
+  {
+    id: "budget",
+    numeric: false,
+    disablePadding: false,
+    label: "Budget",
+  },
+  {
+    id: "datetime",
+    numeric: false,
+    disablePadding: false,
+    label: "Date/Time (Job Finished)",
+  },
+  {
+    id: "Actions",
+    numeric: true,
+    disablePadding: false,
+    label: "Actions",
+    align: "center",
+    sorting: false,
+  },
+];
+
 // const rows = [
 //   createData(
 //     1,
@@ -202,6 +250,7 @@ const HEAD_CELLS_ONGOING_JOBS = [
 function JobsView() {
   const [rows, setRows] = useState([]);
   const [ongoingJobsRows, setOngoingJobsRows] = useState([]);
+  const [finishedJobsRows, setFinishedJobsRows] = useState([]);
 
   const { promoterId } = useSelector((state) => state.login);
 
@@ -216,6 +265,7 @@ function JobsView() {
           // const filteredAvailableJobs = res.data;
           const filteredAvailableJobs = res.data.promoterCampaigns.filter( element => element.state ===  "AVAILABLE" );
           const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
+          const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
 
           setRows(
             filteredAvailableJobs.map((item, index) => {
@@ -246,6 +296,21 @@ function JobsView() {
               );
             })
           );
+
+          setFinishedJobsRows(
+            filteredFinishedJobs.map((item, index) => {
+              return createData(
+                index + 1 + rowsPerPage * page,
+                // item.campaignId ? item.campaignId : "",
+                // item.clientId ? item.clientId : "",
+                item.jobId ? item.jobId : "",
+                item.adsCount ? item.adsCount : 0,
+                item.requiredViews ? item.requiredViews : 0,
+                item.budget ? item.budget : 0,
+                item.completedTime ? item.completedTime : "",
+              );
+            })
+          );
         }
       }
     });
@@ -266,6 +331,10 @@ function JobsView() {
   const handleOpenOngoing = () => setOpenOngoing(true);
   const handleCloseOngoing = () => setOpenOngoing(false);
 
+  const [openFinished, setOpenFinished] = useState(false);
+  const handleOpenFinished = () => setOpenFinished(true);
+  const handleCloseFinished = () => setOpenFinished(false);
+
   const [jobId, setJobId] = useState();
 
   const viewClickHandler = (jobId) => {
@@ -277,6 +346,11 @@ function JobsView() {
   const completeClickHandler = (jobId) => {
     setJobId(jobId);
     handleOpenOngoing();
+  }
+
+  const viewFinishedClickHandler = (jobId) => {
+    setJobId(jobId);
+    handleOpenFinished();
   }
 
   return (
@@ -343,8 +417,8 @@ function JobsView() {
         />
 
         <EnhancedTable
-          headCells={HEAD_CELLS}
-          rows={rows}
+          headCells={HEAD_CELLS_FINISHED_JOBS}
+          rows={finishedJobsRows}
           page={page}
           setPage={setPage}
           rowsPerPage={rowsPerPage}
@@ -359,7 +433,7 @@ function JobsView() {
                 <ActionButton
                   text="View"
                   // icon={<BorderColor />}
-                  actionClickHandler={() => viewClickHandler(index)}
+                  actionClickHandler={() => viewFinishedClickHandler(index)}
                 />
                 {/* <ActionButton text="" icon={<RemoveCircle />} /> */}
               </>
@@ -370,6 +444,7 @@ function JobsView() {
       </Paper>
       <JobDataView open={open} onClose={handleClose} setOpen={setOpen} jobId={jobId} />
       <JobCompleteView open={openOngoing} onClose={handleCloseOngoing} setOpen={setOpenOngoing} jobId={jobId} />
+      <JobFinishedView open={openFinished} onClose={handleCloseFinished} setOpen={setOpenFinished} jobId={jobId} />
     </Box>
   );
 }
