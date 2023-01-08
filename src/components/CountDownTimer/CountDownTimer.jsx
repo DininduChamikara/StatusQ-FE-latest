@@ -8,10 +8,10 @@ function refreshPage() {
   window.location.reload(false);
 }
 
-function CountDownTimer({ createdTime, jobId }) {
-  const [timerHours, setTimerHours] = useState(0);
-  const [timerMinutes, setTimerMinutes] = useState(0);
-  const [timerSeconds, setTimerSeconds] = useState(0);
+function CountDownTimer({ createdTime, jobId, jobType }) {
+  // const [timerHours, setTimerHours] = useState(0);
+  // const [timerMinutes, setTimerMinutes] = useState(0);
+  // const [timerSeconds, setTimerSeconds] = useState(0);
 
   const [remainingTime, setRemainingTime] = useState("00:00:00");
   // const [remainingTime, setRemainingTime] = useState();
@@ -49,22 +49,30 @@ function CountDownTimer({ createdTime, jobId }) {
 
     const tempCurrentTime = new Date().getTime();
 
-    if (countDownDate - tempCurrentTime < 0) {
+    if (countDownDate - tempCurrentTime < 0 ) {
 
-      const updateStateRequestBody = {
-        jobId: jobId,
-        state: "EXPIRED",
-      };
-
-      const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
-
-      apiCallUpdateState.then((res) => {
-        console.log(res);
-
-        // Do refreshing with alert box
-        // refreshPage();
-        clearInterval(interval.current);
-      })
+      if(jobType === "AVAILABLE"){
+        const updateStateRequestBody = {
+          jobId: jobId,
+          state: "AVAILABLE_EXPIRED",
+        };
+        const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
+        apiCallUpdateState.then((res) => {
+          console.log(res);
+          clearInterval(interval.current);
+        })
+      } else if(jobType === "ONGOING"){
+        const updateStateRequestBody = {
+          jobId: jobId,
+          state: "ONGOING_EXPIRED",
+        };
+        const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
+        apiCallUpdateState.then((res) => {
+          console.log(res);
+          clearInterval(interval.current);
+        })
+      }
+      
     }
 
     interval = setInterval(() => {

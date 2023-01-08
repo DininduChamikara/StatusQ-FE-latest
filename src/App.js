@@ -97,9 +97,9 @@ function App() {
             <Route
               path="/profile"
               element={
-                <NormalUserProtectedRoute>
+                // <NormalUserProtectedRoute>
                   <Profile />
-                </NormalUserProtectedRoute>
+                // </NormalUserProtectedRoute>
               }
             />
             <Route
@@ -147,11 +147,11 @@ function App() {
             />
 
             <Route
-              path="/admin_complaints"
+              path="/chat_complaints"
               element={
-                <AdminUserProtectedRoute>
+                // <AdminUserProtectedRoute>
                   <AdminComplaints />
-                </AdminUserProtectedRoute>
+                // </AdminUserProtectedRoute>
               }
             />
           </Route>

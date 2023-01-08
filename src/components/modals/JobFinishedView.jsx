@@ -17,47 +17,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
-import CountDownTimer from "../CountDownTimer/CountDownTimer";
 import ImagePreviewUploadSS from "../ImagePreview/ImagePreviewUploadSS";
 
-const downloadImage = (imgUrl, index) => {
-  const currentTime = new Date().getTime();
-  const filename = "AD_" + index + "_" + currentTime;
-
-  saveAs(imgUrl, filename);
-};
-
-function JobCompleteView({ open, handleClose, setOpen, jobId }) {
-
+function JobFinishedView({ open, handleClose, setOpen, jobId }) {
   const [jobDetails, setJobDetails] = useState();
   const [advertisements, setAdvertisements] = useState();
-  const [acceptedTime, setAcceptedTime] = useState();
 
-  const [uploadingSS, setUploadingSS] = useState([]);
-
-  const handleOnClickSubmitAsCompleted = () => {
-    const tempCurrentTime = new Date();
-    const updateStateRequestBody = {
-      jobId: jobId,
-      state: "COMPLETED",
-      acceptedTime: acceptedTime,
-      completedTime: tempCurrentTime,
-      screenshots: uploadingSS,
-    };
-
-    const apiCallUpdateState = PromoterCampaignService.updateState(
-      updateStateRequestBody
-    );
-
-    apiCallUpdateState.then((res) => {
-      console.log(res);
-      // Do refreshing with alert box
-      // refreshPage();
-    });
-  };
+  const [uploadedSS, setUploadedSS] = useState();
 
   useEffect(() => {
     let apiCall = PromoterCampaignService.getJobDetails(jobId);
@@ -66,29 +35,10 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
         console.log("JOB DETAILS", res.data);
         setJobDetails(res.data);
         setAdvertisements(res.data.campaign.selectedAdvertisements);
-        setAcceptedTime(res.data.promoterCampaign.acceptedTime);
+        setUploadedSS(res.data.promoterCampaign.screenshots);
       }
     });
   }, [jobId]);
-
-  function deleteHandler(item, index) {
-    setUploadingSS(uploadingSS.filter((e) => e !== uploadingSS[index]));
-    // URL.revokeObjectURL(item);
-  }
-
-  const onSelectFile = (event) => {
-    const selectedFile = event.target.files[0];
-
-    const reader = new FileReader();
-
-    reader.addEventListener("load", () => {
-      const imageSS = reader.result;
-
-      setUploadingSS((previousSS) => previousSS.concat(imageSS));
-    });
-
-    reader.readAsDataURL(selectedFile);
-  };
 
   return (
     <Modal
@@ -119,19 +69,8 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
               color: "primary.main",
             }}
           >
-            Ongoing Job Details
+            Finished Job Details
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography sx={{ mx: 1, color: "secondary.main" }}>
-              Time Remaining
-            </Typography>
-            {/* <Chip color="secondary" label={"05:59 s"}></Chip> */}
-            <CountDownTimer
-              createdTime={acceptedTime}
-              jobId={jobId}
-              jobType={"ONGOING"}
-            />
-          </Box>
 
           <IconButton
             onClick={() => {
@@ -144,52 +83,106 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
         <Divider />
         <Box sx={{ display: "flex", my: 1 }}>
           <Card sx={{ width: "60%", px: 2 }}>
-            <Box sx={{ my: 1 }}>
+            <Box sx={{ my: 1, overflowY: "auto", height: 400 }}>
+              <Divider />
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  color: "secondary.main",
+                  fontSize: "1.1rem",
+                  my: 1,
+                }}
+              >
+                Advertisement Posts
+              </Typography>
+              <Divider />
+              <Box height={10}></Box>
+              <Swiper spacebetween={10} slidesPerView={3.3} grabCursor={true}>
+                {advertisements &&
+                  advertisements.map((item, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Paper
+                          elevation={6}
+                          sx={{
+                            height: "100%",
+                            width: "170px",
+                          }}
+                        >
+                          <Box sx={{ p: 0.5 }}>
+                            <Box
+                              sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                px: 1,
+                              }}
+                            >
+                              <Typography>Order Index</Typography>
+                              <Typography>{index + 1}</Typography>
+                            </Box>
+                            <Divider />
+                            <Box sx={{ mt: 0.5 }}>
+                              {item.file ? (
+                                <Box>
+                                  <img
+                                    style={{ borderRadius: "5%" }}
+                                    src={item.file}
+                                    width={"100%"}
+                                    height={250}
+                                    alt=""
+                                  />
+                                  <Box
+                                    sx={{
+                                      my: 0.5,
+                                      height: 60,
+                                      overflowY: "auto",
+                                    }}
+                                  >
+                                    <Typography>{item.description}</Typography>
+                                  </Box>
+                                </Box>
+                              ) : (
+                                <Box
+                                  sx={{
+                                    my: 0.5,
+                                    height: 314,
+                                    overflowY: "auto",
+                                  }}
+                                >
+                                  <Typography>{item.description}</Typography>
+                                </Box>
+                              )}
+                            </Box>
+                          </Box>
+                        </Paper>
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+              <Box height={20}></Box>
+              <Divider />
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                  color: "secondary.main",
+                  fontSize: "1.1rem",
+                  my: 1,
+                }}
+              >
+                Uploaded Screenshots
+              </Typography>
+              <Divider />
+              <Box height={10}></Box>
               <ImagePreviewUploadSS
-                imagesArr={uploadingSS}
-                deleteHandler={deleteHandler}
+                imagesArr={uploadedSS}
+                disableAction={true}
               />
             </Box>
 
             <Divider />
-            <Box
-              sx={{
-                p: 1,
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                sx={{ mx: 0.5, width: 200 }}
-                onClick={() => {
-                  // eslint-disable-next-line array-callback-return
-                  advertisements.map((item, index) => {
-                    if (item.file && item.file !== "") {
-                      return downloadImage(item.file, index);
-                    }
-                  });
-                }}
-                variant="outlined"
-              >
-                Download Advertisement
-              </Button>
-              <Button
-                sx={{ mx: 0.5, width: 200 }}
-                variant="outlined"
-                component="label"
-              >
-                Upload Screenshots
-                <input
-                  hidden
-                  accept="image/*"
-                  // multiple
-                  type="file"
-                  onChange={onSelectFile}
-                />
-              </Button>
-            </Box>
           </Card>
           {/* <Divider orientation="vertical" flexItem /> */}
           <Box sx={{ width: "40%", px: 1 }}>
@@ -313,22 +306,52 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
                     4.5 (Dummy)
                   </Typography>
                 </Stack>
-              </Stack>
 
-              <Box sx={{ px: 3, py: 1 }}>
-                <Stack spacing={1} direction="row">
-                  <Button type="submit" variant="contained" color="secondary">
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={handleOnClickSubmitAsCompleted}
-                  >
-                    Submit as Completed
-                  </Button>
+                <Stack direction="row">
+                  <StarBorderOutlined style={{ marginRight: "10px" }} />
+
+                  <Typography variant="body2">
+                    <Typography
+                      component="span"
+                      variant="subtitle2"
+                      color="text.primary"
+                    >
+                      Job Accepted Date : &nbsp;
+                    </Typography>
+                    {jobDetails ? jobDetails.promoterCampaign.acceptedTime : ""}
+                  </Typography>
                 </Stack>
-              </Box>
+
+                <Stack direction="row">
+                  <StarBorderOutlined style={{ marginRight: "10px" }} />
+
+                  <Typography variant="body2">
+                    <Typography
+                      component="span"
+                      variant="subtitle2"
+                      color="text.primary"
+                    >
+                      Job Completed Date : &nbsp;
+                    </Typography>
+                    {jobDetails ? jobDetails.promoterCampaign.completedTime : ""}
+                  </Typography>
+                </Stack>
+
+                <Stack direction="row">
+                  <StarBorderOutlined style={{ marginRight: "10px" }} />
+
+                  <Typography variant="body2">
+                    <Typography
+                      component="span"
+                      variant="subtitle2"
+                      color="text.primary"
+                    >
+                      Payment State : &nbsp;
+                    </Typography>
+                    {jobDetails && jobDetails.promoterCampaign.paymentApproved ? "Approved" : "Not approved yet"}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Card>
           </Box>
         </Box>
@@ -337,4 +360,4 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
   );
 }
 
-export default JobCompleteView;
+export default JobFinishedView;
