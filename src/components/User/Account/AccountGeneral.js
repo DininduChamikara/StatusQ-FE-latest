@@ -117,16 +117,8 @@ export default function AccountGeneral() {
       const reader = new FileReader();
 
       reader.addEventListener("load", () => {
-        // console.log(reader.result)
         setProfileImage(reader.result);
-
-        // dispatch(
-        //   changeProfileImage({
-        //     imgUrl: reader.result,
-        //   })
-        // );
       });
-
       reader.readAsDataURL(file);
     },
     [setValue]
@@ -139,7 +131,8 @@ export default function AccountGeneral() {
           <Card sx={{ py: 7, px: 3, textAlign: "center" }}>
             <RHFUploadAvatar
               name="profileImg"
-              // accept={[]}
+              uploadedImg={profileImage}
+              accept="image/*"
               maxSize={3145728}
               onDrop={handleDrop}
               helperText={

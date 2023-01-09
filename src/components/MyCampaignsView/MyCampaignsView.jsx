@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CampaignService from "../../api/services/CampaignService";
 import ActionButton from "../Table/ActionButton";
 import EnhancedTable from "../Table/EnhancedTable";
@@ -71,6 +72,9 @@ function createData(no, campaignId, createdTime, platform, viewsFromEach, promot
 }
 
 function MyCampaignsView() {
+
+  const navigate = useNavigate();
+
   const [rows, setRows] = useState([]);
 
   const [numOfRows, setNumOfRows] = useState(0);
@@ -107,8 +111,9 @@ function MyCampaignsView() {
     // let res = response.data;
   }, [userId]);
 
-  const viewClickHandler = (jobId) => {
-    // navigate(`edit?listname=${listName}`);
+  const viewClickHandler = (campaignId) => {
+    // console.log(campaignId)
+    navigate(`/client-view/campaign-view?campaignId=${campaignId}`);
     // setJobId(jobId);
     // handleOpen();
   };

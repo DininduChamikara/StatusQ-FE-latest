@@ -65,6 +65,7 @@ UploadAvatar.propTypes = {
 };
 
 export default function UploadAvatar({
+  uploadedImg,
   error,
   file,
   helperText,
@@ -104,10 +105,18 @@ export default function UploadAvatar({
             }}
             {...getInputProps()}
           />
-          {file && (
+          {/* {file && (
             <img
               alt="avatar"
               src={isString(file) ? file : file.preview}
+              sx={{ zIndex: 8 }}
+            />
+          )} */}
+
+          {uploadedImg && (
+            <img
+              alt="avatar"
+              src={isString(uploadedImg) ? uploadedImg : uploadedImg.preview}
               sx={{ zIndex: 8 }}
             />
           )}
@@ -115,7 +124,7 @@ export default function UploadAvatar({
           <PlaceholderStyle
             className="placeholder"
             sx={{
-              ...(file && {
+              ...(uploadedImg && {
                 opacity: 0,
                 color: "common.white",
                 bgcolor: "grey.900",
@@ -131,8 +140,12 @@ export default function UploadAvatar({
               sx={{ width: 24, height: 24, mb: 1 }}
             />
 
-            <Typography variant="caption">
+            {/* <Typography variant="caption">
               {file ? "Update photo" : "Upload photo"}
+            </Typography> */}
+
+            <Typography variant="caption">
+              {uploadedImg ? "Update photo" : "Upload photo"}
             </Typography>
           </PlaceholderStyle>
         </DropZoneStyle>

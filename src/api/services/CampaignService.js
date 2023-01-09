@@ -10,6 +10,11 @@ class CampaignService {
         return await apiService.apiGET(`/campaigns/by_client/${clinetId}`)
     }
 
+    async getCampaignById(campaignId){
+        return await apiService.apiGET(`/campaigns/campaign/${campaignId}`)
+    }
+
+
 }
 
 export default new CampaignService();
