@@ -10,12 +10,20 @@ class PromoterCampaignService {
         return await apiService.apiGET(`/promoterCampaigns/${promoterId}`)
     }
 
+    async getPromoterCampaignsByCampaign(campaignId){
+        return await apiService.apiGET(`/promoterCampaigns/promoterCampaignsByCampaign/${campaignId}`)
+    }
+
     async getJobDetails(jobId){
         return await apiService.apiGET(`/promoterCampaigns/job/${jobId}`)
     }
 
     async updateState(updateStateRequestBody){
         return await apiService.apiPATCH(`/promoterCampaigns/updateState`, updateStateRequestBody.jobId, updateStateRequestBody)
+    }
+
+    async updatePaymentApproved(updatePaymentApprovelRequestBody){
+        return await apiService.apiPATCH(`/promoterCampaigns/updatePaymentApproved`, updatePaymentApprovelRequestBody.jobId, updatePaymentApprovelRequestBody)
     }
 
 }

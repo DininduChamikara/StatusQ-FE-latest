@@ -22,6 +22,7 @@ import DashboardLayout from "./layouts/dashboard";
 import AdminHome from "./pages/AdminHome/AdminHome.jsx";
 import AdminAccount from "./pages/AdminAccount/AdminAccount.jsx";
 import AdminComplaints from "./pages/AdminComplaints/AdminComplaints.jsx";
+import CampaignView from "./pages/CampaignView/CampaignView.jsx";
 
 function App() {
   const [userInfo, setUserInfo] = useState({
@@ -67,6 +68,14 @@ function App() {
               element={
                 <NormalUserProtectedRoute>
                   <ClientView />
+                </NormalUserProtectedRoute>
+              }
+            />
+            <Route
+              path="/client-view/campaign-view"
+              element={
+                <NormalUserProtectedRoute>
+                  <CampaignView />
                 </NormalUserProtectedRoute>
               }
             />
