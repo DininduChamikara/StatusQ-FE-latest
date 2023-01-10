@@ -1,5 +1,5 @@
 import {
-  AccountBox, AccountCircle, Campaign, Dashboard,
+  AccountBox, AccountCircle, Assessment, Campaign, Dashboard,
   ExitToApp,
   Help,
   Home, Payments, QuestionAnswer, Reviews,
@@ -16,6 +16,7 @@ const ICONS = {
   profile: <AccountCircle/>,
   help: <Help />,
   feedback: <Reviews />,
+  reports: <Assessment/>,
   chat : <QuestionAnswer/>,
   logout: <ExitToApp />,
 };
@@ -49,6 +50,12 @@ const navConfig = [
       //   authUser: "NORMAL_USER",
       // },
       {
+        title: "Home",
+        path: "/admin_home",
+        icon: ICONS.dashboard,
+        authUser: "ADMIN_USER",
+      },
+      {
         title: "Profile",
         path: "/profile",
         icon: ICONS.profile,
@@ -67,15 +74,9 @@ const navConfig = [
         authUser: "NORMAL_USER",
       },
       {
-        title: "Home",
-        path: "/admin_home",
-        icon: ICONS.home,
-        authUser: "ADMIN_USER",
-      },
-      {
         title: "Reports",
         path: "/admin_report",
-        icon: ICONS.home,
+        icon: ICONS.reports,
         authUser: "ADMIN_USER",
       },
       {

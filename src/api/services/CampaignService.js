@@ -6,6 +6,10 @@ class CampaignService {
         return await apiService.apiPOST("/campaigns", requestBody);
     }
 
+    async getAllCampaigns(){
+        return await apiService.apiGET(`/campaigns`)
+    }
+
     async getCampaignsByClient(clinetId){
         return await apiService.apiGET(`/campaigns/by_client/${clinetId}`)
     }

@@ -1,4 +1,4 @@
-import { AddCircleOutline, Campaign, Poll } from "@mui/icons-material";
+import { Poll } from "@mui/icons-material";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import PromotersImage from "../../images/promoter.jpg";

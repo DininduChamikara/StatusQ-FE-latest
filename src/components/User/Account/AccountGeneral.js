@@ -26,6 +26,7 @@ import { changeProfileImage, login } from "../../../store/reducers/login.slice";
 export default function AccountGeneral() {
   const {
     userId,
+    userType,
     imgUrl,
     firstName,
     lastName,
@@ -204,77 +205,81 @@ export default function AccountGeneral() {
               />
             </Box>
 
-            {/* <Stack spacing={3} alignItems="flex-end" sx={{ mt: 2 }}>
-              <Button type="submit" variant="contained">
-                Save Changes
-              </Button>
-            </Stack> */}
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid container sx={{ mt: 2 }}>
-        <Grid item xs={12} md={12}>
-          <Card sx={{ p: 0 }}>
-            <CardHeader title="Bank Details" />
-            <Box sx={{ p: 3 }}>
-              <Box
-                sx={{
-                  display: "grid",
-                  rowGap: 3,
-                  columnGap: 2,
-                  gridTemplateColumns: {
-                    xs: "repeat(1, 1fr)",
-                    sm: "repeat(2, 1fr)",
-                  },
-                }}
-              >
-                <RHFTextField
-                  name="bankName"
-                  label="Bank Name"
-                  value={userInfo.bankName}
-                  onChange={handleUserInput}
-                />
-
-                <RHFTextField
-                  name="branchName"
-                  label="Branch Name"
-                  value={userInfo.branchName}
-                  onChange={handleUserInput}
-                />
-
-                <RHFTextField
-                  name="branchCode"
-                  label="Branch Code"
-                  value={userInfo.branchCode}
-                  onChange={handleUserInput}
-                />
-
-                <RHFTextField
-                  name="accountNumber"
-                  label="Account Number"
-                  value={userInfo.accountNumber}
-                  onChange={handleUserInput}
-                />
-
-                <RHFTextField
-                  name="accountHolderName"
-                  label="Account Holder's Name"
-                  value={userInfo.accountHolderName}
-                  onChange={handleUserInput}
-                  // disabled
-                />
-              </Box>
-
-              <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
+            {userType === "ADMIN_USER" && (
+              <Stack spacing={3} alignItems="flex-end" sx={{mx:3, mb:3 }}>
                 <Button type="submit" variant="contained">
                   Save Changes
                 </Button>
               </Stack>
-            </Box>
+            )}
           </Card>
         </Grid>
       </Grid>
+
+      {userType !== "ADMIN_USER" && (
+        <Grid container sx={{ mt: 2 }}>
+          <Grid item xs={12} md={12}>
+            <Card sx={{ p: 0 }}>
+              <CardHeader title="Bank Details" />
+              <Box sx={{ p: 3 }}>
+                <Box
+                  sx={{
+                    display: "grid",
+                    rowGap: 3,
+                    columnGap: 2,
+                    gridTemplateColumns: {
+                      xs: "repeat(1, 1fr)",
+                      sm: "repeat(2, 1fr)",
+                    },
+                  }}
+                >
+                  <RHFTextField
+                    name="bankName"
+                    label="Bank Name"
+                    value={userInfo.bankName}
+                    onChange={handleUserInput}
+                  />
+
+                  <RHFTextField
+                    name="branchName"
+                    label="Branch Name"
+                    value={userInfo.branchName}
+                    onChange={handleUserInput}
+                  />
+
+                  <RHFTextField
+                    name="branchCode"
+                    label="Branch Code"
+                    value={userInfo.branchCode}
+                    onChange={handleUserInput}
+                  />
+
+                  <RHFTextField
+                    name="accountNumber"
+                    label="Account Number"
+                    value={userInfo.accountNumber}
+                    onChange={handleUserInput}
+                  />
+
+                  <RHFTextField
+                    name="accountHolderName"
+                    label="Account Holder's Name"
+                    value={userInfo.accountHolderName}
+                    onChange={handleUserInput}
+                    // disabled
+                  />
+                </Box>
+
+                <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
+                  <Button type="submit" variant="contained">
+                    Save Changes
+                  </Button>
+                </Stack>
+              </Box>
+            </Card>
+          </Grid>
+        </Grid>
+      )}
     </FormProvider>
   );
 }
