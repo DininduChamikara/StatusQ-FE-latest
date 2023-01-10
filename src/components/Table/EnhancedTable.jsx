@@ -60,6 +60,7 @@ const EnhancedTableToolbar = (props) => {
           {props.tableTitle}
         </Typography>
         {props.optionalButton ? props.optionalButton : ""}
+        {props.searchEnable ? props.searchEnable : ""}
       </Box>
     </Toolbar>
   ) : (
@@ -82,6 +83,7 @@ export default function EnhancedTable({
   tableTitle,
   actionButtons,
   optionalButton,
+  searchEnable,
   isToolbarVisible,
   ignoreIndex,
   align,
@@ -122,6 +124,7 @@ export default function EnhancedTable({
           tableTitle={tableTitle}
           optionalButton={optionalButton}
           isToolbarVisible={isToolbarVisible}
+          searchEnable={searchEnable}
         />
         <TableContainer
           // Reason is for avoid height jump

@@ -11,16 +11,21 @@ import RHFTextField from "../../hook-form/RHFTextField";
 // import { store } from "../../../app/store";
 // import { showAlert } from "../../../reducers/alertSlice";
 import UserService from "../../../api/services/UserService";
+import { useSelector } from "react-redux";
 
 // ----------------------------------------------------------------------
 
 export default function AccountChangePassword() {
- 
+  const { userId } = useSelector((state) => state.login);
+
   const [password, setPassword] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
+    userId: userId,
+    currentPassword: "",
+    password: "",
+    confirmPassword: "",
   });
+
+  console.log(password);
 
   const handlePassword = (event) => {
     let name = event.target.name;
@@ -44,7 +49,7 @@ export default function AccountChangePassword() {
   const validatePasswordInput = () => {
     let passwordErrors = passwordError;
 
-    if (password.newPassword.length === 0) {
+    if (password.password.length === 0) {
       passwordErrors = {
         ...passwordErrors,
         newPasswordErrorMsg: {
@@ -52,7 +57,7 @@ export default function AccountChangePassword() {
           isVisible: true,
         },
       };
-    } else if (password.newPassword.length < 8) {
+    } else if (password.password.length < 8) {
       passwordErrors = {
         ...passwordErrors,
         newPasswordErrorMsg: {
@@ -69,7 +74,7 @@ export default function AccountChangePassword() {
         },
       };
 
-      if (password.confirmNewPassword.length === 0) {
+      if (password.confirmPassword.length === 0) {
         passwordErrors = {
           ...passwordErrors,
           rePasswordErrorMsg: {
@@ -77,7 +82,7 @@ export default function AccountChangePassword() {
             isVisible: true,
           },
         };
-      } else if (password.confirmNewPassword.length < 8) {
+      } else if (password.confirmPassword.length < 8) {
         passwordErrors = {
           ...passwordErrors,
           rePasswordErrorMsg: {
@@ -103,13 +108,6 @@ export default function AccountChangePassword() {
     }
   };
 
-  const requestBody = {
-    // userId: profile?.userId || "",
-    // curpassword: password.oldPassword,
-    // password: password.newPassword,
-    // repassword: password.confirmNewPassword,
-  };
-
   const methods = useForm({
     // resolver: yupResolver(ChangePassWordSchema),
     password,
@@ -125,41 +123,11 @@ export default function AccountChangePassword() {
     let isInValid = validatePasswordInput();
 
     if (!isInValid) {
-      if (password.newPassword !== password.confirmNewPassword) {
-        // store.dispatch(
-        //   showAlert({
-        //     message: `new password does not match confirm password`,
-        //     isVisible: true,
-        //     severity: ALERT_tYPES.error,
-        //   })
-        // );
-      } else {
-        let passwordUpdate = UserService.updateUserPassword(requestBody);
-        passwordUpdate.then((res) => {
-          if (res) {
-            if (res.data.responseCode === "00") {
-              // store.dispatch(
-              //   showAlert({
-              //     message: "Password updated successfully!",
-              //     isVisible: true,
-              //     severity: ALERT_tYPES.success,
-              //     title: "Success",
-              //   })
-              // );
-            } else {
-              // store.dispatch(
-              //   showAlert({
-              //     message: `Something went wrong`,
-              //     isVisible: true,
-              //     severity: ALERT_tYPES.error,
-              //   })
-              // );
-            }
-          }
-        });
-      }
+      let passwordUpdate = UserService.changePassword(password);
+      passwordUpdate.then((res) => {
+        console.log(res);
+      });
     }
-
   };
 
   return (
@@ -168,20 +136,20 @@ export default function AccountChangePassword() {
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3} alignItems="flex-end">
             <RHFTextField
-              name="oldPassword"
+              name="currentPassword"
               type="password"
               label="Old Password"
               onChange={handlePassword}
             />
             <RHFTextField
-              name="newPassword"
+              name="password"
               type="password"
               label="New Password"
               onChange={handlePassword}
             />
 
             <RHFTextField
-              name="confirmNewPassword"
+              name="confirmPassword"
               type="password"
               label="Confirm New Password"
               onChange={handlePassword}

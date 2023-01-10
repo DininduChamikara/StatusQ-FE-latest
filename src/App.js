@@ -74,9 +74,9 @@ function App() {
             <Route
               path="/client-view/campaign-view"
               element={
-                <NormalUserProtectedRoute>
+                // <NormalUserProtectedRoute>
                   <CampaignView />
-                </NormalUserProtectedRoute>
+                // </NormalUserProtectedRoute>
               }
             />
             <Route
