@@ -42,14 +42,15 @@ ProfileCover.propTypes = {
   myProfile: PropTypes.object,
 };
 
-export default function ProfileCover() {
+export default function ProfileCover({ contactName, firstName, lastName, imgUrl }) {
 
-  const { contactName, firstName, lastName } = useSelector((state) => state.login);
+  // const { contactName, firstName, lastName } = useSelector((state) => state.login);
 
   return (
     <RootStyle>
       <InfoStyle>
         <MyAvatar
+          imgUrl={imgUrl}
           sx={{
             mx: "auto",
             borderWidth: 2,

@@ -11,7 +11,15 @@ class PromoterService {
     }
 
     async getPromoter(userId){
-        return await apiService.apiGET(`/promoters/${userId}`)
+        return await apiService.apiGET(`/promoters/${userId}`);
+    }
+
+    async getPromoterByUserId(userId){
+        return await apiService.apiGET(`/promoters/promoter/${userId}`);
+    }
+
+    async getAllPromoters(){
+        return await apiService.apiGET("/promoters");
     }
 }
 

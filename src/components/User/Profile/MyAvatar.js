@@ -7,9 +7,9 @@ import Avatar from "./Avatar";
 
 // ----------------------------------------------------------------------
 
-export default function MyAvatar({ ...other }) {
+export default function MyAvatar({imgUrl, ...other }) {
 
-  const { imgUrl } = useSelector((state) => state.login);
+  // const { imgUrl } = useSelector((state) => state.login);
 
   // const { user } = useAuth();
 

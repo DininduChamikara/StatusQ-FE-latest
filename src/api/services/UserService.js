@@ -9,6 +9,10 @@ class UserService {
         return await apiService.apiPOST("/users/changePassword", passwordChangeRequestBody);
     }
 
+    async getUserByUserId(userId){
+        return await apiService.apiGET(`/users/user/${userId}`);
+    }
+
     async saveUser(userInfo){
         return await apiService.apiPOST("/users", userInfo);
     }

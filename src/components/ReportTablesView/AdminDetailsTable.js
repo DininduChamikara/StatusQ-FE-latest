@@ -26,26 +26,7 @@ import UserService from "../../api/services/UserService";
 
 // ----------------------------------------------------------------------
 
-// const users = [...Array(5)].map((_, index) => ({
-//   userId: "63993e8a2dadf6da205ca989",
-//   firstname: "Dinindu",
-//   lastname: "Chamikara",
-//   email: "test2@gmail.com",
-//   userType: "NORMAL_USER",
-//   state: "ACTIVE",
-//   accountStatus: "Open",
-//   imgUrl: "vsfvfvdfdfbdfdfdfbdfbdfbdfbdfb",
-//   accountHolderName: "THELGE DININDU PEIRIS",
-//   accountNumber: "276200150017825",
-//   bankName: "HNB",
-//   branchCode: "276",
-//   branchName: "Katunayake",
-//   contactEmail: "Chamika@gmail.cpm",
-//   contactName: "Dinindu",
-//   contactPhone: "0775988086",
-// }));
-
-export default function UserDetailsTable() {
+export default function AdminDetailsTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -55,7 +36,7 @@ export default function UserDetailsTable() {
         // console.log(res);
         // setUsers(res.data);
         if (res.data.responseCode === "00") {
-          const filteredNormalUsers = res.data.users.filter(user => user.userType === "NORMAL_USER")
+          const filteredNormalUsers = res.data.users.filter(user => user.userType === "ADMIN_USER")
           // setUsers(res.data.users);
           setUsers(filteredNormalUsers);
         }
@@ -66,7 +47,7 @@ export default function UserDetailsTable() {
 
   return (
     <Card>
-      <CardHeader title="Users Report" sx={{ mb: 3 }} />
+      <CardHeader title="Admins Report" sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>

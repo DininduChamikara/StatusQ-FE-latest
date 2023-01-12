@@ -1,12 +1,12 @@
-import { AccountCircle, Settings } from "@mui/icons-material";
+import { AccountCircle, Assessment } from "@mui/icons-material";
 import { Box, Card, Tab, Tabs } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/system";
 import React from "react";
-import { useSelector } from "react-redux";
-import UserAccount from "../../components/ProfileDrawer/UserAccount";
-import Profile from "../../components/User/Profile/Profile";
-import ProfileCover from "../../components/User/Profile/ProfileCover";
+import { useSearchParams } from "react-router-dom";
 import useTabs from "../../hooks/useTabs";
+import ProfileCover from "../User/Profile/ProfileCover";
+import UserStatistics from "./UserStatistics";
+import UserViewProfile from "./UserViewProfile";
 
 const TabsWrapperStyle = styled("div")(({ theme }) => ({
   zIndex: 9,
@@ -24,21 +24,23 @@ const TabsWrapperStyle = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function UserProfile() {
-  const { currentTab, onChangeTab } = useTabs("Profile");
+export default function UserView() {
+  const [searchParams] = useSearchParams();
 
-  const { contactName, firstName, lastName, imgUrl } = useSelector((state) => state.login);
+  const userId = searchParams.get("userId");
+
+  const { currentTab, onChangeTab } = useTabs("Profile");
 
   const PROFILE_TABS = [
     {
       value: "Profile",
       icon: <AccountCircle />,
-      component: <Profile />,
+      component: <UserViewProfile userId={userId} />,
     },
     {
-      value: "Settings",
-      icon: <Settings />,
-      component: <UserAccount />,
+      value: "Statistics",
+      icon: <Assessment />,
+      component: <UserStatistics />,
     },
   ];
 
@@ -52,7 +54,11 @@ export default function UserProfile() {
           position: "relative",
         }}
       >
-        <ProfileCover contactName={contactName} firstName={firstName} lastName={lastName} imgUrl={imgUrl} />
+        <ProfileCover
+          contactName={"Test testl"}
+          firstName={"test"}
+          lastName={"testl"}
+        />
 
         <TabsWrapperStyle>
           <Tabs

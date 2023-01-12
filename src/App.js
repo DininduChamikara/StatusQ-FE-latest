@@ -23,6 +23,7 @@ import AdminHome from "./pages/AdminHome/AdminHome.jsx";
 import AdminAccount from "./pages/AdminAccount/AdminAccount.jsx";
 import AdminComplaints from "./pages/AdminComplaints/AdminComplaints.jsx";
 import CampaignView from "./pages/CampaignView/CampaignView.jsx";
+import UserView from "./components/ReportTablesView/UserView.jsx";
 
 function App() {
   const [userInfo, setUserInfo] = useState({
@@ -75,7 +76,7 @@ function App() {
               path="/client-view/campaign-view"
               element={
                 // <NormalUserProtectedRoute>
-                  <CampaignView />
+                <CampaignView />
                 // </NormalUserProtectedRoute>
               }
             />
@@ -107,7 +108,7 @@ function App() {
               path="/profile"
               element={
                 // <NormalUserProtectedRoute>
-                  <Profile />
+                <Profile />
                 // </NormalUserProtectedRoute>
               }
             />
@@ -147,6 +148,13 @@ function App() {
             />
 
             <Route
+              path="/user_view"
+              element={
+                  <UserView />
+              }
+            />
+
+            <Route
               path="/admin_account"
               element={
                 <AdminUserProtectedRoute>
@@ -159,7 +167,7 @@ function App() {
               path="/chat_complaints"
               element={
                 // <AdminUserProtectedRoute>
-                  <AdminComplaints />
+                <AdminComplaints />
                 // </AdminUserProtectedRoute>
               }
             />

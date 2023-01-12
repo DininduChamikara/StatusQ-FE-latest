@@ -1,17 +1,13 @@
-import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import {
-  CheckCircleOutline,
-  Close,
-  PeopleAlt,
-  PeopleAltOutlined,
+  CheckCircleOutline, PeopleAltOutlined
 } from "@mui/icons-material";
-import { Button, Checkbox } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { Checkbox } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import * as React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  changeSelectedPromoterForView,
-  changeSelectedPromotersList,
+  changeSelectedPromoterForView
 } from "../../store/reducers/saveCampaign";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
