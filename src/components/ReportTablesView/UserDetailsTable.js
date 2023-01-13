@@ -22,46 +22,32 @@ import { fCurrency } from "../../utils/formatNumber";
 import Scrollbar from "../Scrollbar";
 import { useEffect, useState } from "react";
 import UserService from "../../api/services/UserService";
+import { useNavigate } from "react-router-dom";
 // import Scrollbar from '../../../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
-// const users = [...Array(5)].map((_, index) => ({
-//   userId: "63993e8a2dadf6da205ca989",
-//   firstname: "Dinindu",
-//   lastname: "Chamikara",
-//   email: "test2@gmail.com",
-//   userType: "NORMAL_USER",
-//   state: "ACTIVE",
-//   accountStatus: "Open",
-//   imgUrl: "vsfvfvdfdfbdfdfdfbdfbdfbdfbdfb",
-//   accountHolderName: "THELGE DININDU PEIRIS",
-//   accountNumber: "276200150017825",
-//   bankName: "HNB",
-//   branchCode: "276",
-//   branchName: "Katunayake",
-//   contactEmail: "Chamika@gmail.cpm",
-//   contactName: "Dinindu",
-//   contactPhone: "0775988086",
-// }));
-
 export default function UserDetailsTable() {
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
+
+  const viewClickHandler = (userId) => {
+    navigate(`/user_view?userId=${userId}`);
+  };
 
   useEffect(() => {
     const response = UserService.getAllUsers();
     response.then((res) => {
       if (res) {
-        // console.log(res);
-        // setUsers(res.data);
         if (res.data.responseCode === "00") {
-          const filteredNormalUsers = res.data.users.filter(user => user.userType === "NORMAL_USER")
-          // setUsers(res.data.users);
+          const filteredNormalUsers = res.data.users.filter(
+            (user) => user.userType === "NORMAL_USER"
+          );
           setUsers(filteredNormalUsers);
         }
       }
     });
-    // let res = response.data;
   }, []);
 
   return (
@@ -100,10 +86,21 @@ export default function UserDetailsTable() {
                     </Box>
                   </TableCell>
                   <TableCell>{row._id}</TableCell>
-                  <TableCell>{row.contactPhone ? row.contactPhone : "Not Provided"}</TableCell>
-                  <TableCell align="center">{row.accountStatus ? row.accountStatus : "Open"}</TableCell>
+                  <TableCell>
+                    {row.contactPhone ? row.contactPhone : "Not Provided"}
+                  </TableCell>
                   <TableCell align="center">
-                    <Button variant="text">View</Button>
+                    {row.accountStatus ? row.accountStatus : "Open"}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      onClick={() => {
+                        viewClickHandler(row._id);
+                      }}
+                      variant="text"
+                    >
+                      View
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

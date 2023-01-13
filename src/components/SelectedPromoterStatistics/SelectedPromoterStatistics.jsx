@@ -45,6 +45,7 @@ function SelectedPromoterStatistics() {
         count: 0,
       },
     ];
+    
     if (selectedCategory === "education") {
       educationCategoriesObjArr.map((obj, index) => {
         if (selectedPromoterForView) {

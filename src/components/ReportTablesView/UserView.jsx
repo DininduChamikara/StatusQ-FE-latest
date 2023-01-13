@@ -1,8 +1,10 @@
 import { AccountCircle, Assessment } from "@mui/icons-material";
 import { Box, Card, Tab, Tabs } from "@mui/material";
 import { styled } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import PromoterService from "../../api/services/PromoterService";
+import UserService from "../../api/services/UserService";
 import useTabs from "../../hooks/useTabs";
 import ProfileCover from "../User/Profile/ProfileCover";
 import UserStatistics from "./UserStatistics";
@@ -28,21 +30,48 @@ export default function UserView() {
   const [searchParams] = useSearchParams();
 
   const userId = searchParams.get("userId");
+  const [userData, setUserData] = useState();
+  const [imgUrl, setImgUrl] = useState();
 
   const { currentTab, onChangeTab } = useTabs("Profile");
 
-  const PROFILE_TABS = [
+  const [PROFILE_TABS, setPROFILE_TABS] = useState([
     {
       value: "Profile",
       icon: <AccountCircle />,
       component: <UserViewProfile userId={userId} />,
     },
-    {
-      value: "Statistics",
-      icon: <Assessment />,
-      component: <UserStatistics />,
-    },
-  ];
+  ]);
+
+  useEffect(() => {
+    const response = PromoterService.getPromoterByUserId(userId);
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
+        if (res.data.promoter) {
+          setPROFILE_TABS([
+            {
+              value: "Profile",
+              icon: <AccountCircle />,
+              component: <UserViewProfile userId={userId} />,
+            },
+            {
+              value: "Statistics",
+              icon: <Assessment />,
+              component: <UserStatistics userId={userId} />,
+            },
+          ]);
+        }
+      }
+    });
+
+    const userResponse = UserService.getUserByUserId(userId);
+    userResponse.then((res) => {
+      if (res.data.responseCode === "00") {
+        setUserData(res.data.user);
+        setImgUrl(res.data.user.imgUrl);
+      }
+    });
+  }, [userId]);
 
   return (
     <Box>
@@ -54,11 +83,14 @@ export default function UserView() {
           position: "relative",
         }}
       >
-        <ProfileCover
-          contactName={"Test testl"}
-          firstName={"test"}
-          lastName={"testl"}
-        />
+        {userData && (
+          <ProfileCover
+            contactName={userData.contactName}
+            firstName={userData.firstname}
+            lastName={userData.lastname}
+            imgUrl={imgUrl}
+          />
+        )}
 
         <TabsWrapperStyle>
           <Tabs

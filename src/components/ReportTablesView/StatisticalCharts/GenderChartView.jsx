@@ -1,14 +1,18 @@
-import { Card, CardHeader } from '@mui/material'
-import React from 'react'
-import ApexSimpleDonutChart from './ApexSimpleDonutChart'
+import { Card, CardHeader } from "@mui/material";
+import React from "react";
+import ApexSimpleDonutChart from "./ApexSimpleDonutChart";
 
-function GenderChartView() {
+function GenderChartView({ genderChartData }) {
   return (
     <Card>
       <CardHeader title="Gender Audience" />
-      <ApexSimpleDonutChart/>
+      <ApexSimpleDonutChart
+        chartType={"donut"}
+        dataArr={genderChartData.dataArray}
+        categories={genderChartData.labelsArray}
+      />
     </Card>
-  )
+  );
 }
 
-export default GenderChartView
+export default GenderChartView;

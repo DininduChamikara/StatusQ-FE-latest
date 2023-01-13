@@ -1,14 +1,14 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-function ApexSimpleDonutChart() {
+function ApexSimpleDonutChart({ chartType, dataArr, categories }) {
   const options = {
-    series: [45, 55],
+    series: dataArr,
     chart: {
       width: 380,
       type: "donut",
     },
-    labels: ["Male", "Female"],
+    labels: categories,
     responsive: [
       {
         breakpoint: 480,
@@ -25,7 +25,12 @@ function ApexSimpleDonutChart() {
   };
 
   return (
-    <Chart options={options} series={options.series} type="donut" width="100%" />
+    <Chart
+      options={options}
+      series={options.series}
+      type={chartType}
+      width="100%"
+    />
   );
 }
 

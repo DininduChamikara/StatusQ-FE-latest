@@ -22,11 +22,14 @@ import { fCurrency } from "../../utils/formatNumber";
 import Scrollbar from "../Scrollbar";
 import { useEffect, useState } from "react";
 import UserService from "../../api/services/UserService";
+import { useNavigate } from "react-router-dom";
 // import Scrollbar from '../../../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
 export default function AdminDetailsTable() {
+
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -44,6 +47,10 @@ export default function AdminDetailsTable() {
     });
     // let res = response.data;
   }, []);
+
+  const viewClickHandler = (userId) => {
+    navigate(`/user_view?userId=${userId}`);
+  };
 
   return (
     <Card>
@@ -84,7 +91,9 @@ export default function AdminDetailsTable() {
                   <TableCell>{row.contactPhone ? row.contactPhone : "Not Provided"}</TableCell>
                   <TableCell align="center">{row.accountStatus ? row.accountStatus : "Open"}</TableCell>
                   <TableCell align="center">
-                    <Button variant="text">View</Button>
+                    <Button onClick={() => {
+                      viewClickHandler(row._id)
+                    }} variant="text">View</Button>
                   </TableCell>
                 </TableRow>
               ))}
