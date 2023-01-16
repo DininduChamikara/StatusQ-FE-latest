@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 function CampaignPostsView({ advertisements }) {
   return (
     <Card>
-      <CardHeader title="Your Advertisement Campaign" />
+      <CardHeader title="Advertisement Campaign" />
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Box>

@@ -24,6 +24,7 @@ import AdminAccount from "./pages/AdminAccount/AdminAccount.jsx";
 import AdminComplaints from "./pages/AdminComplaints/AdminComplaints.jsx";
 import CampaignView from "./pages/CampaignView/CampaignView.jsx";
 import UserView from "./components/ReportTablesView/UserView.jsx";
+import PromoterCampaignsDetailsView from "./pages/Reports/PromoterCampaignsDetailsView.jsx";
 
 function App() {
   const [userInfo, setUserInfo] = useState({
@@ -148,11 +149,15 @@ function App() {
             />
 
             <Route
-              path="/user_view"
+              path="/admin_report/promoter_campaign_view"
               element={
-                  <UserView />
+                <AdminUserProtectedRoute>
+                  <PromoterCampaignsDetailsView />
+                </AdminUserProtectedRoute>
               }
             />
+
+            <Route path="/user_view" element={<UserView />} />
 
             <Route
               path="/admin_account"

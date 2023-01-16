@@ -2,6 +2,8 @@ import { Box, Card } from "@mui/material";
 import React from "react";
 import AdCampaignsTable from "./AdCampaignsTable";
 import AdminDetailsTable from "./AdminDetailsTable";
+import ClientPaymentDetailsTable from "./ClientPaymentDetailsTable";
+import PromoterCampaignsDetailsTable from "./PromoterCampaignsDetailsTable";
 import PromoterDetailsTable from "./PromoterDetailsTable";
 import UserDetailsTable from "./UserDetailsTable";
 
@@ -31,6 +33,18 @@ function ReportTablesView({ reportTablesArr }) {
           return (
             <Card sx={{ mb: 2 }}>
               <PromoterDetailsTable />
+            </Card>
+          );
+        } else if (item === "PROMOTER_CAMPAIGNS") {
+          return (
+            <Card sx={{ mb: 2 }}>
+              <PromoterCampaignsDetailsTable />
+            </Card>
+          );
+        } else if (item === "CLIENT_PAYMENT") {
+          return (
+            <Card sx={{ mb: 2 }}>
+              <ClientPaymentDetailsTable />
             </Card>
           );
         }

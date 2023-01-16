@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CampaignService from "../../api/services/CampaignService";
-import paymentService from "../../api/services/paymentService";
+import PaymentService from "../../api/services/PaymentService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import PromoterService from "../../api/services/PromoterService";
 import { showAlert } from "../../store/reducers/alert.slice";
@@ -360,7 +360,7 @@ function CreateCampaignStepper() {
               state: "ACTIVE",
             };
       
-            const apiCallSavePayment = paymentService.savePayment(paymentInfo);
+            const apiCallSavePayment = PaymentService.savePayment(paymentInfo);
             apiCallSavePayment.then((response) => {
               if(response){
                 response = response.data;
