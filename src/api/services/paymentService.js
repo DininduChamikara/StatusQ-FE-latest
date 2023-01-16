@@ -8,6 +8,9 @@ class PaymentService {
     async getPayments(userId){
         return await apiService.apiGET(`/payments/${userId}`);
     }
+    async getAllPayments(){
+        return await apiService.apiGET("/payments");
+    }
 }
 
 export default new PaymentService();

@@ -17,7 +17,6 @@ function Reviews() {
     apiCall.then((response) => {
       if (response) {
         response = response.data;
-        console.log("response is reviews", response);
         setReviewResponses(response.reviews);
       }
     });

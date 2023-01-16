@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import paymentService from "../../api/services/paymentService";
+import PaymentService from "../../api/services/PaymentService";
 import ActionButton from "../Table/ActionButton";
 import EnhancedTable from "../Table/EnhancedTable";
 
@@ -131,7 +131,7 @@ export default function TransactionTable() {
   const { userId } = useSelector((state) => state.login);
 
   useEffect(() => {
-    const response = paymentService.getPayments(userId);
+    const response = PaymentService.getPayments(userId);
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {

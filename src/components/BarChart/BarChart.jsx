@@ -1,10 +1,15 @@
 import { Box } from "@mui/material";
-import { Chart } from "chart.js";
 import React from "react";
-import { useState } from "react";
-import { Bar, Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+
+// Do not remove this => import Chart from 'chart.js/auto'; 
+// it will gives error "category" is not a registered scale
+// eslint-disable-next-line no-unused-vars
+import Chart from 'chart.js/auto';
+// import Chart from 'chart.js/auto';
 
 function BarChart({barChartData}) {
+
   const data = {
     // labels: ["O/L", "A/L", "Undergraduates", "Postgraduates"],
     labels: barChartData.labelsArray,
@@ -34,6 +39,8 @@ function BarChart({barChartData}) {
       },
     ],
   };
+
+  console.log("bar data", data)
 
   const chartOptions = {
     scales: {

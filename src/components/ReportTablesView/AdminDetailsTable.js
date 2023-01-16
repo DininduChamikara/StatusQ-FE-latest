@@ -27,32 +27,34 @@ import { useNavigate } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
-export default function UserDetailsTable() {
-  const [users, setUsers] = useState([]);
+export default function AdminDetailsTable() {
 
   const navigate = useNavigate();
-
-  const viewClickHandler = (userId) => {
-    navigate(`/user_view?userId=${userId}`);
-  };
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const response = UserService.getAllUsers();
     response.then((res) => {
       if (res) {
+        // console.log(res);
+        // setUsers(res.data);
         if (res.data.responseCode === "00") {
-          const filteredNormalUsers = res.data.users.filter(
-            (user) => user.userType === "NORMAL_USER"
-          );
+          const filteredNormalUsers = res.data.users.filter(user => user.userType === "ADMIN_USER")
+          // setUsers(res.data.users);
           setUsers(filteredNormalUsers);
         }
       }
     });
+    // let res = response.data;
   }, []);
+
+  const viewClickHandler = (userId) => {
+    navigate(`/user_view?userId=${userId}`);
+  };
 
   return (
     <Card>
-      <CardHeader title="Users Report" sx={{ mb: 3 }} />
+      <CardHeader title="Admins Report" sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>
@@ -86,21 +88,12 @@ export default function UserDetailsTable() {
                     </Box>
                   </TableCell>
                   <TableCell>{row._id}</TableCell>
-                  <TableCell>
-                    {row.contactPhone ? row.contactPhone : "Not Provided"}
-                  </TableCell>
+                  <TableCell>{row.contactPhone ? row.contactPhone : "Not Provided"}</TableCell>
+                  <TableCell align="center">{row.accountStatus ? row.accountStatus : "Open"}</TableCell>
                   <TableCell align="center">
-                    {row.accountStatus ? row.accountStatus : "Open"}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      onClick={() => {
-                        viewClickHandler(row._id);
-                      }}
-                      variant="text"
-                    >
-                      View
-                    </Button>
+                    <Button onClick={() => {
+                      viewClickHandler(row._id)
+                    }} variant="text">View</Button>
                   </TableCell>
                 </TableRow>
               ))}

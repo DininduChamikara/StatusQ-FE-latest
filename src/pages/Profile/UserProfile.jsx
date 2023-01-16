@@ -2,6 +2,7 @@ import { AccountCircle, Settings } from "@mui/icons-material";
 import { Box, Card, Tab, Tabs } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React from "react";
+import { useSelector } from "react-redux";
 import UserAccount from "../../components/ProfileDrawer/UserAccount";
 import Profile from "../../components/User/Profile/Profile";
 import ProfileCover from "../../components/User/Profile/ProfileCover";
@@ -26,6 +27,8 @@ const TabsWrapperStyle = styled("div")(({ theme }) => ({
 export default function UserProfile() {
   const { currentTab, onChangeTab } = useTabs("Profile");
 
+  const { contactName, firstName, lastName, imgUrl } = useSelector((state) => state.login);
+
   const PROFILE_TABS = [
     {
       value: "Profile",
@@ -49,7 +52,7 @@ export default function UserProfile() {
           position: "relative",
         }}
       >
-        <ProfileCover />
+        <ProfileCover contactName={contactName} firstName={firstName} lastName={lastName} imgUrl={imgUrl} />
 
         <TabsWrapperStyle>
           <Tabs

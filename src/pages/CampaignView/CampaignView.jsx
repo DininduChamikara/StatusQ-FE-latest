@@ -1,6 +1,5 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { Grid, Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CampaignService from "../../api/services/CampaignService";
 import CampaignAbout from "./CampaignAbout";
