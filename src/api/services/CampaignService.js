@@ -7,7 +7,11 @@ class CampaignService {
     }
 
     async getAllCampaigns(){
-        return await apiService.apiGET(`/campaigns`)
+        return await apiService.apiGET(`/campaigns`);
+    }
+
+    async getChartData(){
+        return await apiService.apiGET(`/campaigns/chart_data`);
     }
 
     async getCampaignsByClient(clinetId){

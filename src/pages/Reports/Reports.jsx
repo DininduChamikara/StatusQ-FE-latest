@@ -5,6 +5,7 @@ import { useState } from "react";
 import EcommerceCampaignEarnings from "../../components/AdminDashboard/EcommerceCampaignEarnings";
 import DraggableView from "../../components/DraggableView/DraggableView";
 import ReportTablesView from "../../components/ReportTablesView/ReportTablesView";
+import ReportChart from "./ReportChart";
 
 function Reports() {
   const [selectedFields, setSelectedFields] = useState([]);
@@ -37,7 +38,7 @@ function Reports() {
       </Grid>
 
       <Grid item xs={12} md={6} lg={8}>
-        <EcommerceCampaignEarnings />
+        <ReportChart reportName={reportTablesArr[0] ? reportTablesArr[0] : "none" }/>
       </Grid>
 
       <Grid item xs={12} md={12}>
