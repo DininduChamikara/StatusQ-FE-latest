@@ -8,26 +8,26 @@ import { BaseOptionChart } from '../chart';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [
-  {
-    year: 2019,
-    data: [
-      { name: 'System Earnings', data: [10, 41, 35, 151, 49, 62, 69, 91, 48] },
-      { name: 'Campaign Payments', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
-      { name: 'Promoter Earnings', data: [5, 17, 10, 28, 35, 44, 47, 36, 26] },
-    ],
-  },
-  {
-    year: 2020,
-    data: [
-      { name: 'System Earnings', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
-      { name: 'Campaign Payments', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
-      { name: 'Promoter Earnings', data: [26, 27, 40, 48, 25, 54, 17, 26, 36] },
-    ],
-  },
-];
+// const CHART_DATA = [
+//   {
+//     year: 2019,
+//     data: [
+//       { name: 'System Earnings', data: [10, 41, 35, 151, 49, 62, 69, 91, 48] },
+//       { name: 'Campaign Payments', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+//       { name: 'Promoter Earnings', data: [5, 17, 10, 28, 35, 44, 47, 36, 26] },
+//     ],
+//   },
+//   {
+//     year: 2020,
+//     data: [
+//       { name: 'System Earnings', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
+//       { name: 'Campaign Payments', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+//       { name: 'Promoter Earnings', data: [26, 27, 40, 48, 25, 54, 17, 26, 36] },
+//     ],
+//   },
+// ];
 
-export default function EcommerceCampaignEarnings() {
+export default function EcommerceCampaignEarnings({chartData}) {
   const [seriesData, setSeriesData] = useState(2019);
 
   const handleChangeSeriesData = (event) => {
@@ -37,7 +37,7 @@ export default function EcommerceCampaignEarnings() {
   const chartOptions = merge(BaseOptionChart(), {
     legend: { position: 'top', horizontalAlign: 'right' },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
   });
 
@@ -60,7 +60,7 @@ export default function EcommerceCampaignEarnings() {
               '& .MuiNativeSelect-icon': { top: 4, right: 0, width: 20, height: 20 },
             }}
           >
-            {CHART_DATA.map((option) => (
+            {chartData.map((option) => (
               <option key={option.year} value={option.year}>
                 {option.year}
               </option>
@@ -69,7 +69,7 @@ export default function EcommerceCampaignEarnings() {
         }
       />
 
-      {CHART_DATA.map((item) => (
+      {chartData.map((item) => (
         <Box key={item.year} sx={{ mt: 3, mx: 3 }} dir="ltr">
           {item.year === seriesData && (
             <ReactApexChart type="area" series={item.data} options={chartOptions} height={364} />
