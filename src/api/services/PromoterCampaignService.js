@@ -22,6 +22,10 @@ class PromoterCampaignService {
         return await apiService.apiGET(`/promoterCampaigns/job/${jobId}`)
     }
 
+    async getChartData(){
+        return await apiService.apiGET(`/promoterCampaigns/chart/chart_data`);
+    }
+
     async updateState(updateStateRequestBody){
         return await apiService.apiPATCH(`/promoterCampaigns/updateState`, updateStateRequestBody.jobId, updateStateRequestBody)
     }
