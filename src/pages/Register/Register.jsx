@@ -15,8 +15,12 @@ import validator from "validator";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../store/reducers/alert.slice";
+import dayjs from "dayjs";
 
 function Register() {
+
+  const currentTime = dayjs();
+
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -28,6 +32,7 @@ function Register() {
     password: "",
     confirm_password: "",
     userType: "NORMAL_USER",
+    createdTime: currentTime.format(),
     state: "ACTIVE",
   });
 
