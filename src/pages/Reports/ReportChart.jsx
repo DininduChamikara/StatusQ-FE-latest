@@ -28,7 +28,17 @@ function ReportChart({reportName}) {
             response.then((res) => {
                 if(res.data.responseCode === "00"){
                     res = res.data.chartData;
-                    // console.log(res)
+                    setChartData(res)
+                }
+                
+            })
+        }
+        else if(reportName === "ADMINS"){
+            setChartitle("Admin Account Creations")
+            const response = UserService.getChartAdminsData();
+            response.then((res) => {
+                if(res.data.responseCode === "00"){
+                    res = res.data.chartData;
                     setChartData(res)
                 }
                 
@@ -40,7 +50,6 @@ function ReportChart({reportName}) {
             response.then((res) => {
                 if(res.data.responseCode === "00"){
                     res = res.data.chartData;
-                    // console.log(res)
                     setChartData(res)
                 }
                 

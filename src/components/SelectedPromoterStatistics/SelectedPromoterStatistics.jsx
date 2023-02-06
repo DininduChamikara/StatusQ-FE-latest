@@ -1,7 +1,16 @@
-import { Box, Divider, MenuItem, Select, Typography } from "@mui/material";
+import { Explore } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Divider,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import BarChart from "../BarChart/BarChart";
 
 const ageCategoriesArr = [
@@ -14,6 +23,8 @@ const ageCategoriesArr = [
 ];
 
 function SelectedPromoterStatistics() {
+  const navigate = useNavigate();
+
   let { selectedPromoterForView, platform } = useSelector(
     (state) => state.saveCampaign
   );
@@ -45,7 +56,7 @@ function SelectedPromoterStatistics() {
         count: 0,
       },
     ];
-    
+
     if (selectedCategory === "education") {
       educationCategoriesObjArr.map((obj, index) => {
         if (selectedPromoterForView) {
@@ -295,7 +306,7 @@ function SelectedPromoterStatistics() {
           fontWeight: "bold",
           m: 1,
           fontSize: "1.2rem",
-          color:'primary.dark'
+          color: "primary.dark",
         }}
       >
         Promoter's Audience Statistics
@@ -305,23 +316,23 @@ function SelectedPromoterStatistics() {
       <Box
         sx={{
           mt: 2,
-          display: {xs:'block', lg:'flex'},
+          display: { xs: "block", lg: "flex" },
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: {xs:'block', lg:'flex'}, width: "75%" }}>
-          <Typography sx={{ mr: 1, color:'primary.dark' }}>PromoterId:</Typography>
-          <Typography
-            sx={{color:'secondary.dark'}}
-          >
+        <Box sx={{ display: { xs: "block", lg: "flex" }, width: "75%" }}>
+          <Typography sx={{ mr: 1, color: "primary.dark" }}>
+            PromoterId:
+          </Typography>
+          <Typography sx={{ color: "secondary.dark" }}>
             {selectedPromoterForView
               ? selectedPromoterForView.promoter._id
               : ""}
           </Typography>
         </Box>
-        <Box sx={{ width: {xs:'100%', lg:'25%'}, mb:{xs:1, lg:0} }}>
+        <Box sx={{ width: { xs: "100%", lg: "25%" }, mb: { xs: 1, lg: 0 } }}>
           <Select
             fullWidth
             size="small"
@@ -339,8 +350,27 @@ function SelectedPromoterStatistics() {
             <MenuItem value="age">Age</MenuItem>
             <MenuItem value="region">Region</MenuItem>
             <MenuItem value="language">Language</MenuItem>
-            <MenuItem value="gender">Gender</MenuItem>
+            {/* <MenuItem value="gender">Gender</MenuItem> */}
           </Select>
+        </Box>
+        <Box
+          sx={{ width: { xs: "100%", lg: "25%" }, mb: { xs: 1, lg: 0 }, px: 1 }}
+        >
+          <Button
+            fullWidth
+            color="secondary"
+            variant="contained"
+            endIcon={<Explore />}
+            onClick={() => {
+              if (selectedPromoterForView) {
+                navigate(
+                  `/user_view?userId=${selectedPromoterForView.promoter.userId}`
+                );
+              }
+            }}
+          >
+            Explore
+          </Button>
         </Box>
       </Box>
       {selectedCategory !== "gender" && (

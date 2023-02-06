@@ -1,9 +1,9 @@
-import { Poll } from "@mui/icons-material";
+import { Poll, WorkHistory } from "@mui/icons-material";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import PromotersImage from "../../images/promoter.jpg";
 
-function BecomePromoterBanner() {
+function BecomePromoterBanner({setVisibleStepper}) {
   return (
     <Paper
       elevation={3}
@@ -32,11 +32,26 @@ function BecomePromoterBanner() {
         <Box sx={{ my: 2 }}>
           <Stack direction="row" spacing={2}>
             <Button
+            sx={{width:180}}
               variant="contained"
               color="primary"
               startIcon={<Poll />}
+              onClick={() => {
+                setVisibleStepper(true);
+              }}
             >
               Take the Survay
+            </Button>
+            <Button
+              sx={{width:180}}
+              variant="contained"
+              color="secondary"
+              startIcon={<WorkHistory />}
+              onClick={() => {
+                setVisibleStepper(false);
+              }}
+            >
+              View Jobs
             </Button>
           </Stack>
         </Box>

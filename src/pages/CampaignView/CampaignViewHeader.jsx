@@ -1,25 +1,22 @@
-import {
-  Campaign
-} from "@mui/icons-material";
-import {
-  Button,
-  Card, Link,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Campaign } from "@mui/icons-material";
+import { Button, Card, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function CampaignViewHeader({campaignId}) {
+function CampaignViewHeader({ campaignId }) {
+
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems:'center',
+        alignItems: "center",
       }}
     >
-      <Stack spacing={2} sx={{ p: 1, px:3 }}>
+      <Stack spacing={2} sx={{ p: 1, px: 3 }}>
         <Stack direction="row">
           <Campaign style={{ marginRight: "10px" }} />
 
@@ -32,7 +29,14 @@ function CampaignViewHeader({campaignId}) {
         </Stack>
       </Stack>
       <Stack spacing={2} sx={{ p: 2 }}>
-        <Button variant="contained">Back to campaigns</Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate(`/client-view`);
+          }}
+        >
+          Back to campaigns
+        </Button>
       </Stack>
     </Card>
   );

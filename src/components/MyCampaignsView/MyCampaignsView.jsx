@@ -79,20 +79,33 @@ function MyCampaignsView() {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const { userId } = useSelector((state) => state.login);
 
+  const ongoingCampaignsRequest = {
+    clientId: userId,
+    page: 0,
+    pageCount: 10,
+  }
+
   useEffect(() => {
-    const response = CampaignService.getCampaignsByClient(userId);
+    // console.log("number of rows ",numOfRows)
+    // console.log("page", page)
+    // const response = CampaignService.getCampaignsByClient(userId);
+    const response = CampaignService.campaignsByClient({
+      ...ongoingCampaignsRequest,
+      page: page,
+      pageCount: rowsPerPage,
+    });
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          console.log(res.data);
-          res = res.data.campaigns;
+          // console.log(res.data);
+          let resp = res.data.campaigns;
 
           setRows(
-            res.map((item, index) => {
+            resp.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item._id ? item._id : "",
@@ -105,11 +118,12 @@ function MyCampaignsView() {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [userId]);
+  }, [userId, page, rowsPerPage]);
 
   const viewClickHandler = (campaignId) => {
     // console.log(campaignId)

@@ -33,7 +33,8 @@ const steps = [
   "Payments",
 ];
 
-function CreateCampaignStepper() {
+function CreateCampaignStepper({ongoingStep, setOngoingStep}) {
+
   const {
     platform,
     schoolCat,
@@ -269,6 +270,14 @@ function CreateCampaignStepper() {
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+
+  useEffect(() => {
+    setActiveStep(ongoingStep);
+  }, [ongoingStep])
+
+  // useEffect(() => {
+  //   setOngoingStep(activeStep);
+  // }, [activeStep])
 
   const isStepOptional = (step) => {
     // step === 5, since there are no optionals

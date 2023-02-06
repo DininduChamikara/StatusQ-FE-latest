@@ -254,72 +254,20 @@ function JobsView() {
 
   const { promoterId } = useSelector((state) => state.login);
 
-  useEffect(() => {
-
-    const response = PromoterCampaignService.getPromoterCampaigns(promoterId);
-    response.then((res) => {
-      if (res) {
-        if (res.data.responseCode === "00") {
-          console.log(res.data);
-
-          // const filteredAvailableJobs = res.data;
-          const filteredAvailableJobs = res.data.promoterCampaigns.filter( element => element.state ===  "AVAILABLE" );
-          const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
-          const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
-
-          setRows(
-            filteredAvailableJobs.map((item, index) => {
-              return createData(
-                index + 1 + rowsPerPage * page,
-                // item.campaignId ? item.campaignId : "",
-                // item.clientId ? item.clientId : "",
-                item.jobId ? item.jobId : "",
-                item.adsCount ? item.adsCount : 0,
-                item.requiredViews ? item.requiredViews : 0,
-                item.budget ? item.budget : 0,
-                item.dateTime ? item.dateTime : "",
-              );
-            })
-          );
-
-          setOngoingJobsRows(
-            filteredOngoingJobs.map((item, index) => {
-              return createData(
-                index + 1 + rowsPerPage * page,
-                // item.campaignId ? item.campaignId : "",
-                // item.clientId ? item.clientId : "",
-                item.jobId ? item.jobId : "",
-                item.adsCount ? item.adsCount : 0,
-                item.requiredViews ? item.requiredViews : 0,
-                item.budget ? item.budget : 0,
-                item.acceptedTime ? item.acceptedTime : "",
-              );
-            })
-          );
-
-          setFinishedJobsRows(
-            filteredFinishedJobs.map((item, index) => {
-              return createData(
-                index + 1 + rowsPerPage * page,
-                // item.campaignId ? item.campaignId : "",
-                // item.clientId ? item.clientId : "",
-                item.jobId ? item.jobId : "",
-                item.adsCount ? item.adsCount : 0,
-                item.requiredViews ? item.requiredViews : 0,
-                item.budget ? item.budget : 0,
-                item.completedTime ? item.completedTime : "",
-              );
-            })
-          );
-        }
-      }
-    });
-    // let res = response.data;
-  }, [promoterId]);
-
+  // for available jobs
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  // for ongoing jobs
+  const [numOfRowsOngoing, setNumOfRowsOngoing] = useState(0);
+  const [pageOngoing, setPageOngoing] = useState(0);
+  const [rowsPerPageOngoing, setRowsPerPageOngoing] = React.useState(10);
+
+   // for finished jobs
+   const [numOfRowsFinished, setNumOfRowsFinished] = useState(0);
+   const [pageFinished, setPageFinished] = useState(0);
+   const [rowsPerPageFinished, setRowsPerPageFinished] = React.useState(10);
 
   const navigate = useNavigate();
 
@@ -336,6 +284,145 @@ function JobsView() {
   const handleCloseFinished = () => setOpenFinished(false);
 
   const [jobId, setJobId] = useState();
+
+  const requestBody = {
+    promoterId: promoterId,
+    page: 0,
+    pageCount: 10, 
+  }
+
+  // for available jobs
+  useEffect(() => {
+    // const response = PromoterCampaignService.getPromoterCampaigns(promoterId);
+    const response = PromoterCampaignService.promoterCampaignsByPromoterId({
+      ...requestBody,
+      page: page,
+      pageCount: rowsPerPage,
+    });
+
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+
+          // const filteredAvailableJobs = res.data;
+          const filteredAvailableJobs = res.data.promoterCampaigns.filter( element => element.state ===  "AVAILABLE" );
+          // const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
+          // const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
+
+          setRows(
+            filteredAvailableJobs.map((item, index) => {
+              return createData(
+                index + 1 + rowsPerPage * page,
+                // item.campaignId ? item.campaignId : "",
+                // item.clientId ? item.clientId : "",
+                item.jobId ? item.jobId : "",
+                item.adsCount ? item.adsCount : 0,
+                item.requiredViews ? item.requiredViews : 0,
+                item.budget ? item.budget : 0,
+                item.dateTime ? item.dateTime : "",
+              );
+            })
+          );
+
+          setNumOfRows(filteredAvailableJobs ? filteredAvailableJobs.length : 0);
+
+          // setOngoingJobsRows(
+          //   filteredOngoingJobs.map((item, index) => {
+          //     return createData(
+          //       index + 1 + rowsPerPage * page,
+          //       // item.campaignId ? item.campaignId : "",
+          //       // item.clientId ? item.clientId : "",
+          //       item.jobId ? item.jobId : "",
+          //       item.adsCount ? item.adsCount : 0,
+          //       item.requiredViews ? item.requiredViews : 0,
+          //       item.budget ? item.budget : 0,
+          //       item.acceptedTime ? item.acceptedTime : "",
+          //     );
+          //   })
+          // );
+
+          // setFinishedJobsRows(
+          //   filteredFinishedJobs.map((item, index) => {
+          //     return createData(
+          //       index + 1 + rowsPerPage * page,
+          //       // item.campaignId ? item.campaignId : "",
+          //       // item.clientId ? item.clientId : "",
+          //       item.jobId ? item.jobId : "",
+          //       item.adsCount ? item.adsCount : 0,
+          //       item.requiredViews ? item.requiredViews : 0,
+          //       item.budget ? item.budget : 0,
+          //       item.completedTime ? item.completedTime : "",
+          //     );
+          //   })
+          // );
+        }
+      }
+    });
+  }, [promoterId]);
+
+  // for ongoing jobs
+  useEffect(() => {
+    const response = PromoterCampaignService.promoterCampaignsByPromoterId({
+      ...requestBody,
+      page: pageOngoing,
+      pageCount: rowsPerPageOngoing,
+    });
+
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+
+          const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
+
+          setOngoingJobsRows(
+            filteredOngoingJobs.map((item, index) => {
+              return createData(
+                index + 1 + rowsPerPage * page,
+                item.jobId ? item.jobId : "",
+                item.adsCount ? item.adsCount : 0,
+                item.requiredViews ? item.requiredViews : 0,
+                item.budget ? item.budget : 0,
+                item.acceptedTime ? item.acceptedTime : "",
+              );
+            })
+          );
+          setNumOfRowsOngoing(filteredOngoingJobs ? filteredOngoingJobs.length : 0);
+        }
+      }
+    });
+  }, [promoterId]);
+
+  // for finished job
+  useEffect(() => {
+    const response = PromoterCampaignService.promoterCampaignsByPromoterId({
+      ...requestBody,
+      page: pageFinished,
+      pageCount: rowsPerPageFinished,
+    });
+
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+
+          const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
+
+          setFinishedJobsRows(
+            filteredFinishedJobs.map((item, index) => {
+              return createData(
+                index + 1 + rowsPerPage * page,
+                item.jobId ? item.jobId : "",
+                item.adsCount ? item.adsCount : 0,
+                item.requiredViews ? item.requiredViews : 0,
+                item.budget ? item.budget : 0,
+                item.completedTime ? item.completedTime : "",
+              );
+            })
+          );
+          setNumOfRowsFinished(filteredFinishedJobs.length);
+        }
+      }
+    });
+  }, [promoterId]);
 
   const viewClickHandler = (jobId) => {
     // navigate(`edit?listname=${listName}`);
@@ -393,11 +480,11 @@ function JobsView() {
         <EnhancedTable
           headCells={HEAD_CELLS_ONGOING_JOBS}
           rows={ongoingJobsRows}
-          page={page}
-          setPage={setPage}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          numOfRows={numOfRows}
+          page={pageOngoing}
+          setPage={setPageOngoing}
+          rowsPerPage={rowsPerPageOngoing}
+          setRowsPerPage={setRowsPerPageOngoing}
+          numOfRows={numOfRowsOngoing}
           hideMoreOptions
           tableTitle={"Ongoing Jobs"}
           // align={'center'}
@@ -419,11 +506,11 @@ function JobsView() {
         <EnhancedTable
           headCells={HEAD_CELLS_FINISHED_JOBS}
           rows={finishedJobsRows}
-          page={page}
-          setPage={setPage}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          numOfRows={numOfRows}
+          page={pageFinished}
+          setPage={setPageFinished}
+          rowsPerPage={rowsPerPageFinished}
+          setRowsPerPage={setRowsPerPageFinished}
+          numOfRows={numOfRowsFinished}
           hideMoreOptions
           tableTitle={"Finished Jobs"}
           // align={'center'}

@@ -110,6 +110,7 @@ export default function EnhancedTable({
   };
 
   const handleChangeRowsPerPage = (event) => {
+    // console.log(event.target.value);
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
