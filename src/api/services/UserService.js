@@ -17,6 +17,10 @@ class UserService {
         return await apiService.apiGET(`/users/normal_users/chart_data`);
     }
 
+    async getChartAdminsData(){
+        return await apiService.apiGET(`/users/admin_users/chart_data`);
+    }
+
     async saveUser(userInfo){
         return await apiService.apiPOST("/users", userInfo);
     }

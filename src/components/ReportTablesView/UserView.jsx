@@ -1,8 +1,9 @@
-import { AccountCircle, Assessment } from "@mui/icons-material";
-import { Box, Card, Tab, Tabs } from "@mui/material";
+import { AccountCircle, Assessment, ReplyAll } from "@mui/icons-material";
+import { Box, Button, Card, Tab, Tabs } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import PromoterService from "../../api/services/PromoterService";
 import UserService from "../../api/services/UserService";
 import useTabs from "../../hooks/useTabs";
@@ -27,6 +28,9 @@ const TabsWrapperStyle = styled("div")(({ theme }) => ({
 }));
 
 export default function UserView() {
+
+  const navigate = useNavigate();
+
   const [searchParams] = useSearchParams();
 
   const userId = searchParams.get("userId");
@@ -73,6 +77,22 @@ export default function UserView() {
     });
   }, [userId]);
 
+  let { userType } = useSelector(
+    (state) => state.login
+  );
+
+  const handleOnBack = () => {
+    if(userType === "NORMAL_USER"){
+      navigate(
+        `/client-view?back_from=explore`
+      );
+    }else if(userType === "ADMIN_USER"){
+      navigate(
+        `/admin_report`
+      );
+    }
+  }
+
   return (
     <Box>
       <Card
@@ -93,6 +113,9 @@ export default function UserView() {
         )}
 
         <TabsWrapperStyle>
+          <Box sx={{pt:0.7, px:2}}>
+            <Button variant="outlined" startIcon={<ReplyAll/>} onClick={handleOnBack}>Back to previous</Button>
+          </Box>
           <Tabs
             allowScrollButtonsMobile
             variant="scrollable"

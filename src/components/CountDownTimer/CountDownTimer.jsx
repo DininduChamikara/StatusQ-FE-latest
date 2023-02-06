@@ -13,8 +13,10 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
   // const [timerMinutes, setTimerMinutes] = useState(0);
   // const [timerSeconds, setTimerSeconds] = useState(0);
 
-  const [remainingTime, setRemainingTime] = useState("00:00:00");
-  // const [remainingTime, setRemainingTime] = useState();
+  // const [remainingTime, setRemainingTime] = useState("00:00:00");
+  const [remainingTime, setRemainingTime] = useState();
+
+  console.log("created time from count down", createdTime)
 
   const setNumFormat = (num) => {
     let formattedNumber = num.toLocaleString("en-US", {
@@ -24,55 +26,44 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
     return formattedNumber;
   };
 
-  // useEffect(() => {
-  //   setRemainingTime(
-  //     setNumFormat(timerHours) +
-  //       ":" +
-  //       setNumFormat(timerMinutes) +
-  //       ":" +
-  //       setNumFormat(timerSeconds)
-  //   );
-  // }, [timerHours, timerMinutes, timerSeconds]);
-
   const ct = new Date(createdTime);
 
   // change 12 if want to change number of hours
   const expiryDate = ct.getTime() + 12 * 60 * 60 * 1000;
 
-  // console.log(expiryDate);
-
   let interval;
 
   const startTimer = () => {
-    // const countDownDate = new Date("Jan 5, 2023 ").getTime();
     const countDownDate = expiryDate;
 
     const tempCurrentTime = new Date().getTime();
 
-    if (countDownDate - tempCurrentTime < 0 ) {
-
-      if(jobType === "AVAILABLE"){
+    if (countDownDate - tempCurrentTime < 0) {
+      if (jobType === "AVAILABLE") {
         const updateStateRequestBody = {
           jobId: jobId,
           state: "AVAILABLE_EXPIRED",
         };
-        const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
+        const apiCallUpdateState = PromoterCampaignService.updateState(
+          updateStateRequestBody
+        );
         apiCallUpdateState.then((res) => {
           console.log(res);
           clearInterval(interval.current);
-        })
-      } else if(jobType === "ONGOING"){
+        });
+      } else if (jobType === "ONGOING") {
         const updateStateRequestBody = {
           jobId: jobId,
           state: "ONGOING_EXPIRED",
         };
-        const apiCallUpdateState = PromoterCampaignService.updateState(updateStateRequestBody);
+        const apiCallUpdateState = PromoterCampaignService.updateState(
+          updateStateRequestBody
+        );
         apiCallUpdateState.then((res) => {
           console.log(res);
           clearInterval(interval.current);
-        })
+        });
       }
-      
     }
 
     interval = setInterval(() => {
@@ -94,13 +85,19 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
         // setTimerHours(hours);
         // setTimerMinutes(minutes);
         // setTimerSeconds(seconds);
-        setRemainingTime(
-          setNumFormat(hours) +
-            ":" +
-            setNumFormat(minutes) +
-            ":" +
-            setNumFormat(seconds)
-        );
+
+        let tempRemaining =
+          setNumFormat(hours ? hours : 0) +
+          ":" +
+          setNumFormat(minutes ? minutes : 0) +
+          ":" +
+          setNumFormat(seconds ? seconds : 0);
+
+        if(tempRemaining){
+          setRemainingTime(tempRemaining);
+        }
+
+        
       }
     });
   };
