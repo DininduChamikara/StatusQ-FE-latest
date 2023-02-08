@@ -130,12 +130,27 @@ export default function TransactionTable() {
   const [rows, setRows] = useState([]);
   const { userId } = useSelector((state) => state.login);
 
+  const [numOfRows, setNumOfRows] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const getPaymentsRequestBody ={
+    userId: userId,
+    page: 0,
+    pageCount: 10,
+  }
+
   useEffect(() => {
-    const response = PaymentService.getPayments(userId);
+    // const response = PaymentService.getPayments(userId);
+    const response = PaymentService.getPaymentsByUserId({
+      ...getPaymentsRequestBody,
+      page: page,
+      pageCount: rowsPerPage,
+    });
+
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          console.log("payments", res.data)
           setRows(
             res.data.payments.map((item, index) => {
               return createData(
@@ -143,24 +158,15 @@ export default function TransactionTable() {
                 item.dateTime ? item.dateTime : "",
                 item._id ? ("Payment for the ads campaign *" + item._id + "*") : "",
                 item.amount ? ("Rs. " + item.amount + ".00") : "",
-
-                // item.campaignId ? item.campaignId : "",
-                // item.clientId ? item.clientId : "",
-                // item.adsCount ? item.adsCount : 0,
-                // item.budget ? item.budget : 0,
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [userId]);
-
-
-  const [numOfRows, setNumOfRows] = useState(0);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  }, [userId, page, rowsPerPage]);
 
   const navigate = useNavigate();
 
@@ -169,14 +175,6 @@ export default function TransactionTable() {
   };
 
   return (
-    // <div style={{ height: 400, width: "100%" }}>
-    //   <DataGrid
-    //     rows={rows}
-    //     columns={columns}
-    //     pageSize={5}
-    //     rowsPerPageOptions={[5]}
-    //   />
-    // </div>
     <Box>
         <EnhancedTable
         headCells={HEAD_CELLS}
