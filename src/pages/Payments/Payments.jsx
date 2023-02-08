@@ -58,10 +58,7 @@ function Payments() {
           </Typography>
         </Box>
       </Paper>
-      <Paper elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>
-        {/* <Typography sx={{ fontWeight: "bold", fontSize: "1.2rem", m: 1 }}>
-          Transactions
-        </Typography> */}     
+      <Paper elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>  
         <TransactionTable/>
       </Paper>
     </Paper>
