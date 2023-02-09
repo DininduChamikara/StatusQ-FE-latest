@@ -54,14 +54,7 @@ const HEAD_CELLS = [
   },
 ];
 
-function createData(
-  no,
-  paymentId,
-  dateTime,
-  senderId,
-  campaignId,
-  amount
-) {
+function createData(no, paymentId, dateTime, senderId, campaignId, amount) {
   return {
     no,
     paymentId,
@@ -79,7 +72,7 @@ function ClientPaymentDetailsTable() {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const [searchStr, setSearchStr] = useState("");
 
@@ -87,19 +80,32 @@ function ClientPaymentDetailsTable() {
     // navigate(`./promoter_campaign_view?jobId=${jobId}`);
   };
 
-  console.log(searchStr);
+  const requestBody = {
+    page: page,
+    pageCount: rowsPerPage,
+  };
 
   useEffect(() => {
-    const response = PaymentService.getAllPayments();
+    // const response = PaymentService.getAllPayments();
+    const response = PaymentService.getAllPaymentsByPost({
+      ...requestBody,
+      page: page,
+      pageCount: rowsPerPage,
+    });
+
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          res = res.data.payments;
+          let response = res.data.payments;
 
-          let filtered = res.filter(x => x.senderRole === "CLIENT");
+          let filtered = response.filter((x) => x.senderRole === "CLIENT");
+
+          let searchFiltered = filtered.filter((item) =>
+            item._id.includes(searchStr)
+          );
 
           setRows(
-            filtered.map((item, index) => {
+            searchFiltered.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item._id ? item._id : "",
@@ -110,11 +116,12 @@ function ClientPaymentDetailsTable() {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [searchStr]);
+  }, [searchStr, page, rowsPerPage]);
 
   return (
     <Box>

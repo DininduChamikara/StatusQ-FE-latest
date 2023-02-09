@@ -87,7 +87,7 @@ function PromoterCampaignsDetailsTable() {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const [searchStr, setSearchStr] = useState("");
 
@@ -95,19 +95,29 @@ function PromoterCampaignsDetailsTable() {
     navigate(`./promoter_campaign_view?jobId=${jobId}`);
   };
 
-  console.log(searchStr);
+  const requestBody = {
+    page: page,
+    pageCount: rowsPerPage,
+  }
 
   useEffect(() => {
-    const response = PromoterCampaignService.getAllPromoterCampaigns();
+    // const response = PromoterCampaignService.getAllPromoterCampaigns();
+    const response = PromoterCampaignService.getPromoterCampaignsByPost({
+      ...requestBody,
+      page: page,
+      pageCount: rowsPerPage
+    });
+
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
           //   console.log(res.data);
-          res = res.data.promoterCampaigns;
-          // console.log(res);
+          let response = res.data.promoterCampaigns;
 
+          response = response.filter((item) => item._id.includes(searchStr) || item.promoterId.includes(searchStr) || item.campaignId.includes(searchStr));
+          
           setRows(
-            res.map((item, index) => {
+            response.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item._id ? item._id : "",
@@ -119,11 +129,12 @@ function PromoterCampaignsDetailsTable() {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [searchStr]);
+  }, [searchStr, page, rowsPerPage]);
 
   return (
     <Box>

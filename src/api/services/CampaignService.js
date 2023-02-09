@@ -10,6 +10,10 @@ class CampaignService {
         return await apiService.apiGET(`/campaigns`);
     }
 
+    async getAllCampaignsByPost(requestBody){
+        return await apiService.apiPOST("/campaigns/getAllCampaigns", requestBody)
+    }
+
     async getChartData(){
         return await apiService.apiGET(`/campaigns/chart_data`);
     }

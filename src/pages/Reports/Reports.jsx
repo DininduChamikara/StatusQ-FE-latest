@@ -1,8 +1,5 @@
 import { Box, Card, CardHeader, Grid } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import EcommerceCampaignEarnings from "../../components/AdminDashboard/EcommerceCampaignEarnings";
+import React, { useEffect, useState } from "react";
 import DraggableView from "../../components/DraggableView/DraggableView";
 import ReportTablesView from "../../components/ReportTablesView/ReportTablesView";
 import ReportChart from "./ReportChart";

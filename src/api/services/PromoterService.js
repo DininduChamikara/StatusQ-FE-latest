@@ -21,6 +21,14 @@ class PromoterService {
     async getAllPromoters(){
         return await apiService.apiGET("/promoters");
     }
+
+    async getAllPromotersByPost(requestBody){
+        return await apiService.apiPOST("/promoters/getAllPromoters", requestBody)
+    }
+
+    async getChartData(){
+        return await apiService.apiGET("/promoters/promotersChart/chart_data");
+    }
 }
 
 export default new PromoterService();
