@@ -90,7 +90,7 @@ function PromoterDetailsTable() {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const [searchStr, setSearchStr] = useState("");
 
@@ -98,20 +98,28 @@ function PromoterDetailsTable() {
     navigate(`/user_view?userId=${userId}`);
   };
 
+  const requestBody = {
+    page: page,
+    pageCount: rowsPerPage,
+  };
+
   useEffect(() => {
-    const response = PromoterService.getAllPromoters();
+    // const response = PromoterService.getAllPromoters();
+    const response = PromoterService.getAllPromotersByPost({
+      ...requestBody,
+      page: page,
+      pageCount: rowsPerPage,
+    });
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
           //   console.log(res.data);
-          res = res.data.promoters;
+          let response = res.data.promoters;
 
-          if (searchStr !== "") {
-            res = res.filter((item) => item._id === searchStr);
-          }
+          response = response.filter((item) => item._id.includes(searchStr) || item.nameWithInit.toLowerCase().includes(searchStr.toLowerCase()));
 
           setRows(
-            res.map((item, index) => {
+            response.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item.userId ? item.userId : "",
@@ -124,11 +132,12 @@ function PromoterDetailsTable() {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [searchStr]);
+  }, [searchStr, page, rowsPerPage]);
 
   return (
     <Box>
@@ -163,7 +172,7 @@ function PromoterDetailsTable() {
             <Box width={300}>
               <SearchBar
                 setSearchStr={setSearchStr}
-                placeholder={"Search by Promoter ID"}
+                placeholder={"Search..."}
               />
             </Box>
           </Box>

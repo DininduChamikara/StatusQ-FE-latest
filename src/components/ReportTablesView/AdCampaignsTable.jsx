@@ -88,7 +88,7 @@ function AdCampaignsTable() {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const { userId } = useSelector((state) => state.login);
 
@@ -97,24 +97,37 @@ function AdCampaignsTable() {
   // for toggle button
   const [alignment, setAlignment] = React.useState("Campaign");
 
+  const requestBody = {
+    page: page,
+    pageCount: rowsPerPage,
+  };
+
   useEffect(() => {
-    const response = CampaignService.getAllCampaigns();
+    // const response = CampaignService.getAllCampaigns();
+    const response = CampaignService.getAllCampaignsByPost({
+      ...requestBody,
+      page: page,
+      pageCount: rowsPerPage,
+    });
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-        //   console.log(res.data);
-          res = res.data.campaigns;
+          //   console.log(res.data);
+          let response = res.data.campaigns;
+          let filteredResponse;
 
-          if (searchStr !== "") {
-            if (alignment === "Client") {
-              res = res.filter((item) => item.clientId === searchStr);
-            } else {
-              res = res.filter((item) => item._id === searchStr);
-            }
+          if (alignment === "Client") {
+            filteredResponse = response.filter((item) =>
+              item.clientId.includes(searchStr)
+            );
+          } else {
+            filteredResponse = response.filter(
+              (item) => item._id.includes(searchStr)
+            );
           }
 
           setRows(
-            res.map((item, index) => {
+            filteredResponse.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item._id ? item._id : "",
@@ -126,11 +139,12 @@ function AdCampaignsTable() {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [userId, searchStr, alignment]);
+  }, [userId, searchStr, alignment, page, rowsPerPage]);
 
   const viewClickHandler = (campaignId) => {
     navigate(`/client-view/campaign-view?campaignId=${campaignId}`);

@@ -61,12 +61,12 @@ const navConfig = [
         icon: ICONS.profile,
         authUser: "",
       },
-      {
-        title: "Help",
-        path: "/help",
-        icon: ICONS.help,
-        authUser: "NORMAL_USER",
-      },
+      // {
+      //   title: "Help",
+      //   path: "/help",
+      //   icon: ICONS.help,
+      //   authUser: "NORMAL_USER",
+      // },
       {
         title: "Feedback",
         path: "/feedback",

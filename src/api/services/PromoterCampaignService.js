@@ -10,6 +10,10 @@ class PromoterCampaignService {
         return await apiService.apiGET("/promoterCampaigns/promoterCampaignsAll");
     }
 
+    async getPromoterCampaignsByPost(requestBody){
+        return await apiService.apiPOST("/promoterCampaigns/promoterCampaignsAll", requestBody);
+    }
+
     async getPromoterCampaigns(promoterId){
         return await apiService.apiGET(`/promoterCampaigns/${promoterId}`)
     }
