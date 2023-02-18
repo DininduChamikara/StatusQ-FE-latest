@@ -91,7 +91,7 @@ function CampaignPromotersView({ campaignId }) {
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -100,18 +100,28 @@ function CampaignPromotersView({ campaignId }) {
   const [jobId, setJobId] = useState();
 
   const viewClickHandler = (jobId) => {
-    // navigate(`edit?listname=${listName}`);
     setJobId(jobId);
     handleOpen();
   };
 
+  const requestBody = {
+    campaignId: campaignId,
+    page: page,
+    pageCount: rowsPerPage,
+  };
+
   useEffect(() => {
-    const response =
-      PromoterCampaignService.getPromoterCampaignsByCampaign(campaignId);
+    const response = PromoterCampaignService.getPromoterCampaignsByCampaignPost(
+      {
+        ...requestBody,
+        page: page,
+        pageCount: rowsPerPage,
+      }
+    );
+
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          console.log(res.data);
           setRows(
             res.data.promoterCampaigns.map((item, index) => {
               return createData(
@@ -125,11 +135,12 @@ function CampaignPromotersView({ campaignId }) {
               );
             })
           );
+          setNumOfRows(res.data.total);
         }
       }
     });
     // let res = response.data;
-  }, [campaignId]);
+  }, [campaignId, page, rowsPerPage, open]);
 
   return (
     <Box>
@@ -162,7 +173,12 @@ function CampaignPromotersView({ campaignId }) {
           />
         </Stack>
       </Card>
-      <PaymentApprovel open={open} onClose={handleClose} setOpen={setOpen} jobId={jobId} />
+      <PaymentApprovel
+        open={open}
+        onClose={handleClose}
+        setOpen={setOpen}
+        jobId={jobId}
+      />
     </Box>
   );
 }

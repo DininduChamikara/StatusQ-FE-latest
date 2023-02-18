@@ -1,40 +1,87 @@
 import { Box, Grid, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import EcommerceUsersCount from "../../components/AdminDashboard/EcommerceUsersCount";
 import EcommerceWidgetSummary from "../../components/AdminDashboard/EcommerceWidgetSummary";
 import EcommerceCampaignEarnings from "../../components/AdminDashboard/EcommerceCampaignEarnings";
 import EcommerceOverview from "../../components/AdminDashboard/EcommerceOverview";
 import EcommerceCurrentBalance from "../../components/AdminDashboard/EcommerceCurrentBalance";
 import EcommerceBestPromoters from "../../components/AdminDashboard/EcommerceBestPromoters";
+import CampaignService from "../../api/services/CampaignService";
+import { useState } from "react";
+import PaymentService from "../../api/services/PaymentService";
 
 function AdminHome() {
   const theme = useTheme();
+
+  const [chartDataOngoingCampaign, setChartDataOngoingCampaign] = useState();
+  const [chartDataTotalEarnings, setChartDataTotalEarnings] = useState();
+
+  const [chartDataCampaigns, setChartDataCampaigns] = useState();
+  const [chartTitleCampaigns, setChartitleCampaigns] = useState();
+
+  useEffect(() => {
+    const response = CampaignService.getCampaignsForDashboard();
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+          setChartDataOngoingCampaign(res.data.chartData);
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const response = PaymentService.getPaymentsForDashboard();
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+          setChartDataTotalEarnings(res.data.chartData);
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const response = CampaignService.getChartData();
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
+        res = res.data.chartData;
+        // console.log(res)
+        setChartDataCampaigns(res);
+      }
+    });
+  }, []);
+
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-          <EcommerceWidgetSummary
-            title="Ongoing Campaigns"
-            percent={2.6}
-            total={765}
-            chartColor={theme.palette.primary.main}
-            chartData={[22, 8, 35, 50, 82, 84, 77, 12, 87, 43]}
-          />
+          {chartDataOngoingCampaign && (
+            <EcommerceWidgetSummary
+              title={"Ongoing Campaigns for " + chartDataOngoingCampaign.year}
+              percent={chartDataOngoingCampaign.percentage}
+              total={chartDataOngoingCampaign.total}
+              chartColor={theme.palette.primary.main}
+              chartData={chartDataOngoingCampaign.data.data}
+            />
+          )}
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          {chartDataTotalEarnings && (
+            <EcommerceWidgetSummary
+              title="Total Earnings Rs."
+              percent={chartDataTotalEarnings.percentage}
+              total={chartDataTotalEarnings.totalEarnings}
+              chartColor={theme.palette.chart.green[0]}
+              chartData={chartDataTotalEarnings.data.data}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12} md={4}>
           <EcommerceWidgetSummary
-            title="Total Balance"
-            percent={-0.1}
-            total={18765}
-            chartColor={theme.palette.chart.green[0]}
-            chartData={[56, 47, 40, 62, 73, 30, 23, 54, 67, 68]}
-          />
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <EcommerceWidgetSummary
-            title="Sales Profit"
+            title="Syatem Profit Rs."
             percent={0.6}
             total={4876}
             chartColor={theme.palette.chart.red[0]}
@@ -46,21 +93,20 @@ function AdminHome() {
         </Grid>
 
         <Grid item xs={12} md={6} lg={8}>
-          <EcommerceCampaignEarnings />
+          <EcommerceCampaignEarnings chartData={chartDataCampaigns} chartTitle={"Campaigns Creations"} />
         </Grid>
 
-        <Grid item xs={12} md={6} lg={8}>
+        {/* <Grid item xs={12} md={6} lg={8}>
           <EcommerceOverview />
         </Grid>
 
         <Grid item xs={12} md={6} lg={4}>
           <EcommerceCurrentBalance />
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} md={12} lg={12}>
           <EcommerceBestPromoters />
         </Grid>
-
       </Grid>
     </Box>
   );

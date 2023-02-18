@@ -9,7 +9,7 @@ function Reports() {
 
   // console.log("from reports ", selectedFields)
 
-  const [reportTablesArr, setReportTablesArr] = useState([]);
+  const [reportTablesArr, setReportTablesArr] = useState(["CAMPAIGNS"]);
 
   useEffect(() => {
     let temp = [];

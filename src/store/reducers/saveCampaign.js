@@ -98,6 +98,49 @@ export const saveCampaignSlice = createSlice({
     },
     changeAdvertisementSavedForUpload: (state, action) => {
       state.advertisementSavedForUpload = action.payload.advertisementSavedForUpload;
+    },
+
+    clearCampaign: (state) => {
+      state.platform = "";
+      state.schoolCat = false;
+      state.universityCat = false;
+      state.olCat = false;
+      state.alCat = false;
+      state.subMaths = false;
+      state.subBio = false;
+      state.subCommerce = false;
+      state.subArt = false;
+      state.subTechnology = false;
+      state.undergraduateCat = false;
+      state.postgraduateCat = false;
+      state.ageGroup_13_15 = false;
+      state.ageGroup_16_18 = false;
+      state.ageGroup_19_25 = false;
+      state.ageGroup_26_35 = false;
+      state.ageGroup_36_60 = false;
+      state.ageGroup_over_60 = false;
+      state.western = false;
+      state.uva = false;
+      state.sabaragamuwa = false;
+      state.central = false;
+      state.nothern = false;
+      state.northernWestern = false;
+      state.southern = false;
+      state.eastern = false;
+      state.northCentral = false;
+      state.sinhala = false;
+      state.tamil = false;
+      state.english = false;
+      state.male = false
+      state.female = false;
+      state.selectedAdvertisements = [];
+      state.minRequiredViews = 1000;
+      state.viewsFromEach = 50;
+      state.numOfPromoters = 20;
+      state.promoterListResponse = null;
+      state.selectedPromoterIdList = [];
+      state.selectedPromoterForView = null;
+      state.advertisementSavedForUpload = false;
     }
   },
 });
@@ -110,5 +153,6 @@ export const {
   changeSelectedPromotersList,
   changeSelectedPromoterForView,
   changeAdvertisementSavedForUpload,
+  clearCampaign,
 } = saveCampaignSlice.actions;
 export default saveCampaignSlice.reducer;

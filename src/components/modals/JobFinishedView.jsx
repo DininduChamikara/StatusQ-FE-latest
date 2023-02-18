@@ -3,6 +3,8 @@ import {
   AccountBox,
   Close,
   RemoveRedEye,
+  RestartAlt,
+  Send,
   StarBorderOutlined,
   WorkHistoryOutlined,
 } from "@mui/icons-material";
@@ -14,19 +16,29 @@ import {
   IconButton,
   Modal,
   Paper,
+  Rating,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ClientReviewService from "../../api/services/ClientReviewService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
+import PromoterReviewService from "../../api/services/PromoterReviewService";
 import ImagePreviewUploadSS from "../ImagePreview/ImagePreviewUploadSS";
 
 function JobFinishedView({ open, handleClose, setOpen, jobId }) {
+
+  const { userId } = useSelector((state) => state.login);
+
   const [jobDetails, setJobDetails] = useState();
   const [advertisements, setAdvertisements] = useState();
 
   const [uploadedSS, setUploadedSS] = useState();
+
+  const [promoterReview, setPromoterReview] = useState();
 
   useEffect(() => {
     let apiCall = PromoterCampaignService.getJobDetails(jobId);
@@ -39,6 +51,56 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
       }
     });
   }, [jobId]);
+
+  useEffect(() => {
+    let apiCall = PromoterReviewService.getPromoterReviewByJobId(jobId);
+
+    apiCall.then((res) => {
+      if (res.data.responseCode === "00") {
+        setPromoterReview(res.data.promoterReview);
+      }
+    });
+  }, [jobId]);
+
+  // client ratings
+  const [starCount, setStarCount] = useState();
+  const [reviewDescription, setReviewDescription] = useState("");
+
+  const handleOnChangeReviewDescription = (event) => {
+    setReviewDescription(event.target.value);
+  }
+
+  let date = new Date().toISOString().split("T")[0];
+
+  const requestBody = {
+    jobId: jobId,
+    promoterId: userId,
+    clientId: jobDetails ? jobDetails.promoterCampaign.clientId : "",
+    ratingCount: starCount,
+    date: date,
+    description: reviewDescription,
+    state: "ACTIVE",
+  };
+
+  const saveClientReview = () => {
+    const response = ClientReviewService.saveClientReview({
+      ...requestBody,
+      jobId: jobId,
+      promoterId: jobDetails ? jobDetails.promoterCampaign.promoterId : "",
+      clientId: userId,
+      ratingCount: starCount,
+      date: date,
+      description: reviewDescription,
+    });
+
+    response.then(res => {
+      if(res.data.responseCode === "00"){
+        setStarCount(0);
+        setReviewDescription("");
+      }
+    })
+  };
+  //
 
   return (
     <Modal
@@ -82,7 +144,7 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
         </Box>
         <Divider />
         <Box sx={{ display: "flex", my: 1 }}>
-          <Card sx={{ width: "60%", px: 2 }}>
+          <Card sx={{ width: "55%", px: 2 }}>
             <Box sx={{ my: 1, overflowY: "auto", height: 400 }}>
               <Divider />
               <Typography
@@ -185,13 +247,14 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
             <Divider />
           </Card>
           {/* <Divider orientation="vertical" flexItem /> */}
-          <Box sx={{ width: "40%", px: 1 }}>
+          <Box sx={{ width: "45%", px: 1 }}>
             <Card
               sx={{
-                height: "100%",
+                height: 400,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                overflowY: "auto",
               }}
             >
               <Stack spacing={2} sx={{ px: 3, py: 2 }}>
@@ -301,21 +364,6 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
                       variant="subtitle2"
                       color="text.primary"
                     >
-                      Client Ratings : &nbsp;
-                    </Typography>
-                    4.5 (Dummy)
-                  </Typography>
-                </Stack>
-
-                <Stack direction="row">
-                  <StarBorderOutlined style={{ marginRight: "10px" }} />
-
-                  <Typography variant="body2">
-                    <Typography
-                      component="span"
-                      variant="subtitle2"
-                      color="text.primary"
-                    >
                       Job Accepted Date : &nbsp;
                     </Typography>
                     {jobDetails ? jobDetails.promoterCampaign.acceptedTime : ""}
@@ -333,7 +381,9 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
                     >
                       Job Completed Date : &nbsp;
                     </Typography>
-                    {jobDetails ? jobDetails.promoterCampaign.completedTime : ""}
+                    {jobDetails
+                      ? jobDetails.promoterCampaign.completedTime
+                      : ""}
                   </Typography>
                 </Stack>
 
@@ -348,9 +398,79 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
                     >
                       Payment State : &nbsp;
                     </Typography>
-                    {jobDetails && jobDetails.promoterCampaign.paymentApproved ? "Approved" : "Not approved yet"}
+                    {jobDetails && jobDetails.promoterCampaign.paymentApproved
+                      ? "Approved"
+                      : "Not approved yet"}
                   </Typography>
                 </Stack>
+                <Divider />
+
+                {jobDetails && jobDetails.promoterCampaign.paymentApproved && (
+                  <Box>
+                    {promoterReview && (
+                      <Stack direction="row">
+                        <StarBorderOutlined style={{ marginRight: "10px" }} />
+                        <Typography variant="body2">
+                          <Typography
+                            component="span"
+                            variant="subtitle2"
+                            color="text.primary"
+                          >
+                            Client Review : &nbsp;
+                          </Typography>
+                        </Typography>
+                        <Rating name="read-only" value={promoterReview.ratingCount} readOnly />
+                        <Typography sx={{ mx: 1 }} variant="body2">
+                          {promoterReview.description}
+                        </Typography>
+                      </Stack>
+                    )}
+
+                    <Paper
+                      elevation={3}
+                      sx={{ width: "100%", p: 2, borderRadius: 2, my: 1 }}
+                    >
+                      <Typography sx={{ mb: 0.5 }}>
+                        Would you like to rate the client back?
+                      </Typography>
+                      <Rating
+                        name="simple-controlled"
+                        value={starCount}
+                        onChange={(event, newValue) => {
+                          setStarCount(newValue);
+                        }}
+                      />
+                      <Box sx={{ my: 1 }}>
+                        <TextField
+                          inputProps={{
+                            maxLength: 100,
+                          }}
+                          id="outlined-multiline-static"
+                          multiline
+                          fullWidth
+                          value={reviewDescription}
+                          onChange={handleOnChangeReviewDescription}
+                          rows={4}
+                          placeholder="Describe your experience (Optional)"
+                        />
+                      </Box>
+                      <Stack
+                        sx={{ mt: 3, justifyContent: "flex-end" }}
+                        direction="row"
+                        spacing={2}
+                      >
+                        <Button
+                          color="primary"
+                          onClick={saveClientReview}
+                          variant="contained"
+                          endIcon={<Send />}
+                        >
+                          Send
+                        </Button>
+                      </Stack>
+                    </Paper>
+                  </Box>
+                )}
               </Stack>
             </Card>
           </Box>

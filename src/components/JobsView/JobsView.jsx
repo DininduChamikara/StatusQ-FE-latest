@@ -1,7 +1,5 @@
-import { BorderColor, RemoveCircle } from "@mui/icons-material";
-import { Box, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import { Box, Paper } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
@@ -10,10 +8,6 @@ import JobCompleteView from "../modals/JobCompleteView";
 import JobDataView from "../modals/JobDataView";
 import JobFinishedView from "../modals/JobFinishedView";
 import ActionButton from "../Table/ActionButton";
-
-// function createData(no, campaignId, clientID, numOfAds, budget, datetime,) {
-//   return { no, campaignId, clientID, numOfAds, budget, datetime, };
-// }
 
 function createData(no, jobId, numOfAds, viewsRequired, budget, datetime,) {
   return { no, jobId, numOfAds, viewsRequired, budget, datetime, };
@@ -303,18 +297,11 @@ function JobsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-
-          // const filteredAvailableJobs = res.data;
           const filteredAvailableJobs = res.data.promoterCampaigns.filter( element => element.state ===  "AVAILABLE" );
-          // const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
-          // const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
-
           setRows(
             filteredAvailableJobs.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
-                // item.campaignId ? item.campaignId : "",
-                // item.clientId ? item.clientId : "",
                 item.jobId ? item.jobId : "",
                 item.adsCount ? item.adsCount : 0,
                 item.requiredViews ? item.requiredViews : 0,
@@ -325,40 +312,10 @@ function JobsView() {
           );
 
           setNumOfRows(filteredAvailableJobs ? filteredAvailableJobs.length : 0);
-
-          // setOngoingJobsRows(
-          //   filteredOngoingJobs.map((item, index) => {
-          //     return createData(
-          //       index + 1 + rowsPerPage * page,
-          //       // item.campaignId ? item.campaignId : "",
-          //       // item.clientId ? item.clientId : "",
-          //       item.jobId ? item.jobId : "",
-          //       item.adsCount ? item.adsCount : 0,
-          //       item.requiredViews ? item.requiredViews : 0,
-          //       item.budget ? item.budget : 0,
-          //       item.acceptedTime ? item.acceptedTime : "",
-          //     );
-          //   })
-          // );
-
-          // setFinishedJobsRows(
-          //   filteredFinishedJobs.map((item, index) => {
-          //     return createData(
-          //       index + 1 + rowsPerPage * page,
-          //       // item.campaignId ? item.campaignId : "",
-          //       // item.clientId ? item.clientId : "",
-          //       item.jobId ? item.jobId : "",
-          //       item.adsCount ? item.adsCount : 0,
-          //       item.requiredViews ? item.requiredViews : 0,
-          //       item.budget ? item.budget : 0,
-          //       item.completedTime ? item.completedTime : "",
-          //     );
-          //   })
-          // );
         }
       }
     });
-  }, [promoterId]);
+  }, [promoterId, open]);
 
   // for ongoing jobs
   useEffect(() => {
@@ -371,9 +328,7 @@ function JobsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-
           const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
-
           setOngoingJobsRows(
             filteredOngoingJobs.map((item, index) => {
               return createData(
@@ -390,7 +345,7 @@ function JobsView() {
         }
       }
     });
-  }, [promoterId]);
+  }, [promoterId, open, openOngoing]);
 
   // for finished job
   useEffect(() => {
@@ -399,13 +354,10 @@ function JobsView() {
       page: pageFinished,
       pageCount: rowsPerPageFinished,
     });
-
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-
           const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
-
           setFinishedJobsRows(
             filteredFinishedJobs.map((item, index) => {
               return createData(
@@ -422,7 +374,7 @@ function JobsView() {
         }
       }
     });
-  }, [promoterId]);
+  }, [promoterId, open, openOngoing, openFinished]);
 
   const viewClickHandler = (jobId) => {
     // navigate(`edit?listname=${listName}`);

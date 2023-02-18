@@ -53,7 +53,7 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
     );
 
     apiCallUpdateState.then((res) => {
-      console.log(res);
+      setOpen(false);
       // Do refreshing with alert box
       // refreshPage();
     });
@@ -317,7 +317,9 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
 
               <Box sx={{ px: 3, py: 1 }}>
                 <Stack spacing={1} direction="row">
-                  <Button type="submit" variant="contained" color="secondary">
+                  <Button type="submit" variant="contained" color="secondary" onClick={() => {
+                    setOpen(false);
+                  }}>
                     Cancel
                   </Button>
                   <Button

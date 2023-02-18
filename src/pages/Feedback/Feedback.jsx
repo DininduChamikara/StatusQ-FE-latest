@@ -22,7 +22,7 @@ function Feedback({ userInfo }) {
 
   let date = new Date().toISOString().split("T")[0];
 
-  const { userId, firstName, lastName } = useSelector((state) => state.login);
+  const { userId, firstName, lastName, imgUrl } = useSelector((state) => state.login);
 
   const [review, setReview] = useState({
     userId: userId,
@@ -32,11 +32,11 @@ function Feedback({ userInfo }) {
     date: date,
     ratingCount: 1,
     description: "",
+    imageUrl: imgUrl,
     state: "ACTIVE",
   });
 
   const handleOnChangeDescription = (event) => {
-    console.log("user info from feedback " + userInfo.fname);
     setReview({
       ...review,
       description: event.target.value,

@@ -1,11 +1,17 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { changeSelectedPromotersList } from "../../store/reducers/saveCampaign";
 import DataTable from "../DataTable/DataTable";
 import SelectedPromoterStatistics from "../SelectedPromoterStatistics/SelectedPromoterStatistics";
 
 function SelectPromoters() {
+
+  const {selectedPromoterIdList} = useSelector((state) => state.saveCampaign);
+
+  console.log(selectedPromoterIdList);
+
   const [selectedPromoterCount, setSelectedPromoterCount] = useState(0);
   const [selectedPromotersList, setSelectedPromotersList] = useState([]);
 

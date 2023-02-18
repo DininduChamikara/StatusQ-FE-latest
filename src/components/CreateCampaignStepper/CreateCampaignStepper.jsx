@@ -17,7 +17,7 @@ import PaymentService from "../../api/services/PaymentService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import PromoterService from "../../api/services/PromoterService";
 import { showAlert } from "../../store/reducers/alert.slice";
-import { changePromoterListResponse } from "../../store/reducers/saveCampaign";
+import { changePromoterListResponse, clearCampaign } from "../../store/reducers/saveCampaign";
 import CampaignPayment from "../CampaignPayment/CampaignPayment";
 import SelectAudience from "../SelectAudience/SelectAudience";
 import SelectPromoters from "../SelectPromoters/SelectPromoters";
@@ -433,6 +433,7 @@ function CreateCampaignStepper({ongoingStep, setOngoingStep}) {
   };
 
   const handleReset = () => {
+    dispatch(clearCampaign());
     setActiveStep(0);
   };
 
@@ -480,8 +481,9 @@ function CreateCampaignStepper({ongoingStep, setOngoingStep}) {
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
+              <Button onClick={handleReset}>Create New Campaign</Button>
             </Box>
+            
           </React.Fragment>
         ) : (
           <React.Fragment>
