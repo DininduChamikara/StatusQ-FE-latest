@@ -5,9 +5,11 @@ class ClientReviewService {
     return await apiService.apiPOST("/clientReview", requestBody);
   }
 
-  async getClientReviewByJobId(jobId){
-    return await apiService.apiGET(`/clientReview/getClientReviewByJobId/${jobId}`)
-}
+  async getClientReviewByJobId(jobId) {
+    return await apiService.apiGET(
+      `/clientReview/getClientReviewByJobId/${jobId}`
+    );
+  }
 }
 
 export default new ClientReviewService();
