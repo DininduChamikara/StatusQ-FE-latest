@@ -21,12 +21,10 @@ function CampaignView() {
       if (res) {
         if (res.data.responseCode === "00") {
             console.log(res.data);
-          //   res = res.data.campaigns;
           setCampaign(res.data.campaign);
         }
       }
     });
-    // let res = response.data;
   }, [campaignId]);
 
   return (

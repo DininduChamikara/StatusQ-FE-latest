@@ -4,7 +4,7 @@ import {
   Close,
   RemoveRedEye,
   StarBorderOutlined,
-  WorkHistoryOutlined
+  WorkHistoryOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   Modal,
   Paper,
   Stack,
-  Typography
+  Typography,
 } from "@mui/material";
 import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
@@ -31,7 +31,6 @@ const downloadImage = (imgUrl, index) => {
 };
 
 function JobDataView({ open, handleClose, setOpen, jobId }) {
-
   const handleOnClickAcceptJob = () => {
     const tempCurrentTime = new Date();
     const updateStateRequestBody = {
@@ -45,7 +44,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
     );
 
     apiCallUpdateState.then((res) => {
-      console.log(res);
+      setOpen(false);
       // Do refreshing with alert box
       // refreshPage();
     });
@@ -64,7 +63,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
     );
 
     apiCallUpdateState.then((res) => {
-      console.log(res);
+      setOpen(false);
       // Do refreshing with alert box
       // refreshPage();
     });
@@ -123,9 +122,13 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
             <Typography sx={{ mx: 1, color: "secondary.main" }}>
               Time Remaining
             </Typography>
-            {/* <Chip color="secondary" label={"05:59 s"}></Chip> */}
-            {createdTime && <CountDownTimer createdTime={createdTime} jobId={jobId} jobType={"AVAILABLE"} /> }
-            {/* <CountDownTimer createdTime={createdTime} jobId={jobId} jobType={"AVAILABLE"} /> */}
+            {createdTime && (
+              <CountDownTimer
+                createdTime={createdTime}
+                jobId={jobId}
+                jobType={"AVAILABLE"}
+              />
+            )}
           </Box>
 
           <IconButton
@@ -359,7 +362,12 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
 
               <Box sx={{ px: 3, py: 1 }}>
                 <Stack spacing={1} direction="row">
-                  <Button onClick={handleOnClickDeclineJob} type="submit" variant="contained" color="secondary">
+                  <Button
+                    onClick={handleOnClickDeclineJob}
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                  >
                     Dicline Job
                   </Button>
                   <Button

@@ -1,4 +1,4 @@
-import { Box, Chip } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -16,7 +16,7 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
   // const [remainingTime, setRemainingTime] = useState("00:00:00");
   const [remainingTime, setRemainingTime] = useState();
 
-  console.log("created time from count down", createdTime)
+  console.log("created time from count down", createdTime);
 
   const setNumFormat = (num) => {
     let formattedNumber = num.toLocaleString("en-US", {
@@ -93,11 +93,9 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
           ":" +
           setNumFormat(seconds ? seconds : 0);
 
-        if(tempRemaining){
+        if (tempRemaining) {
           setRemainingTime(tempRemaining);
         }
-
-        
       }
     });
   };
@@ -110,7 +108,14 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
 
   return (
     <Box>
-      <Chip label={remainingTime}></Chip>
+      {remainingTime ? (
+        <Chip label={remainingTime}></Chip>
+      ) : (
+        <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+          <Chip label={"00:00:00"}></Chip>
+          <Typography sx={{ml:1, color:'error.main'}}>This Job is Expired! Try another</Typography>
+        </Box>
+      )}
     </Box>
   );
 }

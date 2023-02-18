@@ -1,6 +1,10 @@
 import apiService from "../apiManager";
 
 class CampaignService {
+
+    async getCampaignsForDashboard(){
+        return await apiService.apiGET('/campaigns/dashboard/chart_data');
+    }
  
     async saveCampaign(requestBody){
         return await apiService.apiPOST("/campaigns", requestBody);

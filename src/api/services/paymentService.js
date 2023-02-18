@@ -1,6 +1,10 @@
 import apiService from "../apiManager";
 
 class PaymentService {
+
+    async getPaymentsForDashboard(){
+        return await apiService.apiGET('/payments/dashboard/chart_data');
+    }
  
     async savePayment(paymentInfo){
         return await apiService.apiPOST("/payments", paymentInfo);

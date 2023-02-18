@@ -55,7 +55,7 @@ function Reviews() {
                   <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <Box sx={{ width: "80%" }}>
                       <Box sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>
-                        {review.firstname + " " + review.lastname}
+                        {(review.firstname ? review.firstname : "Unknown User") + " " + (review.lastname ? review.lastname : "")}
                       </Box>
                       <Box
                         sx={{
@@ -79,7 +79,7 @@ function Reviews() {
                         justifyContent: "flex-end",
                       }}
                     >
-                      <Avatar alt="Image" src={testImage} />
+                      <Avatar alt="Image" src={review.imageUrl ? review.imageUrl : ""} />
                     </Box>
                   </Box>
 
