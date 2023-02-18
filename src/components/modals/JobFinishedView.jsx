@@ -66,6 +66,8 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
   const [starCount, setStarCount] = useState();
   const [reviewDescription, setReviewDescription] = useState("");
 
+  const [reviewSendDisable, setReviewSendDisable] = useState(false);
+
   const handleOnChangeReviewDescription = (event) => {
     setReviewDescription(event.target.value);
   }
@@ -95,12 +97,23 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
 
     response.then(res => {
       if(res.data.responseCode === "00"){
-        setStarCount(0);
-        setReviewDescription("");
+        // setStarCount(0);
+        // setReviewDescription("");
+        setReviewSendDisable(true);
       }
     })
   };
   //
+
+  useEffect(() => {
+    const response = ClientReviewService.getClientReviewByJobId(jobId);
+    response.then(res => {
+      if(res.data.responseCode === "00"){
+        setStarCount(res.data.clientReview.ratingCount);
+        setReviewDescription(res.data.clientReview.description);
+      }
+    })
+  }, [jobId, open])
 
   return (
     <Modal
@@ -464,6 +477,7 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
                           onClick={saveClientReview}
                           variant="contained"
                           endIcon={<Send />}
+                          disabled={reviewSendDisable}
                         >
                           Send
                         </Button>
