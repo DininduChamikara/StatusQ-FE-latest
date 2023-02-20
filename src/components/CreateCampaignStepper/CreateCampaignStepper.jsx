@@ -77,6 +77,10 @@ function CreateCampaignStepper({ongoingStep, setOngoingStep}) {
 
   const { userId } = useSelector((state) => state.login);
 
+  useEffect(() => {
+    handleReset();
+  }, [])
+
   const finalizedExpectedViewsAmount =
     (selectedPromoterIdList ? selectedPromoterIdList.length : 0) *
     (viewsFromEach ? viewsFromEach : 0);

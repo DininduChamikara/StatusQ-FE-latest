@@ -6,85 +6,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PaymentService from "../../api/services/PaymentService";
+import CampaignPaymentView from "../modals/campaignPaymentView";
 import ActionButton from "../Table/ActionButton";
 import EnhancedTable from "../Table/EnhancedTable";
-
-// const columns = [
-//   {
-//     field: "id",
-//     headerName: "ID",
-//     width: 120,
-//     headerAlign: "left",
-//     align: "left",
-//   },
-//   {
-//     field: "date",
-//     headerName: "Date",
-//     width: 200,
-//     headerAlign: "left",
-//     align: "left",
-//   },
-//   {
-//     field: "description",
-//     headerName: "Description",
-//     type: "text",
-//     width: 680,
-//     headerAlign: "left",
-//     align: "left",
-//   },
-//   {
-//     field: "amount",
-//     headerName: "Amount",
-//     width: 120,
-//     headerAlign: "right",
-//     align: "right",
-//   },
-// ];
-
-// const rows = [
-//   {
-//     id: 1,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 2,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 3,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 4,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 5,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 6,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-//   {
-//     id: 7,
-//     date: "23/02/2022",
-//     description: "Payment for AD-001-002 from CLI-002-300",
-//     amount: "Rs. 500.00",
-//   },
-// ];
 
 function createData(no, datetime, description, amount) {
   return { no, datetime, description, amount };
@@ -140,6 +64,8 @@ export default function TransactionTable() {
     pageCount: 10,
   }
 
+  const [campaignPaymentViewOpened, setCampaignPaymentViewOpened] = useState(false);
+
   useEffect(() => {
     // const response = PaymentService.getPayments(userId);
     const response = PaymentService.getPaymentsByUserId({
@@ -171,7 +97,8 @@ export default function TransactionTable() {
   const navigate = useNavigate();
 
   const editClickHandler = (listName) => {
-    navigate(`edit?listname=${listName}`);
+    // navigate(`edit?listname=${listName}`);
+    setCampaignPaymentViewOpened(true);
   };
 
   return (
@@ -199,6 +126,8 @@ export default function TransactionTable() {
         }}
         isToolbarVisible={true}
       />
+      <CampaignPaymentView campaignPaymentViewOpened={campaignPaymentViewOpened} setCampaignPaymentViewOpened={setCampaignPaymentViewOpened} />
+
     </Box>
   );
 }
