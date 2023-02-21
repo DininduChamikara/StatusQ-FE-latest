@@ -10,8 +10,8 @@ import CampaignPaymentView from "../modals/campaignPaymentView";
 import ActionButton from "../Table/ActionButton";
 import EnhancedTable from "../Table/EnhancedTable";
 
-function createData(no, datetime, description, amount) {
-  return { no, datetime, description, amount };
+function createData(no, paymentId, datetime, description, amount) {
+  return { no, paymentId, datetime, description, amount };
 }
 
 const HEAD_CELLS = [
@@ -50,7 +50,6 @@ const HEAD_CELLS = [
 ];
 
 export default function TransactionTable() {
-
   const [rows, setRows] = useState([]);
   const { userId } = useSelector((state) => state.login);
 
@@ -58,13 +57,15 @@ export default function TransactionTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const getPaymentsRequestBody ={
+  const getPaymentsRequestBody = {
     userId: userId,
     page: 0,
     pageCount: 10,
-  }
+  };
 
-  const [campaignPaymentViewOpened, setCampaignPaymentViewOpened] = useState(false);
+  const [campaignPaymentViewOpened, setCampaignPaymentViewOpened] =
+    useState(false);
+  const [paymentViewData, setPaymentViewData] = useState();
 
   useEffect(() => {
     // const response = PaymentService.getPayments(userId);
@@ -81,9 +82,12 @@ export default function TransactionTable() {
             res.data.payments.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
+                item._id ? item._id : "",
                 item.dateTime ? item.dateTime : "",
-                item._id ? ("Payment for the ads campaign *" + item._id + "*") : "",
-                item.amount ? ("Rs. " + item.amount + ".00") : "",
+                item._id
+                  ? "Payment for the ads campaign *" + item._id + "*"
+                  : "",
+                item.amount ? "Rs. " + item.amount + ".00" : ""
               );
             })
           );
@@ -96,14 +100,19 @@ export default function TransactionTable() {
 
   const navigate = useNavigate();
 
-  const editClickHandler = (listName) => {
-    // navigate(`edit?listname=${listName}`);
-    setCampaignPaymentViewOpened(true);
+  const viewClickHandler = (paymentId) => {
+    const response = PaymentService.getPaymentById(paymentId);
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
+        setPaymentViewData(res.data.payment);
+        setCampaignPaymentViewOpened(true);
+      }
+    });
   };
 
   return (
     <Box>
-        <EnhancedTable
+      <EnhancedTable
         headCells={HEAD_CELLS}
         rows={rows}
         page={page}
@@ -113,21 +122,25 @@ export default function TransactionTable() {
         numOfRows={numOfRows}
         hideMoreOptions
         tableTitle={"Your Ad Campaigns Payments"}
+        ignoreIndex={1}
         // align={'center'}
         actions={(index) => {
           return (
             <>
               <ActionButton
                 text="View"
-                actionClickHandler={() => editClickHandler(index)}
+                actionClickHandler={() => viewClickHandler(index)}
               />
             </>
           );
         }}
         isToolbarVisible={true}
       />
-      <CampaignPaymentView campaignPaymentViewOpened={campaignPaymentViewOpened} setCampaignPaymentViewOpened={setCampaignPaymentViewOpened} />
-
+      <CampaignPaymentView
+        campaignPaymentViewOpened={campaignPaymentViewOpened}
+        setCampaignPaymentViewOpened={setCampaignPaymentViewOpened}
+        paymentViewData={paymentViewData}
+      />
     </Box>
   );
 }

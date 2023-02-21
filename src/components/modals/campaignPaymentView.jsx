@@ -9,9 +9,12 @@ import {
 } from "@mui/material";
 import React from "react";
 
+const SYSTEM_FEE_PERCENTAGE = 0.1;
+
 function CampaignPaymentView({
   campaignPaymentViewOpened,
   setCampaignPaymentViewOpened,
+  paymentViewData,
 }) {
   return (
     <Modal open={campaignPaymentViewOpened}>
@@ -32,7 +35,10 @@ function CampaignPaymentView({
               justifyContent: "space-between",
             }}
           >
-            <Typography color={"primary"} sx={{ fontSize:18, fontWeight: "bold" }}>
+            <Typography
+              color={"primary"}
+              sx={{ fontSize: 18, fontWeight: "bold" }}
+            >
               Campaign Payment View
             </Typography>
             <IconButton
@@ -47,7 +53,7 @@ function CampaignPaymentView({
           <Box sx={{ my: 1 }}>
             <Box
               sx={{
-                my:0.5,
+                my: 0.5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -61,13 +67,13 @@ function CampaignPaymentView({
               </Box>
               <Box width={"60%"}>
                 <Typography pl={1} pt={1}>
-                  dsfjfkjvkvf5d35dfv5f
+                  {paymentViewData ? paymentViewData.campaignId : ""}
                 </Typography>
               </Box>
             </Box>
             <Box
               sx={{
-                my:0.5,
+                my: 0.5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -81,14 +87,14 @@ function CampaignPaymentView({
               </Box>
               <Box width={"60%"}>
                 <Typography pl={1} pt={1}>
-                  2022-12-02 09:45:57
+                  {paymentViewData ? paymentViewData.dateTime : ""}
                 </Typography>
               </Box>
             </Box>
 
             <Box
               sx={{
-                my:0.5,
+                my: 0.5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -97,19 +103,19 @@ function CampaignPaymentView({
             >
               <Box width={"40%"}>
                 <Typography color={"secondary"} pl={1} pt={1}>
-                  Total Amount *
+                  Total Amount
                 </Typography>
               </Box>
               <Box width={"60%"}>
                 <Typography pl={1} pt={1}>
-                  Rs. 550.00
+                  Rs. {paymentViewData ? paymentViewData.amount : ""} /-
                 </Typography>
               </Box>
             </Box>
 
             <Box
               sx={{
-                my:0.5,
+                my: 0.5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -123,14 +129,18 @@ function CampaignPaymentView({
               </Box>
               <Box width={"60%"}>
                 <Typography pl={1} pt={1}>
-                  Rs. 500.00
+                  Rs.{" "}
+                  {paymentViewData
+                    ? paymentViewData.amount * (1 / (1 + SYSTEM_FEE_PERCENTAGE))
+                    : ""}{" "}
+                  /-
                 </Typography>
               </Box>
             </Box>
 
             <Box
               sx={{
-                my:0.5,
+                my: 0.5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -144,11 +154,10 @@ function CampaignPaymentView({
               </Box>
               <Box width={"60%"}>
                 <Typography pl={1} pt={1}>
-                  Rs. 50.00
+                  Rs. {paymentViewData ? paymentViewData.amount*(SYSTEM_FEE_PERCENTAGE/(1+SYSTEM_FEE_PERCENTAGE)) : ""} /-
                 </Typography>
               </Box>
             </Box>
-            
           </Box>
         </Card>
       </Box>
