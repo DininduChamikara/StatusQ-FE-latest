@@ -13,6 +13,10 @@ class PaymentService {
         return await apiService.apiGET(`/payments/${userId}`);
     }
 
+    async getPaymentById(paymentId){
+        return await apiService.apiGET(`/payments/paymentById/${paymentId}`);
+    }
+
     async getPaymentsByUserId(requestBody){
         return await apiService.apiPOST('/payments/byUserId', requestBody)
     }

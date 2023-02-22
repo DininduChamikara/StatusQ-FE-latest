@@ -1,8 +1,8 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React, {useState} from "react";
+import React from "react";
+import PaymentReceivedTable from "../../components/DataTable/PaymentReceivedTable";
 import TransactionTable from "../../components/DataTable/TransactionsTable";
 import LinearProgressBar from "../../components/LinearProgressBar/LinearProgressBar";
-import CampaignPaymentView from "../../components/modals/campaignPaymentView";
 
 function Payments() {
   return (
@@ -58,6 +58,9 @@ function Payments() {
         </Paper>
         <Paper elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>
           <TransactionTable />
+        </Paper>
+        <Paper elevation={6} sx={{ width: "100%", p: 1, mb: 2 }}>
+          <PaymentReceivedTable />
         </Paper>
       </Paper>
     </Box>

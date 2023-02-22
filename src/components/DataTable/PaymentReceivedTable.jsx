@@ -1,17 +1,13 @@
 import { Box } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PaymentService from "../../api/services/PaymentService";
-import CampaignPaymentView from "../modals/campaignPaymentView";
+import PaymentApprovelService from "../../api/services/PaymentApprovelService";
 import ActionButton from "../Table/ActionButton";
 import EnhancedTable from "../Table/EnhancedTable";
 
-function createData(no, paymentId, datetime, description, amount) {
-  return { no, paymentId, datetime, description, amount };
+function createData(no, paymentApprovelId, datetime, clientId, amount) {
+  return { no, paymentApprovelId, datetime, clientId, amount };
 }
 
 const HEAD_CELLS = [
@@ -28,13 +24,13 @@ const HEAD_CELLS = [
     label: "Date/Time",
   },
   {
-    id: "description",
+    id: "clientId",
     numeric: false,
     disablePadding: false,
-    label: "Description",
+    label: "Client ID",
   },
   {
-    id: "amount",
+    id: "paymentAmount",
     numeric: false,
     disablePadding: false,
     label: "Amount",
@@ -49,28 +45,24 @@ const HEAD_CELLS = [
   },
 ];
 
-export default function TransactionTable() {
+export default function PaymentReceivedTable() {
   const [rows, setRows] = useState([]);
-  const { userId } = useSelector((state) => state.login);
+  const { promoterId } = useSelector((state) => state.login);
 
   const [numOfRows, setNumOfRows] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const getPaymentsRequestBody = {
-    userId: userId,
+  const getPaymentApprovelsRequestBody = {
+    promoterId: promoterId ? promoterId : "",
     page: 0,
     pageCount: 10,
   };
 
-  const [campaignPaymentViewOpened, setCampaignPaymentViewOpened] =
-    useState(false);
-  const [paymentViewData, setPaymentViewData] = useState();
-
   useEffect(() => {
     // const response = PaymentService.getPayments(userId);
-    const response = PaymentService.getPaymentsByUserId({
-      ...getPaymentsRequestBody,
+    const response = PaymentApprovelService.getPaymentApprovelByPromoterId({
+      ...getPaymentApprovelsRequestBody,
       page: page,
       pageCount: rowsPerPage,
     });
@@ -79,15 +71,13 @@ export default function TransactionTable() {
       if (res) {
         if (res.data.responseCode === "00") {
           setRows(
-            res.data.payments.map((item, index) => {
+            res.data.paymentApprovels.map((item, index) => {
               return createData(
                 index + 1 + rowsPerPage * page,
                 item._id ? item._id : "",
                 item.dateTime ? item.dateTime : "",
-                item._id
-                  ? "Payment for the ads campaign *" + item._id + "*"
-                  : "",
-                item.amount ? "Rs. " + item.amount + ".00" : ""
+                item.clientId ? item.clientId : "",
+                item.paymentAmount ? "Rs. " + item.paymentAmount + ".00" : ""
               );
             })
           );
@@ -96,19 +86,11 @@ export default function TransactionTable() {
       }
     });
     // let res = response.data;
-  }, [userId, page, rowsPerPage]);
+  }, [promoterId, page, rowsPerPage]);
 
   const navigate = useNavigate();
 
-  const viewClickHandler = (paymentId) => {
-    const response = PaymentService.getPaymentById(paymentId);
-    response.then((res) => {
-      if (res.data.responseCode === "00") {
-        setPaymentViewData(res.data.payment);
-        setCampaignPaymentViewOpened(true);
-      }
-    });
-  };
+  const viewClickHandler = (paymentId) => {};
 
   return (
     <Box>
@@ -121,7 +103,7 @@ export default function TransactionTable() {
         setRowsPerPage={setRowsPerPage}
         numOfRows={numOfRows}
         hideMoreOptions
-        tableTitle={"Your Ad Campaigns Payments"}
+        tableTitle={"Your Earnings"}
         ignoreIndex={1}
         // align={'center'}
         actions={(index) => {
@@ -135,11 +117,6 @@ export default function TransactionTable() {
           );
         }}
         isToolbarVisible={true}
-      />
-      <CampaignPaymentView
-        campaignPaymentViewOpened={campaignPaymentViewOpened}
-        setCampaignPaymentViewOpened={setCampaignPaymentViewOpened}
-        paymentViewData={paymentViewData}
       />
     </Box>
   );

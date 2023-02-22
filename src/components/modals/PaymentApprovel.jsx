@@ -6,7 +6,7 @@ import {
   RestartAlt,
   Send,
   StarBorderOutlined,
-  WorkHistoryOutlined,
+  WorkHistoryOutlined
 } from "@mui/icons-material";
 import {
   Box,
@@ -19,11 +19,12 @@ import {
   Rating,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
+import PaymentApprovelService from "../../api/services/PaymentApprovelService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import PromoterReviewService from "../../api/services/PromoterReviewService";
 import ImagePreviewUploadSS from "../ImagePreview/ImagePreviewUploadSS";
@@ -54,14 +55,32 @@ function PaymentApprovel({ open, handleClose, setOpen, jobId }) {
       paymentApproved: true,
     };
 
-    const apiCallUpdatePaymentApproved =
-      PromoterCampaignService.updatePaymentApproved(
-        updatePaymentApprovelRequestBody
-      );
+    const paymentApprovelRequestBody = {
+      jobId: jobId,
+      promoterId: jobDetails ? jobDetails.promoterCampaign.promoterId : "",
+      clientId: userId,
+      paymentAmount: jobDetails
+        ? jobDetails.campaign.selectedAdvertisements.length *
+          jobDetails.campaign.viewsFromEach
+        : 0,
+      paymentType: "CLIENT_TO_PROMOTER",
+      state: "ACTIVE",
+    };
 
-    apiCallUpdatePaymentApproved.then((res) => {
-      setPromoterReviewModalOpened(true);
-      setOpen(false);
+    const savePaymentApprovelResponse =
+      PaymentApprovelService.savePaymentApprovel(paymentApprovelRequestBody);
+    savePaymentApprovelResponse.then((res) => {
+      if (res.data.responseCode === "00") {
+        const apiCallUpdatePaymentApproved =
+          PromoterCampaignService.updatePaymentApproved(
+            updatePaymentApprovelRequestBody
+          );
+
+        apiCallUpdatePaymentApproved.then((res) => {
+          setPromoterReviewModalOpened(true);
+          setOpen(false);
+        });
+      }
     });
   };
 
@@ -97,13 +116,13 @@ function PaymentApprovel({ open, handleClose, setOpen, jobId }) {
       description: reviewDescription,
     });
 
-    response.then(res => {
-      if(res.data.responseCode === "00"){
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
         setPromoterReviewModalOpened(false);
         setStarCount(0);
         setReviewDescription("");
       }
-    })
+    });
   };
 
   return (
@@ -418,7 +437,10 @@ function PaymentApprovel({ open, handleClose, setOpen, jobId }) {
                       Declined
                     </Button>
                     <Button
-                      disabled={jobDetails && jobDetails.promoterCampaign.paymentApproved === true}
+                      disabled={
+                        jobDetails &&
+                        jobDetails.promoterCampaign.paymentApproved === true
+                      }
                       variant="contained"
                       onClick={handleOnClickApprovePayment}
                     >
