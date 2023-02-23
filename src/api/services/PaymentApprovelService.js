@@ -8,6 +8,9 @@ class PaymentService {
     async getPaymentApprovelByPromoterId(requestBody){
         return await apiService.apiPOST("/paymentApprovels/byPromoterId", requestBody);
     }
+    async getEarningsDataByPromoterId(requestBody){
+        return await apiService.apiPOST("/paymentApprovels/getEarnings/byPromoterId", requestBody);
+    }
     async getAllPaymentApprovels(){
         return await apiService.apiGET(`/paymentApprovels`);
     }

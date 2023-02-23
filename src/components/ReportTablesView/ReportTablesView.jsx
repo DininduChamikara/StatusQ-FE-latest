@@ -5,6 +5,7 @@ import AdminDetailsTable from "./AdminDetailsTable";
 import ClientPaymentDetailsTable from "./ClientPaymentDetailsTable";
 import PromoterCampaignsDetailsTable from "./PromoterCampaignsDetailsTable";
 import PromoterDetailsTable from "./PromoterDetailsTable";
+import SystemEarningsDetailsTable from "./SystemEarningsDetailsTable";
 import UserDetailsTable from "./UserDetailsTable";
 
 function ReportTablesView({ reportTablesArr }) {
@@ -45,6 +46,12 @@ function ReportTablesView({ reportTablesArr }) {
           return (
             <Card sx={{ mb: 2 }}>
               <ClientPaymentDetailsTable />
+            </Card>
+          );
+        } else if (item === "SYSTEM_EARNINGS") {
+          return (
+            <Card sx={{ mb: 2 }}>
+              <SystemEarningsDetailsTable />
             </Card>
           );
         }

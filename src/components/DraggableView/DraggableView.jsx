@@ -39,11 +39,11 @@ function DraggableView({
           title: "Client Payments",
           value: "CLIENT_PAYMENT",
         },
-        {
-          id: uuidv4(),
-          title: "Promoter Payments",
-          value: "PROMOTER_PAYMENTS",
-        },
+        // {
+        //   id: uuidv4(),
+        //   title: "Promoter Payments",
+        //   value: "PROMOTER_PAYMENTS",
+        // },
         {
           id: uuidv4(),
           title: "System Earnings",

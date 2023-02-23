@@ -5,6 +5,10 @@ class CampaignService {
     async getCampaignsForDashboard(){
         return await apiService.apiGET('/campaigns/dashboard/chart_data');
     }
+
+    async getSystemEarningsForDashboard(){
+        return await apiService.apiGET('/campaigns/dashboard/system_profit_chart_data');
+    }
  
     async saveCampaign(requestBody){
         return await apiService.apiPOST("/campaigns", requestBody);
@@ -20,6 +24,10 @@ class CampaignService {
 
     async getChartData(){
         return await apiService.apiGET(`/campaigns/chart_data`);
+    }
+
+    async getChartDataSystemEarnings(){
+        return await apiService.apiGET(`/campaigns/system_earnings_chart_data`);
     }
 
     async getCampaignsByClient(clinetId){
