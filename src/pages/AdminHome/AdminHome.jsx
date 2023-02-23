@@ -14,6 +14,7 @@ function AdminHome() {
   const theme = useTheme();
 
   const [chartDataOngoingCampaign, setChartDataOngoingCampaign] = useState();
+  const [chartDataSystemProfit, setChartDataSystemProfit] = useState();
   const [chartDataTotalEarnings, setChartDataTotalEarnings] = useState();
 
   const [chartDataCampaigns, setChartDataCampaigns] = useState();
@@ -25,6 +26,17 @@ function AdminHome() {
       if (res) {
         if (res.data.responseCode === "00") {
           setChartDataOngoingCampaign(res.data.chartData);
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const response = CampaignService.getSystemEarningsForDashboard();
+    response.then((res) => {
+      if (res) {
+        if (res.data.responseCode === "00") {
+          setChartDataSystemProfit(res.data.chartData);
         }
       }
     });
@@ -80,20 +92,25 @@ function AdminHome() {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <EcommerceWidgetSummary
-            title="Syatem Profit Rs."
-            percent={0.6}
-            total={4876}
-            chartColor={theme.palette.chart.red[0]}
-            chartData={[40, 70, 75, 70, 50, 28, 7, 64, 38, 27]}
-          />
+          {chartDataSystemProfit && (
+            <EcommerceWidgetSummary
+              title="Syatem Profit Rs."
+              percent={chartDataSystemProfit.percentage}
+              total={chartDataSystemProfit.total}
+              chartColor={theme.palette.chart.red[0]}
+              chartData={chartDataSystemProfit.data.data}
+            />
+          )}
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <EcommerceUsersCount />
         </Grid>
 
         <Grid item xs={12} md={6} lg={8}>
-          <EcommerceCampaignEarnings chartData={chartDataCampaigns} chartTitle={"Campaigns Creations"} />
+          <EcommerceCampaignEarnings
+            chartData={chartDataCampaigns}
+            chartTitle={"Campaigns Creations"}
+          />
         </Grid>
 
         {/* <Grid item xs={12} md={6} lg={8}>
@@ -104,9 +121,9 @@ function AdminHome() {
           <EcommerceCurrentBalance />
         </Grid> */}
 
-        <Grid item xs={12} md={12} lg={12}>
+        {/* <Grid item xs={12} md={12} lg={12}>
           <EcommerceBestPromoters />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

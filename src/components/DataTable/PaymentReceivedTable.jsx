@@ -103,7 +103,7 @@ export default function PaymentReceivedTable() {
         setRowsPerPage={setRowsPerPage}
         numOfRows={numOfRows}
         hideMoreOptions
-        tableTitle={"Your Earnings"}
+        tableTitle={"Payment Received Records"}
         ignoreIndex={1}
         // align={'center'}
         actions={(index) => {

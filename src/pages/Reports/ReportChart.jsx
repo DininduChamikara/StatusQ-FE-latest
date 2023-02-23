@@ -80,6 +80,18 @@ function ReportChart({reportName}) {
             })
         }
 
+        else if(reportName === "SYSTEM_EARNINGS"){
+            setChartitle("Profit Earnings Details")
+            const response = CampaignService.getChartDataSystemEarnings();
+            response.then((res) => {
+                if(res.data.responseCode === "00"){
+                    res = res.data.chartData;
+                    setChartData(res)
+                }
+                
+            })
+        }
+
     }, [reportName])
 
   return (

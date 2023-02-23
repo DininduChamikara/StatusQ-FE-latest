@@ -230,7 +230,7 @@ function CampaignPayment() {
 
         <Divider />
         {alignment === "CARD_PAYMENT" && <CardPayment />}
-        {alignment === "PAYMENT_ON_EARNINGS" && <PayOnEarnings />}
+        {alignment === "PAYMENT_ON_EARNINGS" && <PayOnEarnings totalCampaignCost={COST_BEFORE_SYSTEM_FEE + SYSTEM_FEE} />}
       </Paper>
     </Box>
   );
