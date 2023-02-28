@@ -15,34 +15,39 @@ import {
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import validator from "validator";
 import AdminSettingsService from "../../api/services/AdminSettingsService";
 import UserService from "../../api/services/UserService";
 import { showAlert } from "../../store/reducers/alert.slice";
+import { adminSettings } from "../../store/reducers/settings.slice";
 
 function AdminSettings() {
   const currentTime = dayjs();
 
   const dispatch = useDispatch();
 
-  const [minimumThreshold, setMinimumThreshold] = useState(10000);
+  const { maxAdPostsForCampaign, costPerView, systemFee, minimumThreshold, acceptTimeDuration, completeTimeDuration } = useSelector((state) => state.adminSettings);
+
+
+  const [minimumThresholdAmount, setMinimumThresholdAmount] = useState(minimumThreshold);
 
   let date = new Date().toISOString().split("T")[0];
 
   const [timeSettings, setTimeSettings] = useState({
-    acceptationTimeDuration: 12,
-    completionTimeDuration: 12,
+    acceptationTimeDuration: acceptTimeDuration,
+    completionTimeDuration: completeTimeDuration,
   });
 
   const [campaignSettings, setCampaignSettings] = useState({
-    maxNumOfAdPost: 5,
-    costPerView: 2,
-    systemFee: 0.1,
+    maxNumOfAdPost: maxAdPostsForCampaign,
+    costPerView: costPerView,
+    systemFee: systemFee,
   });
 
   const handleOnChangeMinimumThreshold = (event) => {
-    setMinimumThreshold(event.target.value);
+    setMinimumThresholdAmount(event.target.value);
   };
 
   const handleOnChangeAcceptationTimeDuration = (event) => {
@@ -84,7 +89,7 @@ function AdminSettings() {
     maxAdPostsForCampaign: campaignSettings.maxNumOfAdPost,
     costPerView: campaignSettings.costPerView,
     systemFee: campaignSettings.systemFee,
-    minimumThreshold: minimumThreshold,
+    minimumThreshold: minimumThresholdAmount,
     acceptTimeDuration: timeSettings.acceptationTimeDuration,
     completeTimeDuration: timeSettings.completionTimeDuration,
     updatedDate: date,
@@ -96,14 +101,23 @@ function AdminSettings() {
       maxAdPostsForCampaign: campaignSettings.maxNumOfAdPost,
       costPerView: campaignSettings.costPerView,
       systemFee: campaignSettings.systemFee,
-      minimumThreshold: minimumThreshold,
+      minimumThreshold: minimumThresholdAmount,
       acceptTimeDuration: timeSettings.acceptationTimeDuration,
       completeTimeDuration: timeSettings.completionTimeDuration,
       updatedDate: date,
     });
     response.then((res) => {
       if(res.data.responseCode === "00"){
-        console.log("settings saved")
+        dispatch(
+          adminSettings({
+            maxAdPostsForCampaign: res.data.adminSettings.maxAdPostsForCampaign,
+            costPerView: res.data.adminSettings.costPerView,
+            systemFee: res.data.adminSettings.systemFee,
+            minimumThreshold: res.data.adminSettings.minimumThreshold,
+            acceptTimeDuration: res.data.adminSettings.acceptTimeDuration,
+            completeTimeDuration: res.data.adminSettings.completeTimeDuration,
+          })
+        );
       }
     })
   };
@@ -313,7 +327,7 @@ function AdminSettings() {
                 id="demo-simple-select"
                 defaultValue={10000}
                 onChange={handleOnChangeMinimumThreshold}
-                value={minimumThreshold}
+                value={minimumThresholdAmount}
               >
                 <MenuItem value={10000}>Rs. 10,000.00</MenuItem>
                 <MenuItem value={15000}>Rs. 15,000.00</MenuItem>
