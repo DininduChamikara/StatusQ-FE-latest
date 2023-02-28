@@ -43,12 +43,6 @@ const navConfig = [
         icon: ICONS.payments,
         authUser: "NORMAL_USER",
       },
-      // {
-      //   title: "Settings",
-      //   path: "/settings",
-      //   icon: ICONS.settings,
-      //   authUser: "NORMAL_USER",
-      // },
       {
         title: "Home",
         path: "/admin_home",
@@ -79,10 +73,16 @@ const navConfig = [
         icon: ICONS.reports,
         authUser: "ADMIN_USER",
       },
+      // {
+      //   title: "Account",
+      //   path: "/admin_account",
+      //   icon: ICONS.home,
+      //   authUser: "ADMIN_USER",
+      // },
       {
-        title: "Account",
-        path: "/admin_account",
-        icon: ICONS.home,
+        title: "Settings",
+        path: "/admin_settings",
+        icon: ICONS.settings,
         authUser: "ADMIN_USER",
       },
       {

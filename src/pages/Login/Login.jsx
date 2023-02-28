@@ -4,15 +4,17 @@ import {
   FormHelperText,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import AdminSettingsService from "../../api/services/AdminSettingsService";
 import PromoterService from "../../api/services/PromoterService";
 import UserService from "../../api/services/UserService";
 import ThemeImage from "../../images/statusq-main-image.png";
 import { changePromoterId, login } from "../../store/reducers/login.slice";
+import { adminSettings } from "../../store/reducers/settings.slice";
 
 function Login({ setUserInfo }) {
   let navigate = useNavigate();
@@ -82,7 +84,6 @@ function Login({ setUserInfo }) {
             response = response.data;
 
             if (response.responseCode === "00") {
-              console.log("login success");
               dispatch(
                 login({
                   isLoggedIn: true,
@@ -105,6 +106,23 @@ function Login({ setUserInfo }) {
                   accountHolderName: response.user.accountHolderName,
                 })
               );
+
+              let settingsResponse = AdminSettingsService.getSettings();
+              settingsResponse.then((res) => {
+                if (res.data.responseCode === "00") {
+                  dispatch(
+                    adminSettings({
+                      maxAdPostsForCampaign: res.data.adminSettings.maxAdPostsForCampaign,
+                      costPerView: res.data.adminSettings.costPerView,
+                      systemFee: res.data.adminSettings.systemFee,
+                      minimumThreshold: res.data.adminSettings.minimumThreshold,
+                      acceptTimeDuration: res.data.adminSettings.acceptTimeDuration,
+                      completeTimeDuration: res.data.adminSettings.completeTimeDuration,
+                    })
+                  );
+                }
+              });
+
               if (response.user.userType === "NORMAL_USER") {
                 navigate("/home");
               } else if (response.user.userType === "ADMIN_USER") {
@@ -112,16 +130,18 @@ function Login({ setUserInfo }) {
               }
             }
 
-            let apiCallSecondary = PromoterService.getPromoter(response.user._id);
+            let apiCallSecondary = PromoterService.getPromoter(
+              response.user._id
+            );
 
             apiCallSecondary.then((res) => {
-              console.log("login promoter id ",res.data._id)
+              console.log("login promoter id ", res.data._id);
               dispatch(
                 changePromoterId({
                   promoterId: res.data._id,
                 })
-              )
-            }) 
+              );
+            });
           }
         });
       }
