@@ -7,6 +7,7 @@ import loaderSlice from "./reducers/loader.slice";
 import savePromoterSlice from "./reducers/savePromoter";
 import activeStepSlice from "./reducers/activeStep.slice";
 import saveCampaignSlice from "./reducers/saveCampaign";
+import adminSettingsSlice from "./reducers/settings.slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
  
@@ -23,6 +24,7 @@ const persistConfig = {
     savePromoter: savePromoterSlice,
     saveCampaign: saveCampaignSlice,
     activeStep: activeStepSlice,
+    adminSettings: adminSettingsSlice 
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
