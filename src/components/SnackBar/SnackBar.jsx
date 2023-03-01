@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { store } from "../../store/store";
 import { useState } from "react";
 import { showAlert } from "../../store/reducers/alert.slice";
+import { isVisible } from "@testing-library/user-event/dist/utils/misc/isVisible";
 
 function SnackBarAlert() {
   const dispatch = useDispatch();
@@ -35,7 +36,9 @@ function SnackBarAlert() {
   useEffect(() => {
     if (severity) {
       if (severity.length > 0) {
-        handleClickVariant(severity);
+        if (open) {
+          handleClickVariant(severity);
+        }
 
         dispatch(
           showAlert({
