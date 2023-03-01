@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CustomAPILoader from "./components/CustomAPILoader/index.jsx";
 import ProtectedRoute, {
   AdminUserProtectedRoute,
   NormalUserProtectedRoute
@@ -41,6 +42,7 @@ function App() {
   return (
     <div>
       <SnackBar />
+      <CustomAPILoader/>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login setUserInfo={setUserInfo} />} />

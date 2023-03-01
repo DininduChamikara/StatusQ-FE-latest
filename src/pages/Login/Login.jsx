@@ -78,11 +78,10 @@ function Login({ setUserInfo }) {
           passwordError: "Password is empty",
         });
       } else {
-        let apiCall = UserService.login(loginCredentials);
+        const apiCall = UserService.login(loginCredentials);
         apiCall.then((response) => {
           if (response) {
             response = response.data;
-
             if (response.responseCode === "00") {
               dispatch(
                 login({

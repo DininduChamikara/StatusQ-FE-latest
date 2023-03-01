@@ -2,13 +2,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { showAlert } from "../store/reducers/alert.slice";
 import { hide, show } from "../store/reducers/loader.slice";
-import { store } from '../store/store';
-
+import { store } from "../store/store";
 
 const errorHandling = (error) => {
-  const {response} = error;
+  const { response } = error;
 
-  console.log("error occured", error)
   //displays the message by changing the store state.
   //refer the SnackBar components in components folder for functionality
   store.dispatch(
@@ -16,37 +14,35 @@ const errorHandling = (error) => {
       // message: response.data.message,
       message: response.data.message,
       isVisible: true,
-      severity:"error",
+      severity: "error",
     })
   );
 
   const errorObject = {};
 
-  if (response && response.state === 401){
+  if (response && response.state === 401) {
     errorObject.status = 401;
     errorObject.errorCode = error.response?.data.errorCode;
     errorObject.errorMessage = error.response?.data.errorMessage;
     errorObject.data = {};
     toast("Network Error");
   }
-}
+};
 
 const responseHandling = (response) => {
-
-  // console.log("response is ", response)
   store.dispatch(
     showAlert({
       message: response.data.message,
-      isVisible: true,
-      severity:response.data.status,
+      // isVisible: true,
+      isVisible: response.data.isVisible,
+      severity: response.data.status,
     })
-  )
+  );
 
   const reponseObject = {
     data: response.data,
     status: response.status,
   };
-
 
   if (reponseObject.status === 201) {
     toast("Successfully Created!");
@@ -56,11 +52,10 @@ const responseHandling = (response) => {
 };
 
 class ApiService {
-
   dispatchLoader(showOrHide) {
-    if (showOrHide){
+    if (showOrHide) {
       store.dispatch(show());
-    }else{
+    } else {
       store.dispatch(hide());
     }
   }
@@ -74,7 +69,8 @@ class ApiService {
     },
   });
 
-  async apiPOST(path, body, optionalOnFailure = null) {
+  async apiPOST(path, body, optionalOnFailure = null, isLoaderRequired = true) {
+    if (isLoaderRequired) this.dispatchLoader(true);
     const json = JSON.stringify(body);
 
     if (optionalOnFailure) {
@@ -89,9 +85,9 @@ class ApiService {
     }
 
     const response = await this.http
-        .post(path, json)
-        .then((response) => responseHandling(response))
-        .catch((error) => errorHandling(error));
+      .post(path, json)
+      .then((response) => responseHandling(response))
+      .catch((error) => errorHandling(error));
 
     this.dispatchLoader(false);
 
@@ -122,17 +118,20 @@ class ApiService {
     const response = await this.http
       .delete(`${path}/${id}`)
       .then((response) => responseHandling(response))
-      .catch((error) => errorHandling(error))
+      .catch((error) => errorHandling(error));
 
     return response;
   }
 
-  async apiGET(path){
+  async apiGET(path) {
+    this.dispatchLoader(true);
     const response = await this.http
       .get(`${path}`)
       .then((response) => responseHandling(response))
-      .catch((error) => errorHandling(error))
-    
+      .catch((error) => errorHandling(error));
+
+    this.dispatchLoader(false);
+
     return response;
   }
 }
