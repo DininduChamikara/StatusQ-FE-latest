@@ -10,6 +10,14 @@ class PromoterReviewService {
       `/promoterReview/getPromterReviewByJobId/${jobId}`
     );
   }
+
+  async getPromoterReviewsByPromoterId(promoterId){
+    return await apiService.apiGET(`/promoterReview/getPromterReviewsByPromoterId/${promoterId}`)
+  }
+
+  async getPromoterReviewsChartDataByPromoterId(promoterId){
+    return await apiService.apiGET(`/promoterReview/getPromterReviewsChartDataByPromoterId/${promoterId}`)
+  }
 }
 
 export default new PromoterReviewService();

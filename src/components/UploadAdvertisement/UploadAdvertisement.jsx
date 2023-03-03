@@ -19,8 +19,11 @@ function UploadAdvertisement() {
 
   let { selectedAdvertisements } = useSelector((state) => state.saveCampaign);
 
+  const { costPerView } = useSelector((state) => state.adminSettings);
+
+
   const [selectedAdsCount, setSelectedAdsCount] = useState(0);
-  const [perViewCost, setPerViewCost] = useState(2);
+  // const [perViewCost, setPerViewCost] = useState(2);
   const [adCampaignCost, setAdCampaignCost] = useState(0);
   const [viewsAmount, setViewsAmount] = useState(1000);
   const [promoterMinViews, setPromoterMinViews] = useState(50);
@@ -35,7 +38,7 @@ function UploadAdvertisement() {
 
   useEffect(() => {
     setSelectedAdsCount(selectedAdvertisements.length);
-    setAdCampaignCost(selectedAdsCount * perViewCost * viewsAmount);
+    setAdCampaignCost(selectedAdsCount * costPerView * viewsAmount);
     setNumOfPromoters(viewsAmount/promoterMinViews);
 
   }, [selectedAdvertisements, selectedAdsCount, viewsAmount, promoterMinViews])
@@ -58,9 +61,10 @@ function UploadAdvertisement() {
       // elevation={6}
       variant="outlined" 
       sx={{ width: "100%", p: 1, mb: 1 }}>
-        <Typography sx={{ fontWeight: "bold", fontSize: "1.1rem", mb: 1, color:'primary.darker' }}>
-          Upload the advertisement
+        <Typography sx={{ fontWeight: "bold", fontSize: "1.1rem", color:'primary.darker' }}>
+          Upload the advertisement here
         </Typography>
+        <Typography sx={{mb:2}}>Cost will be generated according to the number of advertisement posts and the required views</Typography>
 
         <ImagePreview />
 

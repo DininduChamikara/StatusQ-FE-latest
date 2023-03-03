@@ -1,31 +1,35 @@
-import merge from 'lodash/merge';
-import ReactApexChart from 'react-apexcharts';
+import merge from "lodash/merge";
+import ReactApexChart from "react-apexcharts";
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
+import { useTheme, styled } from "@mui/material/styles";
+import { Card, CardHeader } from "@mui/material";
 // utils
 // import { fNumber } from '../../../../utils/formatNumber';
-import { fNumber } from '../../utils/formatNumber';
+import { fNumber } from "../../utils/formatNumber";
 //
 // import { BaseOptionChart } from '../../../../components/chart';
-import { BaseOptionChart } from '../chart';
+import { BaseOptionChart } from "../chart";
+import { useState } from "react";
+import { useEffect } from "react";
+import PromoterService from "../../api/services/PromoterService";
+import PromoterReviewService from "../../api/services/PromoterReviewService";
 
 // ----------------------------------------------------------------------
 
 const CHART_HEIGHT = 392;
 const LEGEND_HEIGHT = 72;
 
-const ChartWrapperStyle = styled('div')(({ theme }) => ({
+const ChartWrapperStyle = styled("div")(({ theme }) => ({
   height: CHART_HEIGHT,
   marginTop: theme.spacing(5),
-  '& .apexcharts-canvas svg': { height: CHART_HEIGHT },
-  '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
-    overflow: 'visible',
+  "& .apexcharts-canvas svg": { height: CHART_HEIGHT },
+  "& .apexcharts-canvas svg,.apexcharts-canvas foreignObject": {
+    overflow: "visible",
   },
-  '& .apexcharts-legend': {
+  "& .apexcharts-legend": {
     height: LEGEND_HEIGHT,
-    alignContent: 'center',
-    position: 'relative !important',
+    alignContent: "center",
+    position: "relative !important",
     borderTop: `solid 1px ${theme.palette.divider}`,
     top: `calc(${CHART_HEIGHT - LEGEND_HEIGHT}px) !important`,
   },
@@ -33,9 +37,36 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [20, 25, 15, 10, 5];
+// const CHART_DATA = [20, 25, 15, 10, 5];
 
-export default function UserReviewsCount() {
+export default function UserReviewsCount({ userId }) {
+  const [promoterData, setPromoterData] = useState();
+  const [chartData, setChartData] = useState([0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const response = PromoterService.getPromoterByUserId(userId);
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
+        setPromoterData(res.data.promoter);
+      }
+    });
+  }, [userId]);
+
+  useEffect(() => {
+    if (promoterData) {
+      const apiCall =
+        PromoterReviewService.getPromoterReviewsChartDataByPromoterId(
+          promoterData._id
+        );
+      apiCall.then((response) => {
+        if (response) {
+          response = response.data.chartData;
+          setChartData(response);
+        }
+      });
+    }
+  }, [promoterData]);
+
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -45,9 +76,9 @@ export default function UserReviewsCount() {
       theme.palette.primary.light,
       theme.palette.primary.lighter,
     ],
-    labels: ['5 Star', '4 Star', '3 Star', '2 Star', '1 Star'],
+    labels: ["5 Star", "4 Star", "3 Star", "2 Star", "1 Star"],
     stroke: { colors: [theme.palette.background.paper] },
-    legend: { floating: true, horizontalAlign: 'center' },
+    legend: { floating: true, horizontalAlign: "center" },
     tooltip: {
       fillSeriesColor: false,
       y: {
@@ -60,7 +91,7 @@ export default function UserReviewsCount() {
     plotOptions: {
       pie: {
         donut: {
-          size: '90%',
+          size: "90%",
           labels: {
             value: {
               formatter: (val) => fNumber(val),
@@ -81,7 +112,13 @@ export default function UserReviewsCount() {
     <Card>
       <CardHeader title="Ratings" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="donut" series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart
+          type="donut"
+          // series={CHART_DATA}
+          series={chartData}
+          options={chartOptions}
+          height={280}
+        />
       </ChartWrapperStyle>
     </Card>
   );

@@ -20,6 +20,8 @@ import { useEffect } from "react";
 import PromoterService from "../../../api/services/PromoterService";
 import { useState } from "react";
 import UserService from "../../../api/services/UserService";
+import PaymentApprovelService from "../../../api/services/PaymentApprovelService";
+import PaymentService from "../../../api/services/PaymentService";
 
 // ProfileAbout.propTypes = {
 //   profile: PropTypes.object,
@@ -30,6 +32,9 @@ export default function UserProfileAbout({ userId }) {
   const [userData, setUserData] = useState();
 
   const {userType} = useSelector((state) => state.login);
+
+  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
 
   useEffect(() => {
     const response = PromoterService.getPromoterByUserId(userId);
@@ -48,6 +53,36 @@ export default function UserProfileAbout({ userId }) {
       }
     })
   }, [userId]);
+
+  const getEarningsRequestBody = {
+    promoterId: promoterData ? promoterData._id : "",
+    lastWithdrawalDateTime: "2020-01-01",
+  }
+
+  useEffect(() => {
+    const paymentApprovelsResponse = PaymentApprovelService.getEarningsDataByPromoterId({
+      ...getEarningsRequestBody,
+      promoterData: promoterData ? promoterData._id : "",
+    })
+
+    paymentApprovelsResponse.then(res => {
+      if(res.data.responseCode === "00"){
+        setTotalEarnings(res.data.totalEarnings);
+      }
+    })
+    
+  }, [promoterData])
+
+  useEffect(() => {
+    const totalExpenditureResponse = PaymentService.getTotalExpenditureByUserId(userId)
+
+    totalExpenditureResponse.then(res => {
+      if(res.data.responseCode === "00"){
+        setTotalExpenditure(res.data.totalExpenditure);
+      }
+    })
+    
+  }, [promoterData])
 
   return (
     <Card>
@@ -129,7 +164,7 @@ export default function UserProfileAbout({ userId }) {
           </Typography>
         </Stack>
 
-        <Stack direction="row">
+        {/* <Stack direction="row">
           <Payments style={{ marginRight: "10px" }} />
           <Typography variant="body2">
             <Link component="span" variant="subtitle2" color="text.primary">
@@ -137,7 +172,7 @@ export default function UserProfileAbout({ userId }) {
             </Link>
             Rs. 1100.00 (still dummy)
           </Typography>
-        </Stack>
+        </Stack> */}
 
         <Stack direction="row">
           <ShoppingCartCheckout style={{ marginRight: "10px" }} />
@@ -145,7 +180,7 @@ export default function UserProfileAbout({ userId }) {
             <Link component="span" variant="subtitle2" color="text.primary">
               Total expenditure for campaigns : &nbsp;
             </Link>
-            Rs. 10000.00 (still dummy)
+            Rs. {totalExpenditure}.00
           </Typography>
         </Stack>
 
@@ -155,7 +190,7 @@ export default function UserProfileAbout({ userId }) {
             <Link component="span" variant="subtitle2" color="text.primary">
               Total earnings form campaigns : &nbsp;
             </Link>
-            Rs. 20000.00 (still dummy)
+            Rs. {totalEarnings}.00
           </Typography>
         </Stack>
       </Stack>
