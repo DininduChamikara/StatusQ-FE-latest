@@ -205,9 +205,10 @@ function SelectAudience() {
         </Paper>
 
         <Paper variant="outlined" sx={{ width: "75vw", p: 1, mb: 1 }}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "1.1rem", mb: 1, color:"primary.darker" }}>
+          <Typography sx={{ fontWeight: "bold", fontSize: "1.1rem", color:"primary.darker" }}>
             Audience Category Selection
           </Typography>
+          <Typography sx={{mb:2}}>If you want to specify required audience category for the campaign, please select required fields from below choices...</Typography>
           <FormLabel component="legend">Educational Level</FormLabel>
           <FormGroup row name="row-radio-buttonsMuiFormGroup-row">
             <FormControlLabel

@@ -32,6 +32,10 @@ class PaymentService {
     async getChartData(){
         return await apiService.apiGET("/payments/paymentsChart/chart_data");
     }
+
+    async getTotalExpenditureByUserId(userId){
+        return await apiService.apiGET(`/payments/totalExpenditure/byUserId/${userId}`);
+    }
 }
 
 export default new PaymentService();

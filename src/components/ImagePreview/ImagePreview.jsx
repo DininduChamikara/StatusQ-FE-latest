@@ -13,6 +13,8 @@ import { useEffect } from "react";
 function ImagePreview() {
   const [finalMessage, setFinalMessage] = useState();
 
+  const { maxAdPostsForCampaign } = useSelector((state) => state.adminSettings);
+
   // const [saveClicked, setSaveClicked] = useState(false);
 
   const [advertisementObjArr, setAdvertisementObjArr] = useState([]);
@@ -25,9 +27,6 @@ function ImagePreview() {
   useEffect(() => {
     setAdvertisements(selectedAdvertisements);
   }, [selectedAdvertisements]);
-
-  if (advertisements[1]) {
-  }
 
   let advertisementObj = {
     id: null,
@@ -49,8 +48,6 @@ function ImagePreview() {
     );
   };
 
-  // const [tempImage, setTempImage] = useState();
-
   const onSelectFile = (event) => {
     /// new implementations
     const selectedFile = event.target.files[0];
@@ -68,29 +65,6 @@ function ImagePreview() {
     });
 
     reader.readAsDataURL(selectedFile);
-
-    ///
-
-    // const selectedFiles = event.target.files;
-    // const description = event.target.description;
-
-    // const selectedFileArray = Array.from(selectedFiles, description);
-
-    // const imagesArray = selectedFileArray.map((file, description) => {
-    //   advertisementObj.id = "id" + Math.random().toString(16).slice(2);
-    //   advertisementObj.file = URL.createObjectURL(file);
-    //   // advertisementObj.file = tempImage;
-    //   advertisementObj.description = description;
-
-    //   return advertisementObj;
-    // });
-
-    // setAdvertisements((previousAdvertisements) =>
-    //   previousAdvertisements.concat(imagesArray)
-    // );
-
-    // // FOR BUG IN CHROME
-    // event.target.value = "";
   };
 
   function deleteHandler(advertisement, index) {
@@ -180,7 +154,9 @@ function ImagePreview() {
                     alignItems: "center",
                   }}
                 >
-                  <Typography color={"secondary.main"} sx={{ ml: 1 }}>{index + 1}</Typography>
+                  <Typography color={"secondary.main"} sx={{ ml: 1 }}>
+                    {index + 1}
+                  </Typography>
                   <IconButton
                     disabled={advertisementSavedForUpload}
                     onClick={() => deleteHandler(advertisement, index)}
@@ -195,7 +171,7 @@ function ImagePreview() {
           sx={{
             position: "relative",
             border: "2px dashed #4267b2",
-            borderColor:"secondary.dark",
+            borderColor: "secondary.dark",
             borderRadius: 3,
             width: 260,
             height: 520,
@@ -205,13 +181,26 @@ function ImagePreview() {
             textAlign: "center",
           }}
         >
-          <Typography color={"secondary.dark"}>+ Add Image Advertisement</Typography>
+          <Typography color={"secondary.dark"}>
+            + Add Image Advertisement
+          </Typography>
           <Box sx={{ mt: 14 }}>
-            <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-            <img width={"100px"} src={uploadImg} alt="" />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img width={"100px"} src={uploadImg} alt="" />
             </Box>
-            <Typography sx={{ fontWeight: 500, color:'secondary.dark' }}>Drag & Drop</Typography>
-            <Typography sx={{ fontWeight: 500, color:'secondary.dark' }}>your images here</Typography>
+            <Typography sx={{ fontWeight: 500, color: "secondary.dark" }}>
+              Drag & Drop
+            </Typography>
+            <Typography sx={{ fontWeight: 500, color: "secondary.dark" }}>
+              your images here
+            </Typography>
           </Box>
 
           <input
@@ -236,7 +225,7 @@ function ImagePreview() {
           sx={{
             position: "relative",
             border: "2px dashed #4267b2",
-            borderColor:'secondary.dark',
+            borderColor: "secondary.dark",
             borderRadius: 3,
             width: 260,
             height: 520,
@@ -245,7 +234,9 @@ function ImagePreview() {
             m: 1,
           }}
         >
-          <Typography textAlign={"center"} color={"secondary.dark"}>+ Add Text Only Advertisement</Typography>
+          <Typography textAlign={"center"} color={"secondary.dark"}>
+            + Add Text Only Advertisement
+          </Typography>
           <Box sx={{ textAlign: "center", mt: 24 }}>
             <Button
               color="secondary"
@@ -273,10 +264,11 @@ function ImagePreview() {
             }}
           >
             <Typography>
-              You can't upload more than 5 advertisements!
+              You can't upload more than {maxAdPostsForCampaign} advertisements!
             </Typography>
             <Typography>
-              please delete <b> {advertisements.length - 5} </b> of them
+              please delete{" "}
+              <b> {advertisements.length - maxAdPostsForCampaign} </b> of them
             </Typography>
           </Box>
         ) : (
@@ -291,14 +283,14 @@ function ImagePreview() {
             }}
           >
             <Button
-              sx={{ ml: {xs:0, lg:1}, width: {xs:'100%', lg:300}, mb:{xs:1, lg:0} }}
+              sx={{
+                ml: { xs: 0, lg: 1 },
+                width: { xs: "100%", lg: 300 },
+                mb: { xs: 1, lg: 0 },
+              }}
               disabled={advertisementSavedForUpload}
               variant="contained"
               onClick={() => {
-                // console.log("button clicked", advertisements);
-
-                // setSaveClicked(true);
-
                 let i = 0;
                 setAdvertisementObjArr([]);
 
@@ -344,7 +336,7 @@ function ImagePreview() {
             </Button>
 
             <Button
-              sx={{ ml: {xs:0, lg:1}, width: {xs:'100%', lg:300} }}
+              sx={{ ml: { xs: 0, lg: 1 }, width: { xs: "100%", lg: 300 } }}
               variant="contained"
               color="secondary"
               onClick={() => {
@@ -354,8 +346,6 @@ function ImagePreview() {
                     selectedAdvertisements: [],
                   })
                 );
-
-                // setSaveClicked(false);
 
                 dispatch(
                   changeAdvertisementSavedForUpload({
@@ -368,15 +358,6 @@ function ImagePreview() {
             </Button>
           </Box>
         ))}
-
-      {/* {advertisements.length > 5 && (
-        <Box sx={{textAlign:'center', my:1, borderTop:2, borderBottom:2, py:1, color:'red'}}>
-          <Typography>You can't upload more than 5 advertisements!</Typography>
-          <Typography>
-            please delete <b> {advertisements.length - 5} </b> of them
-          </Typography>
-        </Box>
-      )} */}
     </Box>
   );
 }

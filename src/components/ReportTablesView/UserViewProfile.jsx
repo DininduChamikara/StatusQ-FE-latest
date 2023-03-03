@@ -1,5 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import React from "react";
+import IndividualReviews from "../Reviews/IndividualReviews";
 import Reviews from "../Reviews/Reviews";
 import UserProfileAbout from "../User/Profile/UserProfileAbout";
 import UserReviewsCount from "./UserReviewsCount";
@@ -16,7 +17,7 @@ export default function UserViewProfile({userId}) {
         <UserReviewsCount userId={userId} />
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Reviews userId={userId} />
+        <IndividualReviews userId={userId} />
       </Grid>
     </Grid>
   );
