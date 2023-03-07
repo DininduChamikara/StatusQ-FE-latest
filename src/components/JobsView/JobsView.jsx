@@ -10,6 +10,7 @@ import JobFinishedView from "../modals/JobFinishedView";
 import ActionButton from "../Table/ActionButton";
 
 function createData(no, jobId, numOfAds, viewsRequired, budget, datetime,) {
+  datetime = new Date(datetime).toDateString();
   return { no, jobId, numOfAds, viewsRequired, budget, datetime, };
 }
 
@@ -26,18 +27,6 @@ const HEAD_CELLS = [
     disablePadding: false,
     label: "Job ID",
   },
-  // {
-  //   id: "campaignId",
-  //   numeric: false,
-  //   disablePadding: false,
-  //   label: "Campaign ID",
-  // },
-  // {
-  //   id: "clientID",
-  //   numeric: false,
-  //   disablePadding: false,
-  //   label: "Client ID",
-  // },
   {
     id: "numOfAds",
     numeric: true,
@@ -287,7 +276,6 @@ function JobsView() {
 
   // for available jobs
   useEffect(() => {
-    // const response = PromoterCampaignService.getPromoterCampaigns(promoterId);
     const response = PromoterCampaignService.promoterCampaignsByPromoterId({
       ...requestBody,
       page: page,

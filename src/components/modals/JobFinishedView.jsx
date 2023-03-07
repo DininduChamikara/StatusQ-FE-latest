@@ -30,7 +30,6 @@ import PromoterReviewService from "../../api/services/PromoterReviewService";
 import ImagePreviewUploadSS from "../ImagePreview/ImagePreviewUploadSS";
 
 function JobFinishedView({ open, handleClose, setOpen, jobId }) {
-
   const { userId } = useSelector((state) => state.login);
 
   const [jobDetails, setJobDetails] = useState();
@@ -41,15 +40,17 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
   const [promoterReview, setPromoterReview] = useState();
 
   useEffect(() => {
-    let apiCall = PromoterCampaignService.getJobDetails(jobId);
-    apiCall.then((res) => {
-      if (res.data.responseCode === "00") {
-        console.log("JOB DETAILS", res.data);
-        setJobDetails(res.data);
-        setAdvertisements(res.data.campaign.selectedAdvertisements);
-        setUploadedSS(res.data.promoterCampaign.screenshots);
-      }
-    });
+    if (jobId) {
+      let apiCall = PromoterCampaignService.getJobDetails(jobId);
+      apiCall.then((res) => {
+        if (res.data.responseCode === "00") {
+          console.log("JOB DETAILS", res.data);
+          setJobDetails(res.data);
+          setAdvertisements(res.data.campaign.selectedAdvertisements);
+          setUploadedSS(res.data.promoterCampaign.screenshots);
+        }
+      });
+    }
   }, [jobId]);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
 
   const handleOnChangeReviewDescription = (event) => {
     setReviewDescription(event.target.value);
-  }
+  };
 
   let date = new Date().toISOString().split("T")[0];
 
@@ -95,25 +96,25 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
       description: reviewDescription,
     });
 
-    response.then(res => {
-      if(res.data.responseCode === "00"){
-        // setStarCount(0);
-        // setReviewDescription("");
+    response.then((res) => {
+      if (res.data.responseCode === "00") {
         setReviewSendDisable(true);
       }
-    })
+    });
   };
   //
 
   useEffect(() => {
-    const response = ClientReviewService.getClientReviewByJobId(jobId);
-    response.then(res => {
-      if(res.data.responseCode === "00"){
-        setStarCount(res.data.clientReview.ratingCount);
-        setReviewDescription(res.data.clientReview.description);
-      }
-    })
-  }, [jobId, open])
+    if (jobId) {
+      const response = ClientReviewService.getClientReviewByJobId(jobId);
+      response.then((res) => {
+        if (res.data.responseCode === "00") {
+          setStarCount(res.data.clientReview.ratingCount);
+          setReviewDescription(res.data.clientReview.description);
+        }
+      });
+    }
+  }, [jobId, open]);
 
   return (
     <Modal
@@ -432,7 +433,11 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
                             Client Review : &nbsp;
                           </Typography>
                         </Typography>
-                        <Rating name="read-only" value={promoterReview.ratingCount} readOnly />
+                        <Rating
+                          name="read-only"
+                          value={promoterReview.ratingCount}
+                          readOnly
+                        />
                         <Typography sx={{ mx: 1 }} variant="body2">
                           {promoterReview.description}
                         </Typography>

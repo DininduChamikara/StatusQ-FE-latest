@@ -20,6 +20,7 @@ import {
 import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ClientReviewService from "../../api/services/ClientReviewService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import CountDownTimer from "../CountDownTimer/CountDownTimer";
 
@@ -45,8 +46,6 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
 
     apiCallUpdateState.then((res) => {
       setOpen(false);
-      // Do refreshing with alert box
-      // refreshPage();
     });
   };
 
@@ -64,8 +63,6 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
 
     apiCallUpdateState.then((res) => {
       setOpen(false);
-      // Do refreshing with alert box
-      // refreshPage();
     });
   };
 
@@ -73,19 +70,33 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
   const [advertisements, setAdvertisements] = useState();
   const [createdTime, setCreatedTime] = useState();
 
-  const [isTimeRemaining, setIsTimeRemaining] = useState(true);
+  const [clientRatingsAvg, setClientRatingsAvg] = useState(0.0);
 
   useEffect(() => {
-    let apiCall = PromoterCampaignService.getJobDetails(jobId);
-    apiCall.then((res) => {
-      if (res.data.responseCode === "00") {
-        console.log("JOB DETAILS", res.data);
-        setJobDetails(res.data);
-        setAdvertisements(res.data.campaign.selectedAdvertisements);
-        setCreatedTime(res.data.campaign.createdTime);
-      }
-    });
+    if (jobId) {
+      let apiCall = PromoterCampaignService.getJobDetails(jobId);
+      apiCall.then((res) => {
+        if (res.data.responseCode === "00") {
+          setJobDetails(res.data);
+          setAdvertisements(res.data.campaign.selectedAdvertisements);
+          setCreatedTime(res.data.campaign.createdTime);
+        }
+      });
+    }
   }, [jobId]);
+
+  useEffect(() => {
+    if (jobDetails) {
+      const response = ClientReviewService.getClientReviewsAvarageByClientId(
+        jobDetails ? jobDetails.promoterCampaign.clientId : ""
+      );
+      response.then((res) => {
+        if (res.data.responseCode === "00") {
+          setClientRatingsAvg(res.data.ratingsAvarage);
+        }
+      });
+    }
+  }, [jobDetails]);
 
   return (
     <Modal
@@ -355,7 +366,7 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
                     >
                       Client Ratings : &nbsp;
                     </Typography>
-                    4.5 (Dummy)
+                    {clientRatingsAvg}
                   </Typography>
                 </Stack>
               </Stack>

@@ -65,7 +65,7 @@ function PromoterSurveyStepper() {
 
   useEffect(() => {
     setPromoterAudienceCategoryList([]);
-  }, [platforms.whatsapp.whatsappChecked])
+  }, [platforms.whatsapp.whatsappChecked]);
 
   const [categoryObj, setCategoryObj] = useState({
     platform: "",
@@ -346,7 +346,6 @@ function PromoterSurveyStepper() {
       }
     });
 
-
     // for facebook audience //
 
     // setPromoterAudienceCategoryList for facebook on age
@@ -585,7 +584,6 @@ function PromoterSurveyStepper() {
       }
     });
 
-
     // for instagram audience //
 
     // setPromoterAudienceCategoryList for instagram on age
@@ -823,7 +821,6 @@ function PromoterSurveyStepper() {
         }
       }
     });
-
   }, [audience]);
 
   // initial promoterInfo request body
@@ -871,7 +868,25 @@ function PromoterSurveyStepper() {
   // console.log(promoterInfo)
 
   const savePromoter = () => {
-    let apiCall = PromoterService.savePromoter(promoterInfo);
+    let apiCall = PromoterService.savePromoter({
+      ...promoterInfo,
+      userId: userId,
+      fullName: fullName,
+      nameWithInit: nameWithInit,
+      dob: dob,
+      gender: gender,
+      age: null,
+      nic: nic,
+      address: address,
+      postcode: postcode,
+      province: province,
+      language: language,
+      educationalCategory: educationalCategory,
+      socialMediaList: socialMediaList,
+      promoterGenderAudienceList: promoterGenderAudienceList,
+      promoterAudienceCategoryList: promoterAudienceCategoryList,
+      state: "ACTIVE",
+    });
     apiCall.then((response) => {
       if (response) {
         response = response.data;
@@ -942,7 +957,10 @@ function PromoterSurveyStepper() {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <Stepper sx={{display:{xs:'none', lg:'flex'}}} activeStep={activeStep}>
+        <Stepper
+          sx={{ display: { xs: "none", lg: "flex" } }}
+          activeStep={activeStep}
+        >
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -985,7 +1003,7 @@ function PromoterSurveyStepper() {
                 color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                sx={{ mr: 1, color:'secondary.main' }}
+                sx={{ mr: 1, color: "secondary.main" }}
               >
                 Back
               </Button>
