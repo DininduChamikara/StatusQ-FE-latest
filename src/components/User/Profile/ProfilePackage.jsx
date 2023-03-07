@@ -8,12 +8,45 @@ import {
 } from "@mui/icons-material";
 import { Box, Card, CardHeader, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import PaymentApprovelService from "../../../api/services/PaymentApprovelService";
+import PaymentService from "../../../api/services/PaymentService";
 
 const ProfilePackage = () => {
   const { userId, promoterId, accountStatus, userType } = useSelector(
     (state) => state.login
   );
+
+  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [totalExpenditure, setTotalExpenditure] = useState(0);
+
+  const getEarningsRequestBody = {
+    promoterId: promoterId ? promoterId : "",
+    lastWithdrawalDateTime: "2020-01-01",
+  }
+
+  useEffect(() => {
+    const paymentApprovelsResponse = PaymentApprovelService.getEarningsDataByPromoterId({
+      ...getEarningsRequestBody,
+      promoterId: promoterId,
+    })
+    paymentApprovelsResponse.then(res => {
+      if(res.data.responseCode === "00"){
+        setTotalEarnings(res.data.totalEarnings);
+      }
+    })  
+  }, [promoterId])
+
+  useEffect(() => {
+    const totalExpenditureResponse = PaymentService.getTotalExpenditureByUserId(userId);
+    totalExpenditureResponse.then(res => {
+      if(res.data.responseCode === "00"){
+        setTotalExpenditure(res.data.totalExpenditure);
+      }
+    })
+  }, [userId]);
 
   return (
     <Card sx={{ height: "100%", paddingBottom: 0 }}>
@@ -66,7 +99,7 @@ const ProfilePackage = () => {
 
         {userType !== "ADMIN_USER" && (
           <Stack spacing={2}>
-            <Stack direction="row">
+            {/* <Stack direction="row">
               <Payments style={{ marginRight: "10px" }} />
               <Typography variant="body2">
                 <Link component="span" variant="subtitle2" color="text.primary">
@@ -74,7 +107,7 @@ const ProfilePackage = () => {
                 </Link>
                 Rs. 1100.00 (still dummy)
               </Typography>
-            </Stack>
+            </Stack> */}
 
             <Stack direction="row">
               <ShoppingCartCheckout style={{ marginRight: "10px" }} />
@@ -82,7 +115,7 @@ const ProfilePackage = () => {
                 <Link component="span" variant="subtitle2" color="text.primary">
                   Total expenditure for campaigns : &nbsp;
                 </Link>
-                Rs. 10000.00 (still dummy)
+                Rs. {totalExpenditure}.00
               </Typography>
             </Stack>
 
@@ -92,7 +125,7 @@ const ProfilePackage = () => {
                 <Link component="span" variant="subtitle2" color="text.primary">
                   Total earnings form campaigns : &nbsp;
                 </Link>
-                Rs. 20000.00 (still dummy)
+                Rs. {totalEarnings}.00
               </Typography>
             </Stack>
           </Stack>
