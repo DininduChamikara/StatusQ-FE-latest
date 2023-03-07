@@ -3,7 +3,6 @@ import { capitalCase } from "change-case";
 import { Box, Tab, Tabs } from "@mui/material";
 // routes
 // hooks
-import useSettings from "../../hooks/useSettings";
 import useTabs from "../../hooks/useTabs";
 // _mock_
 // components

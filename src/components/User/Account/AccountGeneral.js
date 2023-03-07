@@ -171,6 +171,7 @@ export default function AccountGeneral() {
               }}
             >
               <RHFTextField
+                disabled={true}
                 name="firstName"
                 label="First Name"
                 value={userInfo.firstName}
@@ -178,6 +179,7 @@ export default function AccountGeneral() {
               />
 
               <RHFTextField
+                disabled={true}
                 name="lastName"
                 label="Last Name"
                 value={userInfo.lastName}
@@ -206,7 +208,7 @@ export default function AccountGeneral() {
             </Box>
 
             {userType === "ADMIN_USER" && (
-              <Stack spacing={3} alignItems="flex-end" sx={{mx:3, mb:3 }}>
+              <Stack spacing={3} alignItems="flex-end" sx={{ mx: 3, mb: 3 }}>
                 <Button type="submit" variant="contained">
                   Save Changes
                 </Button>
