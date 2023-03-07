@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { saveAs } from "file-saver";
 import React, { useEffect, useState } from "react";
+import ClientReviewService from "../../api/services/ClientReviewService";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 import CountDownTimer from "../CountDownTimer/CountDownTimer";
 import ImagePreviewUploadSS from "../ImagePreview/ImagePreviewUploadSS";
@@ -31,12 +32,13 @@ const downloadImage = (imgUrl, index) => {
 };
 
 function JobCompleteView({ open, handleClose, setOpen, jobId }) {
-
   const [jobDetails, setJobDetails] = useState();
   const [advertisements, setAdvertisements] = useState();
   const [acceptedTime, setAcceptedTime] = useState();
 
   const [uploadingSS, setUploadingSS] = useState([]);
+
+  const [clientRatingsAvg, setClientRatingsAvg] = useState(0.0);
 
   const handleOnClickSubmitAsCompleted = () => {
     const tempCurrentTime = new Date();
@@ -60,16 +62,31 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
   };
 
   useEffect(() => {
-    let apiCall = PromoterCampaignService.getJobDetails(jobId);
-    apiCall.then((res) => {
-      if (res.data.responseCode === "00") {
-        console.log("JOB DETAILS", res.data);
-        setJobDetails(res.data);
-        setAdvertisements(res.data.campaign.selectedAdvertisements);
-        setAcceptedTime(res.data.promoterCampaign.acceptedTime);
-      }
-    });
+    if (jobId) {
+      let apiCall = PromoterCampaignService.getJobDetails(jobId);
+      apiCall.then((res) => {
+        if (res.data.responseCode === "00") {
+          console.log("JOB DETAILS", res.data);
+          setJobDetails(res.data);
+          setAdvertisements(res.data.campaign.selectedAdvertisements);
+          setAcceptedTime(res.data.promoterCampaign.acceptedTime);
+        }
+      });
+    }
   }, [jobId]);
+
+  useEffect(() => {
+    if (jobDetails) {
+      const response = ClientReviewService.getClientReviewsAvarageByClientId(
+        jobDetails ? jobDetails.promoterCampaign.clientId : ""
+      );
+      response.then((res) => {
+        if (res.data.responseCode === "00") {
+          setClientRatingsAvg(res.data.ratingsAvarage);
+        }
+      });
+    }
+  }, [jobDetails]);
 
   function deleteHandler(item, index) {
     setUploadingSS(uploadingSS.filter((e) => e !== uploadingSS[index]));
@@ -310,16 +327,21 @@ function JobCompleteView({ open, handleClose, setOpen, jobId }) {
                     >
                       Client Ratings : &nbsp;
                     </Typography>
-                    4.5 (Dummy)
+                    {clientRatingsAvg}
                   </Typography>
                 </Stack>
               </Stack>
 
               <Box sx={{ px: 3, py: 1 }}>
                 <Stack spacing={1} direction="row">
-                  <Button type="submit" variant="contained" color="secondary" onClick={() => {
-                    setOpen(false);
-                  }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
                     Cancel
                   </Button>
                   <Button

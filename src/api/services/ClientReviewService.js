@@ -10,6 +10,10 @@ class ClientReviewService {
       `/clientReview/getClientReviewByJobId/${jobId}`
     );
   }
+
+  async getClientReviewsAvarageByClientId(clientId){
+    return await apiService.apiGET(`/clientReview/getClientReviewsAvarageByClientId/${clientId}`)
+  }
 }
 
 export default new ClientReviewService();
