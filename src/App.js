@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CustomAPILoader from "./components/CustomAPILoader/index.jsx";
 import ProtectedRoute, {
   AdminUserProtectedRoute,
-  NormalUserProtectedRoute
+  NormalUserProtectedRoute,
 } from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import UserView from "./components/ReportTablesView/UserView.jsx";
 import SnackBar from "./components/SnackBar/SnackBar.jsx";
@@ -42,7 +42,7 @@ function App() {
   return (
     <div>
       <SnackBar />
-      <CustomAPILoader/>
+      <CustomAPILoader />
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login setUserInfo={setUserInfo} />} />
@@ -76,9 +76,9 @@ function App() {
             <Route
               path="/client-view/campaign-view"
               element={
-                // <NormalUserProtectedRoute>
-                <CampaignView />
-                // </NormalUserProtectedRoute>
+                <NormalUserProtectedRoute>
+                  <CampaignView />
+                </NormalUserProtectedRoute>
               }
             />
             <Route
