@@ -20,7 +20,28 @@ import { RHFUploadAvatar } from "../../hook-form/RHFUpload";
 import { useDispatch, useSelector } from "react-redux";
 import UserService from "../../../api/services/UserService";
 import { changeProfileImage, login } from "../../../store/reducers/login.slice";
+import RHFSelect from "../../hook-form/RHFSelect";
 
+const banks = [
+  "Bank of Ceylon",
+  "People's Bank",
+  "Commercial Bank of Ceylon",
+  "Hatton National Bank",
+  "Sampath Bank",
+  "Seylan Bank",
+  "Nations Trust Bank",
+  "DFCC Bank",
+  "Pan Asia Banking Corporation",
+  "Union Bank of Colombo",
+  "Standard Chartered Bank",
+  "HSBC Sri Lanka",
+  "Citibank Sri Lanka",
+  "National Development Bank",
+  "Regional Development Bank",
+  "Sri Lanka Savings Bank",
+  "Sri Lanka Postal Savings Bank",
+  "Sri Lanka Export Development Bank",
+];
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
@@ -77,11 +98,14 @@ export default function AccountGeneral() {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    let apiCall = UserService.saveSettings(userInfo);
+    // let apiCall = UserService.saveSettings(userInfo);
+    let apiCall = UserService.saveSettings({
+      ...userInfo,
+      imgUrl: profileImage,
+    });
     apiCall.then((response) => {
       if (response) {
         response = response.data;
-        // console.log("response is ", response);
 
         dispatch(
           login({
@@ -235,12 +259,25 @@ export default function AccountGeneral() {
                     },
                   }}
                 >
-                  <RHFTextField
+                  {/* <RHFTextField
                     name="bankName"
                     label="Bank Name"
                     value={userInfo.bankName}
                     onChange={handleUserInput}
-                  />
+                  /> */}
+
+                  <RHFSelect
+                    onChange={handleUserInput}
+                    name="bankName"
+                    label="Bank Name"
+                    defaultValue={userInfo.bankName}
+                  >
+                    {banks.map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </RHFSelect>
 
                   <RHFTextField
                     name="branchName"
