@@ -10,11 +10,11 @@ import saveCampaignSlice from "./reducers/saveCampaign";
 import adminSettingsSlice from "./reducers/settings.slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
+import reportsSlice from "./reducers/reports.slice";
  
 const persistConfig = {
     key: "root",
     storage,
-  
   };
 
   const rootReducer = combineReducers({
@@ -24,7 +24,8 @@ const persistConfig = {
     savePromoter: savePromoterSlice,
     saveCampaign: saveCampaignSlice,
     activeStep: activeStepSlice,
-    adminSettings: adminSettingsSlice 
+    adminSettings: adminSettingsSlice,
+    selectedReports: reportsSlice, 
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

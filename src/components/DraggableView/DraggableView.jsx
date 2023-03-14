@@ -1,14 +1,14 @@
 import { Box, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { selectedReports } from "../../store/reducers/reports.slice";
 import Scrollbar from "../Scrollbar";
 import DraggableCard from "./DraggableCard/DraggableCard";
 
-function DraggableView({
-  isDragDisabled,
-  setSelectedFields,
-}) {
+function DraggableView({ isDragDisabled, setSelectedFields }) {
   const [mockData, setMockData] = useState([
     {
       id: uuidv4(),
@@ -64,7 +64,20 @@ function DraggableView({
     },
   ]);
 
+  const dispatch = useDispatch();
+
+  const { draggableViewData } = useSelector((state) => state.selectedReports);
+
   const [data, setData] = useState(mockData);
+  // const [data, setData] = useState(draggableViewData);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     selectedReports({
+  //       draggableViewData: data,
+  //     })
+  //   );
+  // }, [data]);
 
   useEffect(() => {
     if (isDragDisabled) {
@@ -77,7 +90,6 @@ function DraggableView({
     const { source, destination } = result;
 
     if (source.droppableId !== destination.droppableId) {
-
       const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
       const destinationColIndex = data.findIndex(
         (e) => e.id === destination.droppableId
@@ -96,6 +108,7 @@ function DraggableView({
       data[destinationColIndex].fields = destinationTask;
 
       setData(data);
+
       setSelectedFields(data[1].fields);
     }
   };
@@ -139,7 +152,6 @@ function DraggableView({
                   >
                     {section.title}
                   </Typography>
-                  
                 </Box>
 
                 <Box
@@ -176,9 +188,7 @@ function DraggableView({
                               opacity: snapshot.isDragging ? 0.5 : 1,
                             }}
                           >
-                            <DraggableCard
-                              task={task}
-                            ></DraggableCard>
+                            <DraggableCard task={task}></DraggableCard>
                           </Box>
                         )}
                       </Draggable>
