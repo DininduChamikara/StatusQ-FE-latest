@@ -98,11 +98,14 @@ export default function AccountGeneral() {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    let apiCall = UserService.saveSettings(userInfo);
+    // let apiCall = UserService.saveSettings(userInfo);
+    let apiCall = UserService.saveSettings({
+      ...userInfo,
+      imgUrl: profileImage,
+    });
     apiCall.then((response) => {
       if (response) {
         response = response.data;
-        // console.log("response is ", response);
 
         dispatch(
           login({
