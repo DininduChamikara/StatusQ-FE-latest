@@ -35,10 +35,6 @@ function App() {
     state: "",
   });
 
-  // console.log("User first name from app js firl is " + userInfo.fname);
-
-  // const {firstName} = useSelector((state) => state.login)
-
   return (
     <div>
       <SnackBar />
@@ -76,9 +72,9 @@ function App() {
             <Route
               path="/client-view/campaign-view"
               element={
-                <NormalUserProtectedRoute>
+                // <NormalUserProtectedRoute>
                   <CampaignView />
-                </NormalUserProtectedRoute>
+                // </NormalUserProtectedRoute>
               }
             />
             <Route
@@ -108,9 +104,7 @@ function App() {
             <Route
               path="/profile"
               element={
-                // <NormalUserProtectedRoute>
                 <Profile />
-                // </NormalUserProtectedRoute>
               }
             />
             <Route

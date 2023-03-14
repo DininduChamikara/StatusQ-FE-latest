@@ -9,6 +9,7 @@ import SystemEarningsDetailsTable from "./SystemEarningsDetailsTable";
 import UserDetailsTable from "./UserDetailsTable";
 
 function ReportTablesView({ reportTablesArr }) {
+
   return (
     <Box sx={{}}>
       {reportTablesArr.map((item, index) => {

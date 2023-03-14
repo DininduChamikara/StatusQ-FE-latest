@@ -2,12 +2,18 @@ import { Box, Card, CardHeader, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DraggableView from "../../components/DraggableView/DraggableView";
 import ReportTablesView from "../../components/ReportTablesView/ReportTablesView";
+import uuidv4 from "../../utils/uuidv4";
 import ReportChart from "./ReportChart";
 
 function Reports() {
-  const [selectedFields, setSelectedFields] = useState([]);
-
-  // console.log("from reports ", selectedFields)
+  // const [selectedFields, setSelectedFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState([
+    {
+      id: uuidv4(),
+      title: "Campaigns",
+      value: "CAMPAIGNS",
+    },
+  ]);
 
   const [reportTablesArr, setReportTablesArr] = useState(["CAMPAIGNS"]);
 
@@ -15,7 +21,6 @@ function Reports() {
     let temp = [];
     selectedFields.map((item) => temp.push(item.value));
 
-    // console.log(temp)
     setReportTablesArr(temp);
   }, [selectedFields]);
 

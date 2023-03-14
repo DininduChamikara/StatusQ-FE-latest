@@ -1,11 +1,14 @@
 import { Campaign } from "@mui/icons-material";
 import { Button, Card, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function CampaignViewHeader({ campaignId }) {
 
   const navigate = useNavigate();
+
+  const { userType } = useSelector((state) => state.login);
 
   return (
     <Card
@@ -32,7 +35,11 @@ function CampaignViewHeader({ campaignId }) {
         <Button
           variant="contained"
           onClick={() => {
-            navigate(`/client-view`);
+            if(userType === "NORMAL_USER"){
+              navigate(`/client-view`);
+            }else if(userType === "ADMIN_USER"){
+              navigate(`/admin_report`);
+            }
           }}
         >
           Back to campaigns

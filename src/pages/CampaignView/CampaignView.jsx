@@ -20,7 +20,6 @@ function CampaignView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-            console.log(res.data);
           setCampaign(res.data.campaign);
         }
       }
