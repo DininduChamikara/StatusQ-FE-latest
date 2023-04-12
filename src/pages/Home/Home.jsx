@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import Reviews from "../../components/Reviews/Reviews";
 import ThemeImage from "../../images/statusq-main-image.png";

@@ -16,9 +16,13 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../../store/reducers/alert.slice";
 import dayjs from "dayjs";
+import NavBar from "./NavBar";
+import Intro from "./Intro";
+import About from "./About";
+import Performance from "./Performance";
+import Contact from "./Contact";
 
 function Register() {
-
   const currentTime = dayjs();
 
   let navigate = useNavigate();
@@ -196,190 +200,207 @@ function Register() {
         showAlert({
           message: "Please enter valid information",
           isVisible: true,
-          severity:"warning",
+          severity: "warning",
         })
-      )
+      );
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        height: "100vh",
-        alignItems: "center",
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{ p: 2, width: "1000px", backgroundColor: "#18345E" }}
-      >
-        <Box sx={{ flexDirection: "row", width: "100%", display: "flex" }}>
-          <Box sx={{ width: "50%" }}>
-            <Typography
-              sx={{ fontSize: "2rem", fontWeight: "bold", color: "white" }}
-            >
-              StatusQ
-            </Typography>
-
-            <Typography
-              sx={{ fontSize: "2rem", fontWeight: "bold", color: "bisque" }}
-            >
-              Welcome!!!
-            </Typography>
-            <Box sx={{ p: 5, pb: 7 }}>
-              <img src={ThemeImage} width={"100%"} alt="ThemeImage" />
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              width: "50%",
-              backgroundColor: "white",
-              borderRadius: 2,
-              p: 3,
-            }}
+    <Box sx={{ px: "60px" }}>
+      <NavBar />
+      <Intro />
+      <About />
+      <Performance />
+      <div id="Register">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            height: "100vh",
+            alignItems: "center",
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={{ p: 2, width: "1000px", backgroundColor: "#18345E" }}
           >
-            <Typography sx={{ fontSize: "2rem", fontWeight: "bold", my: 5 }}>
-              Create Account
-            </Typography>
-            <Box sx={{ width: "100%", display: "flex", flexDirection: "row" }}>
-              <Box sx={{ width: "50%", pr: 0.5 }}>
-                <TextField
-                  sx={{ mt: 2 }}
-                  fullWidth
-                  id="demo-helper-text-misaligned"
-                  label="First Name"
-                  size="small"
-                  type="text"
-                  name="fname"
-                  placeholder="First Name"
-                  // error={errorInfo.firstnameError !== ""}
-                  onChange={handleOnChangeFirstName}
-                  value={userInfo.fname}
-                />
-                {errorInfo.firstnameError !== "" && (
-                  <FormHelperText
-                    sx={{ mb: 1, color: "red", fontStyle: "italic" }}
-                  >
-                    - {errorInfo.firstnameError}
-                  </FormHelperText>
-                )}
-              </Box>
-              <Box sx={{ width: "50%", pl: 0.5 }}>
-                <TextField
-                  sx={{ mt: 2 }}
-                  fullWidth
-                  id="demo-helper-text-misaligned"
-                  label="Last Name"
-                  size="small"
-                  type="text"
-                  name="lname"
-                  placeholder="Last Name"
-                  onChange={handleOnChangeLastName}
-                  value={userInfo.lname}
-                />
-                {errorInfo.lastnameError !== "" && (
-                  <FormHelperText
-                    sx={{ mb: 1, color: "red", fontStyle: "italic" }}
-                  >
-                    - {errorInfo.lastnameError}
-                  </FormHelperText>
-                )}
-              </Box>
-            </Box>
-
-            <Box sx={{ width: "100%" }}>
-              <TextField
-                sx={{ mt: 2 }}
-                fullWidth
-                id="demo-helper-text-misaligned"
-                label="Email"
-                size="small"
-                type="email"
-                name="name"
-                placeholder="Email"
-                onChange={handleOnChangeEmail}
-                value={userInfo.email}
-              />
-              {errorInfo.emailError !== "" && (
-                <FormHelperText
-                  sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+            <Box sx={{ flexDirection: "row", width: "100%", display: "flex" }}>
+              <Box sx={{ width: "50%" }}>
+                <Typography
+                  sx={{ fontSize: "2rem", fontWeight: "bold", color: "white" }}
                 >
-                  - {errorInfo.emailError}
-                </FormHelperText>
-              )}
-            </Box>
+                  StatusQ
+                </Typography>
 
-            <Box sx={{ width: "100%", display: "flex", flexDirection: "row" }}>
-              <Box sx={{ width: "50%", pr: 0.5 }}>
-                <TextField
-                  sx={{ mt: 2 }}
-                  fullWidth
-                  id="demo-helper-text-misaligned"
-                  label="Password"
-                  size="small"
-                  type="password"
-                  name="password"
-                  onChange={handleOnChangePassword}
-                  value={userInfo.password}
-                />
-                <Box sx={{ px: 1 }}>
-                  <PasswordStrengthBar password={userInfo.password} />
+                <Typography
+                  sx={{ fontSize: "2rem", fontWeight: "bold", color: "bisque" }}
+                >
+                  Welcome!!!
+                </Typography>
+                <Box sx={{ p: 5, pb: 7 }}>
+                  <img src={ThemeImage} width={"100%"} alt="ThemeImage" />
                 </Box>
               </Box>
-              <Box sx={{ width: "50%", pl: 0.5 }}>
-                <TextField
-                  sx={{ mt: 2 }}
+              <Box
+                sx={{
+                  width: "50%",
+                  backgroundColor: "white",
+                  borderRadius: 2,
+                  p: 3,
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "2rem", fontWeight: "bold", my: 5 }}
+                >
+                  Create Account
+                </Typography>
+                <Box
+                  sx={{ width: "100%", display: "flex", flexDirection: "row" }}
+                >
+                  <Box sx={{ width: "50%", pr: 0.5 }}>
+                    <TextField
+                      sx={{ mt: 2 }}
+                      fullWidth
+                      id="demo-helper-text-misaligned"
+                      label="First Name"
+                      size="small"
+                      type="text"
+                      name="fname"
+                      placeholder="First Name"
+                      // error={errorInfo.firstnameError !== ""}
+                      onChange={handleOnChangeFirstName}
+                      value={userInfo.fname}
+                    />
+                    {errorInfo.firstnameError !== "" && (
+                      <FormHelperText
+                        sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+                      >
+                        - {errorInfo.firstnameError}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                  <Box sx={{ width: "50%", pl: 0.5 }}>
+                    <TextField
+                      sx={{ mt: 2 }}
+                      fullWidth
+                      id="demo-helper-text-misaligned"
+                      label="Last Name"
+                      size="small"
+                      type="text"
+                      name="lname"
+                      placeholder="Last Name"
+                      onChange={handleOnChangeLastName}
+                      value={userInfo.lname}
+                    />
+                    {errorInfo.lastnameError !== "" && (
+                      <FormHelperText
+                        sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+                      >
+                        - {errorInfo.lastnameError}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                </Box>
+
+                <Box sx={{ width: "100%" }}>
+                  <TextField
+                    sx={{ mt: 2 }}
+                    fullWidth
+                    id="demo-helper-text-misaligned"
+                    label="Email"
+                    size="small"
+                    type="email"
+                    name="name"
+                    placeholder="Email"
+                    onChange={handleOnChangeEmail}
+                    value={userInfo.email}
+                  />
+                  {errorInfo.emailError !== "" && (
+                    <FormHelperText
+                      sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+                    >
+                      - {errorInfo.emailError}
+                    </FormHelperText>
+                  )}
+                </Box>
+
+                <Box
+                  sx={{ width: "100%", display: "flex", flexDirection: "row" }}
+                >
+                  <Box sx={{ width: "50%", pr: 0.5 }}>
+                    <TextField
+                      sx={{ mt: 2 }}
+                      fullWidth
+                      id="demo-helper-text-misaligned"
+                      label="Password"
+                      size="small"
+                      type="password"
+                      name="password"
+                      onChange={handleOnChangePassword}
+                      value={userInfo.password}
+                    />
+                    <Box sx={{ px: 1 }}>
+                      <PasswordStrengthBar password={userInfo.password} />
+                    </Box>
+                  </Box>
+                  <Box sx={{ width: "50%", pl: 0.5 }}>
+                    <TextField
+                      sx={{ mt: 2 }}
+                      fullWidth
+                      id="demo-helper-text-misaligned"
+                      label="Confirm Password"
+                      size="small"
+                      type="password"
+                      name="confirm_password"
+                      onChange={handleOnChangeConfirmPassword}
+                      value={userInfo.confirm_password}
+                    />
+                    {errorInfo.confirm_passwordError !== "" && (
+                      <FormHelperText
+                        sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+                      >
+                        - {errorInfo.confirm_passwordError}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                </Box>
+
+                <Button
+                  onClick={saveUser}
+                  sx={{ mt: 5 }}
+                  variant="contained"
                   fullWidth
-                  id="demo-helper-text-misaligned"
-                  label="Confirm Password"
-                  size="small"
-                  type="password"
-                  name="confirm_password"
-                  onChange={handleOnChangeConfirmPassword}
-                  value={userInfo.confirm_password}
-                />
-                {errorInfo.confirm_passwordError !== "" && (
-                  <FormHelperText
-                    sx={{ mb: 1, color: "red", fontStyle: "italic" }}
+                >
+                  Sign Up
+                </Button>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    my: 1,
+                  }}
+                >
+                  <Typography>Already a member?</Typography>
+                  <Typography
+                    sx={{ mx: 1, fontWeight: "bold", cursor: "pointer" }}
                   >
-                    - {errorInfo.confirm_passwordError}
-                  </FormHelperText>
-                )}
+                    <Link
+                      to={"/login"}
+                      style={{ textDecoration: "none", color: "secondary" }}
+                    >
+                      Sign In
+                    </Link>
+                  </Typography>
+                </Box>
               </Box>
             </Box>
-
-            <Button
-              onClick={saveUser}
-              sx={{ mt: 5 }}
-              variant="contained"
-              fullWidth
-            >
-              Sign Up
-            </Button>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                my: 1,
-              }}
-            >
-              <Typography>Already a member?</Typography>
-              <Typography sx={{ mx: 1, fontWeight: "bold", cursor: "pointer" }}>
-                <Link
-                  to={"/login"}
-                  style={{ textDecoration: "none", color: "secondary" }}
-                >
-                  Sign In
-                </Link>
-              </Typography>
-            </Box>
-          </Box>
+          </Paper>
+          {/* <DialogBox title={title} description={description} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} navigateLink={"/"}/> */}
         </Box>
-      </Paper>
-      {/* <DialogBox title={title} description={description} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} navigateLink={"/"}/> */}
+      </div>
+      <Contact/>
     </Box>
   );
 }
