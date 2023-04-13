@@ -22,6 +22,10 @@ class PromoterService {
         return await apiService.apiGET("/promoters");
     }
 
+    async getPromotersCount(){
+        return await apiService.apiGET("/promoters/getPromotersCount");
+    }
+
     async getAllPromotersByPost(requestBody){
         return await apiService.apiPOST("/promoters/getAllPromoters", requestBody)
     }

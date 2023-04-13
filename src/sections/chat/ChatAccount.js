@@ -1,25 +1,17 @@
 import { useState } from 'react';
-import { capitalCase } from 'change-case';
 // @mui
-import { Box, List, Stack, Select, Divider, Tooltip, MenuItem, Typography, IconButton } from '@mui/material';
-import Iconify from '../../components/Iconify';
-import MyAvatar from '../../components/User/Profile/MyAvatar';
+import { Box, Stack, Typography } from '@mui/material';
 import BadgeStatus from '../../components/ChatThemeComp/BadgeStatus';
 import MenuPopover from '../../components/ChatThemeComp/MenuPopover';
-// hooks
-// import useAuth from '../../../hooks/useAuth';
-// components
-// import Iconify from '../../../components/Iconify';
-// import MyAvatar from '../../../components/MyAvatar';
-// import MenuPopover from '../../../components/MenuPopover';
-// import BadgeStatus from '../../../components/BadgeStatus';
+import MyAvatar from '../../components/User/Profile/MyAvatar';
+import { useSelector } from 'react-redux';
+
 
 // ----------------------------------------------------------------------
 
 const STATUS = ['online', 'invisible', 'away'];
 
 export default function ChatAccount() {
-  // const { user } = useAuth();
 
   const [status, setStatus] = useState('online');
 
@@ -39,10 +31,12 @@ export default function ChatAccount() {
     height: 20,
   };
 
+  const { imgUrl } = useSelector((state) => state.login);
+
   return (
     <>
       <Box sx={{ position: 'relative' }}>
-        <MyAvatar onClick={handleOpen} sx={{ cursor: 'pointer', width: 48, height: 48 }} />
+        <MyAvatar imgUrl={imgUrl} onClick={handleOpen} sx={{ cursor: 'pointer', width: 48, height: 48 }} />
         <BadgeStatus status={status} sx={{ position: 'absolute', bottom: 2, right: 2 }} />
       </Box>
 
@@ -58,7 +52,6 @@ export default function ChatAccount() {
         <Stack direction="row" alignItems="center" spacing={2} sx={{ py: 2, pr: 3, pl: 2.5 }}>
           <div>
             <Typography noWrap variant="subtitle1">
-              {/* {user?.displayName} */}
               Dinindu Chamikara
             </Typography>
             <Typography noWrap variant="body2" sx={{ color: 'text.secondary' }}>
@@ -67,59 +60,9 @@ export default function ChatAccount() {
             </Typography>
           </div>
 
-          {/* <Tooltip title="Log out">
-            <IconButton color="error">
-              <Iconify icon="ic:round-power-settings-new" width={20} height={20} />
-            </IconButton>
-          </Tooltip> */}
         </Stack>
 
-        {/* <Divider />
-
-        <List
-          sx={{
-            px: 1,
-            '& .MuiMenuItem-root': {
-              py: 1,
-              px: 2,
-              typography: 'body2',
-              borderRadius: 0.75,
-            },
-          }}
-        >
-          <MenuItem>
-            <BadgeStatus size="large" status={status} sx={{ m: 0.5, flexShrink: 0 }} />
-
-            <Select
-              native
-              fullWidth
-              value={status}
-              onChange={(event) => setStatus(event.target.value)}
-              sx={{
-                ml: 2,
-                '& svg': { display: `none` },
-                '& select': { p: 0, typography: 'body2' },
-                '& fieldset': { display: 'none' },
-              }}
-            >
-              {STATUS.map((option) => (
-                <option key={option} value={option}>
-                  {capitalCase(option)}
-                </option>
-              ))}
-            </Select>
-          </MenuItem>
-
-          <MenuItem>
-            <Iconify icon="ic:round-account-box" sx={{ ...ICON }} />
-            Profile
-          </MenuItem>
-
-          <MenuItem>
-            <Iconify icon="eva:settings-2-fill" sx={{ ...ICON }} />
-            Settings
-          </MenuItem>
-        </List> */}
+      
       </MenuPopover>
     </>
   );

@@ -1,8 +1,44 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import PerformanceCard from "./PerformanceCard";
+import { useEffect } from "react";
+import PromoterService from "../../api/services/PromoterService";
+import { useState } from "react";
+import UserService from "../../api/services/UserService";
+import CampaignService from "../../api/services/CampaignService";
 
 function Performance() {
+  const [promotersCount, setPromotersCount] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
+  const [campaignsCount, setCampaignsCount] = useState(0);
+
+  useEffect(() => {
+    let apiCallPromoterCount = PromoterService.getPromotersCount();
+    apiCallPromoterCount.then((res) => {
+      if (res.data.responseCode === "00") {
+        setPromotersCount(res.data.promotersCount);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let apiCallUserCount = UserService.getUsersCount();
+    apiCallUserCount.then((res) => {
+      if (res.data.responseCode === "00") {
+        setUsersCount(res.data.usersCount);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let apiCallCampaignCount = CampaignService.getCampaignsCount();
+    apiCallCampaignCount.then((res) => {
+      if (res.data.responseCode === "00") {
+        setCampaignsCount(res.data.campaignsCount);
+      }
+    });
+  }, []);
+
   return (
     <div id="Performance">
       <Box
@@ -15,9 +51,17 @@ function Performance() {
           marginBottom: "8rem",
         }}
       >
-        <PerformanceCard amount={495} text1={"Total"} text2={"Promoters"} />
-        <PerformanceCard amount={205} text1={"Total"} text2={"Advertisers"} />
-        <PerformanceCard amount={872} text1={"Total"} text2={"Campaigns"} />
+        <PerformanceCard amount={usersCount} text1={"Total"} text2={"Users"} />
+        <PerformanceCard
+          amount={promotersCount}
+          text1={"Total"}
+          text2={"Promoters"}
+        />
+        <PerformanceCard
+          amount={campaignsCount}
+          text1={"Total"}
+          text2={"Campaigns"}
+        />
       </Box>
     </div>
   );
