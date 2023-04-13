@@ -111,12 +111,15 @@ function Login({ setUserInfo }) {
                 if (res.data.responseCode === "00") {
                   dispatch(
                     adminSettings({
-                      maxAdPostsForCampaign: res.data.adminSettings.maxAdPostsForCampaign,
+                      maxAdPostsForCampaign:
+                        res.data.adminSettings.maxAdPostsForCampaign,
                       costPerView: res.data.adminSettings.costPerView,
                       systemFee: res.data.adminSettings.systemFee,
                       minimumThreshold: res.data.adminSettings.minimumThreshold,
-                      acceptTimeDuration: res.data.adminSettings.acceptTimeDuration,
-                      completeTimeDuration: res.data.adminSettings.completeTimeDuration,
+                      acceptTimeDuration:
+                        res.data.adminSettings.acceptTimeDuration,
+                      completeTimeDuration:
+                        res.data.adminSettings.completeTimeDuration,
                     })
                   );
                 }
@@ -147,14 +150,12 @@ function Login({ setUserInfo }) {
     }
   };
 
-  ////////
   const dispatch = useDispatch();
-  ////////
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: { xs: "block", lg: "flex" },
         justifyContent: "center",
         height: "100vh",
         alignItems: "center",
@@ -162,10 +163,20 @@ function Login({ setUserInfo }) {
     >
       <Paper
         elevation={3}
-        sx={{ p: 2, width: "1000px", backgroundColor: "#18345E" }}
+        sx={{
+          p: { xs: 1, lg: 2 },
+          width: { xs: "100%", lg: "1000px" },
+          backgroundColor: "#18345E",
+        }}
       >
-        <Box sx={{ flexDirection: "row", width: "100%", display: "flex" }}>
-          <Box sx={{ width: "50%" }}>
+        <Box
+          sx={{
+            flexDirection: { xs: "column", lg: "row" },
+            width: "100%",
+            display: "flex",
+          }}
+        >
+          <Box sx={{ width: { xs: "100%", lg: "50%" } }}>
             <Typography
               sx={{ fontSize: "2rem", fontWeight: "bold", color: "white" }}
             >
@@ -183,7 +194,7 @@ function Login({ setUserInfo }) {
           </Box>
           <Box
             sx={{
-              width: "50%",
+              width: { xs: "100%", lg: "50%" },
               backgroundColor: "white",
               borderRadius: 2,
               p: 3,
