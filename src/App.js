@@ -44,7 +44,6 @@ function App() {
           <Route path="/login" element={<Login setUserInfo={setUserInfo} />} />
           <Route path="/register" element={<Register />} />
 
-          {/* test adding DashboardLayout start */}
           <Route
             path="/"
             element={
@@ -171,7 +170,6 @@ function App() {
               }
             />
           </Route>
-          {/* test adding DashboardLayout end */}
         </Routes>
       </BrowserRouter>
     </div>

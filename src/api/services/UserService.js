@@ -13,6 +13,10 @@ class UserService {
         return await apiService.apiGET(`/users/user/${userId}`);
     }
 
+    async getUsersCount(){
+        return await apiService.apiGET(`/users/usersCount`);
+    }
+
     async getChartData(){
         return await apiService.apiGET(`/users/normal_users/chart_data`);
     }

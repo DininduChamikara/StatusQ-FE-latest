@@ -50,8 +50,6 @@ export default function ChatSidebar() {
 
   const [isSearchFocused, setSearchFocused] = useState(false);
 
-  // const { conversations, activeConversationId } = useSelector((state) => state.chat);
-  ////// Dinindu
   const conversations = {
     byId: {
       "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2": {
@@ -61,18 +59,18 @@ export default function ChatSidebar() {
             id: "8864c717-587d-472a-929a-8e5f298024da-0",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_15.jpg",
-            name: "Jaydon Frankie",
-            username: "jaydon.frankie",
+            name: "Amila Silva",
+            username: "asilva",
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2",
-            name: "Lucian Obrien",
-            username: "lucian.obrien",
+            name: "Chamara Fernando",
+            username: "ChamaraFernando",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg",
-            address: "1147 Rohan Drive Suite 819 - Burlington, VT / 82021",
+            address: "12/3, New Lane, Colombo",
             phone: "904-966-2836",
-            email: "ashlynn_ohara62@gmail.com",
+            email: "chamara@example.com",
             lastActivity: "2023-01-05T14:59:00.568Z",
             status: "online",
             position: "Full Stack Designer",
@@ -174,13 +172,13 @@ export default function ChatSidebar() {
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3",
-            name: "Deja Brady",
-            username: "deja.brady",
+            name: "Chandrika Perera",
+            username: "cperera",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_3.jpg",
-            address: "18605 Thompson Circle Apt. 086 - Idaho Falls, WV / 50337",
-            phone: "399-757-9909",
-            email: "milo.farrell@hotmail.com",
+            address: "56/2, Main Road, Kandy",
+            phone: "+94 81 234 5678",
+            email: "cperera@example.com",
             lastActivity: "2023-01-04T13:59:00.568Z",
             status: "busy",
             position: "Backend Developer",
@@ -339,13 +337,13 @@ export default function ChatSidebar() {
             id: "8864c717-587d-472a-929a-8e5f298024da-0",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_15.jpg",
-            name: "Jaydon Frankie",
-            username: "jaydon.frankie",
+            name: "Dinesh Fernando",
+            username: "dfernando",
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b5",
-            name: "Reece Chung",
-            username: "reece.chung",
+            name: "Gayan Gunawardena",
+            username: "ggunawardena",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_5.jpg",
             address: "36901 Elmer Spurs Apt. 762 - Miramar, DE / 92836",
@@ -416,13 +414,13 @@ export default function ChatSidebar() {
             id: "8864c717-587d-472a-929a-8e5f298024da-0",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_15.jpg",
-            name: "Jaydon Frankie",
-            username: "jaydon.frankie",
+            name: "Harsha Jayasuriya",
+            username: "hjayasuriya",
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b6",
-            name: "Lainey Davidson",
-            username: "lainey.davidson",
+            name: "Indika Bandara",
+            username: "ibandara",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_6.jpg",
             address:
@@ -462,13 +460,13 @@ export default function ChatSidebar() {
             id: "8864c717-587d-472a-929a-8e5f298024da-0",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_15.jpg",
-            name: "Jaydon Frankie",
-            username: "jaydon.frankie",
+            name: "Jayantha Senanayake",
+            username: "jsenanayake",
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b7",
-            name: "Cristopher Cardenas",
-            username: "cristopher.cardenas",
+            name: "Kasun Rajapaksa",
+            username: "krajapaksa",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_7.jpg",
             address:
@@ -513,8 +511,8 @@ export default function ChatSidebar() {
           },
           {
             id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2",
-            name: "Lucian Obrien",
-            username: "lucian.obrien",
+            name: "Lakshan Wijesinghe",
+            username: "lwijesinghe",
             avatar:
               "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg",
             address: "1147 Rohan Drive Suite 819 - Burlington, VT / 82021",
@@ -1008,32 +1006,12 @@ export default function ChatSidebar() {
         const { value } = event.target;
         setSearchQuery(value);
         if (value) {
-        //   const response = await axios.get('/api/chat/search', {
-        //     params: { query: value },
-        //   });
-        //   setSearchResults(response.data.results);
         } else {
           setSearchResults([]);
         }
       } catch (error) {
         console.error(error);
       }
-
-    // setSearchResults([
-    //   {
-    //     address: "19034 Verna Unions Apt. 164 - Honolulu, RI / 87535",
-    //     avatar:
-    //       "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_1.jpg",
-    //     email: "nannie_abernathy70@yahoo.com",
-    //     id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1",
-    //     lastActivity: "2023-01-06T05:45:36.446Z",
-    //     name: "Jayvion Simon",
-    //     phone: "365-374-4961",
-    //     position: "UX Designer",
-    //     status: "away",
-    //     username: "jayvion.simon",
-    //   },
-    // ]);
     
   };
 
@@ -1044,7 +1022,6 @@ export default function ChatSidebar() {
   const handleSearchSelect = (username) => {
     setSearchFocused(false);
     setSearchQuery("");
-    // navigate(PATH_DASHBOARD.chat.view(username));
   };
 
   const handleSelectContact = (result) => {

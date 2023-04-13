@@ -9,6 +9,10 @@ class CampaignService {
     async getSystemEarningsForDashboard(){
         return await apiService.apiGET('/campaigns/dashboard/system_profit_chart_data');
     }
+
+    async getCampaignsCount(){
+        return await apiService.apiGET('/campaigns/campaignsCount');
+    }
  
     async saveCampaign(requestBody){
         return await apiService.apiPOST("/campaigns", requestBody);
