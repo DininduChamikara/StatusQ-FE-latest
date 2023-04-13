@@ -44,11 +44,12 @@ function Performance() {
       <Box
         sx={{
           display: "flex",
+          flexDirection: { xs: "column", lg: "row" },
           alignItems: "center",
           justifyContent: "center",
-          gap: "15rem",
+          gap: { xs: "1rem", lg: "15rem" },
           height: "30vh",
-          marginBottom: "8rem",
+          marginBottom: { xs: "16rem", lg: "8rem" },
         }}
       >
         <PerformanceCard amount={usersCount} text1={"Total"} text2={"Users"} />

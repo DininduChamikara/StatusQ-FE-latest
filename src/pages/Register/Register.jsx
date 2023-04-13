@@ -208,7 +208,7 @@ function Register() {
   };
 
   return (
-    <Box sx={{ px: "60px" }}>
+    <Box sx={{ px: { xs: "10px", lg: "60px" } }}>
       <NavBar />
       <Intro />
       <About />
@@ -227,7 +227,7 @@ function Register() {
             sx={{ p: 2, width: "1000px", backgroundColor: "#18345E" }}
           >
             <Box sx={{ flexDirection: "row", width: "100%", display: "flex" }}>
-              <Box sx={{ width: "50%" }}>
+              <Box sx={{ width: "50%", display: { xs: "none", lg: "block" } }}>
                 <Typography
                   sx={{ fontSize: "2rem", fontWeight: "bold", color: "white" }}
                 >
@@ -245,7 +245,7 @@ function Register() {
               </Box>
               <Box
                 sx={{
-                  width: "50%",
+                  width: { xs: "100%", lg: "50%" },
                   backgroundColor: "white",
                   borderRadius: 2,
                   p: 3,
@@ -257,9 +257,18 @@ function Register() {
                   Create Account
                 </Typography>
                 <Box
-                  sx={{ width: "100%", display: "flex", flexDirection: "row" }}
+                  sx={{
+                    width: "100%",
+                    display: { xs: "block", lg: "flex" },
+                    flexDirection: "row",
+                  }}
                 >
-                  <Box sx={{ width: "50%", pr: 0.5 }}>
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "50%" },
+                      pr: { xs: 0, lg: 0.5 },
+                    }}
+                  >
                     <TextField
                       sx={{ mt: 2 }}
                       fullWidth
@@ -281,7 +290,12 @@ function Register() {
                       </FormHelperText>
                     )}
                   </Box>
-                  <Box sx={{ width: "50%", pl: 0.5 }}>
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "50%" },
+                      pl: { xs: 0, lg: 0.5 },
+                    }}
+                  >
                     <TextField
                       sx={{ mt: 2 }}
                       fullWidth
@@ -327,9 +341,18 @@ function Register() {
                 </Box>
 
                 <Box
-                  sx={{ width: "100%", display: "flex", flexDirection: "row" }}
+                  sx={{
+                    width: "100%",
+                    display: { xs: "block", lg: "flex" },
+                    flexDirection: "row",
+                  }}
                 >
-                  <Box sx={{ width: "50%", pr: 0.5 }}>
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "50%" },
+                      pr: { xs: 0, lg: 0.5 },
+                    }}
+                  >
                     <TextField
                       sx={{ mt: 2 }}
                       fullWidth
@@ -345,7 +368,12 @@ function Register() {
                       <PasswordStrengthBar password={userInfo.password} />
                     </Box>
                   </Box>
-                  <Box sx={{ width: "50%", pl: 0.5 }}>
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "50%" },
+                      pl: { xs: 0, lg: 0.5 },
+                    }}
+                  >
                     <TextField
                       sx={{ mt: 2 }}
                       fullWidth
@@ -398,7 +426,6 @@ function Register() {
               </Box>
             </Box>
           </Paper>
-          {/* <DialogBox title={title} description={description} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} navigateLink={"/"}/> */}
         </Box>
       </div>
       <Contact />

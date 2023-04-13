@@ -1,7 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import Wave from "../../images/landingPage/wave.png";
-import { Facebook, Instagram, Subscriptions, Twitter, WhatsApp, YouTube } from "@mui/icons-material";
+import {
+  Facebook,
+  Instagram,
+  Subscriptions,
+  Twitter,
+  WhatsApp,
+  YouTube,
+} from "@mui/icons-material";
 
 function Footer() {
   return (
@@ -9,9 +16,9 @@ function Footer() {
       sx={{
         display: "flex",
         alignItems: "center",
-        margin: "-3.5rem",
+        margin: {xs:'-1rem', lg:'-3.5rem'},
         position: "relative",
-        marginTop: "-7rem",
+        marginTop: { xs: "-3rem", lg: "-7rem" },
       }}
     >
       <img src={Wave} alt="" style={{ width: "100%" }} />
@@ -23,12 +30,18 @@ function Footer() {
           justifyContent: "center",
           flexDirection: "column",
           width: "100%",
-          marginTop: "8rem",
-          gap: "2rem",
+          marginTop: {xs:'4rem', lg:'8rem'},
+          gap: {xs:'1rem', lg:'2rem'},
           color: "white",
         }}
       >
-        <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+        <Typography
+          sx={{
+            fontSize: "1.2rem",
+            fontWeight: "bold",
+            display: { xs: "none", lg: "block" },
+          }}
+        >
           STATUSQ.COM
         </Typography>
         <Typography sx={{ fontSize: "1.2rem", fontWeight: "bold" }}>
@@ -37,14 +50,44 @@ function Footer() {
         <Box
           sx={{
             display: "flex",
-            gap: "2rem",
+            gap: { xs: "1rem", lg: "2rem" },
           }}
         >
-          <Facebook sx={{ width: 70, height: 70, color: "white" }} />
-          <Instagram sx={{ width: 70, height: 70, color: "white" }} />
-          <WhatsApp sx={{ width: 70, height: 70, color: "white" }} />
-          <Subscriptions sx={{ width: 70, height: 70, color: "white" }} />
-          <Twitter sx={{ width: 70, height: 70, color: "white" }} />
+          <Facebook
+            sx={{
+              width: { xs: 35, lg: 70 },
+              height: { xs: 35, lg: 70 },
+              color: "white",
+            }}
+          />
+          <Instagram
+            sx={{
+              width: { xs: 35, lg: 70 },
+              height: { xs: 35, lg: 70 },
+              color: "white",
+            }}
+          />
+          <WhatsApp
+            sx={{
+              width: { xs: 35, lg: 70 },
+              height: { xs: 35, lg: 70 },
+              color: "white",
+            }}
+          />
+          <Subscriptions
+            sx={{
+              width: { xs: 35, lg: 70 },
+              height: { xs: 35, lg: 70 },
+              color: "white",
+            }}
+          />
+          <Twitter
+            sx={{
+              width: { xs: 35, lg: 70 },
+              height: { xs: 35, lg: 70 },
+              color: "white",
+            }}
+          />
         </Box>
       </Box>
     </Box>

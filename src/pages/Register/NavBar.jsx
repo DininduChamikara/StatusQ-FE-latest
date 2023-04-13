@@ -16,7 +16,7 @@ function NavBar() {
       </Box>
       <Box
         sx={{
-          display: "flex",
+          display: { xs: "none", lg: "flex" },
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
@@ -53,12 +53,7 @@ function NavBar() {
               </ListItem>
             </Link>
 
-            <Link
-              spy={true}
-              to="About"
-              smooth={true}
-              activeClass="activeClass"
-            >
+            <Link spy={true} to="About" smooth={true} activeClass="activeClass">
               <ListItem
                 sx={{
                   color: "primary.main",
