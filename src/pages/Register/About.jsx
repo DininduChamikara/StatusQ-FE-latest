@@ -14,7 +14,7 @@ function About() {
           display: "flex",
           height: "90vh",
           marginBottom: "13rem",
-          marginTop: "9rem",
+          marginTop: { xs: "12rem", lg: "9rem" },
         }}
       >
         <Box
@@ -29,6 +29,7 @@ function About() {
           </Typography>
           <Typography
             sx={{
+              display: { xs: "none", lg: "block" },
               fontSize: "16px",
               fontWeight: "100",
               color: "grey.500",
@@ -57,6 +58,30 @@ function About() {
             <br />
             easily create and promote their business, while also earning money{" "}
             <br />
+            by participating in other advertisement campaigns. <br />
+          </Typography>
+
+          <Typography
+            sx={{
+              display: { xs: "block", lg: "none" },
+              fontSize: "16px",
+              fontWeight: "100",
+              color: "grey.500",
+              mb: 4,
+            }}
+          >
+            StatusQ is a user-friendly website that allows individuals to launch
+            and manage their social media advertisement campaigns. Users can
+            easily create campaigns for WhatsApp status, Facebook stories, or
+            Instagram stories, and reach a wider audience with their products or
+            services. Additionally, StatusQ also provides an opportunity for
+            users to earn money by participating in other users' advertisement
+            campaigns. Users can choose to participate in campaigns that are
+            relevant to their interests and earn money for posting these
+            advertisements on their social media accounts. The website's
+            interface is easy to navigate, and users can track the performance
+            of their campaigns in real-time. With StatusQ, individuals can
+            easily create and promote their business, while also earning money
             by participating in other advertisement campaigns. <br />
           </Typography>
 
@@ -92,12 +117,14 @@ function About() {
               background: "#edd0ff",
               zIndex: -9,
               top: "80%",
-              left: "35%",
+              left: { xs: "5%", lg: "35%" },
               filter: "blur(100px)",
             }}
           ></Box>
         </Box>
-        <Box sx={{ position: "relative" }}>
+        <Box
+          sx={{ position: "relative", display: { xs: "none", lg: "block" } }}
+        >
           <Box sx={{ position: "absolute", left: "34rem", top: "-5%" }}>
             <motion.div
               initial={{ left: "25rem" }}

@@ -7,9 +7,10 @@ function Contact() {
       <Box
         sx={{
           py: "3rem",
-          display: "flex",
+          display: { xs: "block", lg: "flex" },
           height: "80vh",
           marginTop: "4rem",
+          marginBottom: { xs: "8rem", lg: "0rem" },
         }}
       >
         <Box
@@ -39,7 +40,7 @@ function Contact() {
             flexDirection: "column",
             position: "relative",
             flex: 1,
-            px: "15rem",
+            px: { xs: "0rem", lg: "15rem" },
           }}
         >
           <Box
@@ -51,7 +52,7 @@ function Contact() {
               background: "#C1F5FF",
               zIndex: -9,
               top: "40%",
-              left: "30%",
+              left: { xs: "5%", lg: "30%" },
               filter: "blur(72px)",
             }}
           ></Box>
@@ -88,7 +89,7 @@ function Contact() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              px: 30,
+              px: { xs: 5, lg: 30 },
             }}
           >
             <Button

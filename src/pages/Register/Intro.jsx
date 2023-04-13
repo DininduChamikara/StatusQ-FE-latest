@@ -19,7 +19,7 @@ function Intro() {
       sx={{
         display: "flex",
         height: "77vh",
-        marginTop: "6rem",
+        marginTop: { xs: "2rem", lg: "6rem" },
       }}
     >
       <Box
@@ -98,13 +98,19 @@ function Intro() {
             </Button>
           </Link>
           <Box sx={{ marginTop: "3rem", display: "flex", gap: 2 }}>
-            <Facebook sx={{width:70, height:70, color:'secondary.main'}} />
-            <Instagram sx={{width:70, height:70, color:'orange'}} />
-            <WhatsApp sx={{width:70, height:70, color:'primary.main'}} />
+            <Facebook sx={{ width: 70, height: 70, color: "secondary.main" }} />
+            <Instagram sx={{ width: 70, height: 70, color: "orange" }} />
+            <WhatsApp sx={{ width: 70, height: 70, color: "primary.main" }} />
           </Box>
         </Box>
       </Box>
-      <Box sx={{ position: "relative", flex: 1 }}>
+      <Box
+        sx={{
+          display: { xs: "none", lg: "flex" },
+          position: "relative",
+          flex: 1,
+        }}
+      >
         <Box sx={{ position: "absolute", zIndex: 1, left: "7%", top: "0%" }}>
           <img src={Vector1} alt="" width={500} height={380} />
         </Box>
