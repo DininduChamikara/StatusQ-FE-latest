@@ -21,6 +21,7 @@ import Intro from "./Intro";
 import About from "./About";
 import Performance from "./Performance";
 import Contact from "./Contact";
+import Footer from "./Footer";
 
 function Register() {
   const currentTime = dayjs();
@@ -400,7 +401,8 @@ function Register() {
           {/* <DialogBox title={title} description={description} dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} navigateLink={"/"}/> */}
         </Box>
       </div>
-      <Contact/>
+      <Contact />
+      <Footer />
     </Box>
   );
 }
