@@ -36,7 +36,7 @@ function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ width: "100%", my: 1 }}>
+      <Box sx={{ width: "100%", my: 1, display: { xs: "none", lg: "block" } }}>
         <Reviews />
       </Box>
     </Box>
