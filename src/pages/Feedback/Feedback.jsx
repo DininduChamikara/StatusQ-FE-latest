@@ -22,7 +22,9 @@ function Feedback({ userInfo }) {
 
   let date = new Date().toISOString().split("T")[0];
 
-  const { userId, firstName, lastName, imgUrl } = useSelector((state) => state.login);
+  const { userId, firstName, lastName, imgUrl } = useSelector(
+    (state) => state.login
+  );
 
   const [review, setReview] = useState({
     userId: userId,
@@ -55,8 +57,7 @@ function Feedback({ userInfo }) {
     apiCall.then((response) => {
       if (response) {
         response = response.data;
-        console.log("response is ", response)
-        
+        console.log("response is ", response);
       }
     });
   };
@@ -66,9 +67,9 @@ function Feedback({ userInfo }) {
       elevation={3}
       sx={{
         p: 3,
-        py: 8,
+        py: { xs: 2, lg: 8 },
         width: "100%",
-        display: "flex",
+        display: { xs: "block", lg: "flex" },
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center",
@@ -80,13 +81,19 @@ function Feedback({ userInfo }) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
-          width: "55%",
-          p: 5,
+          width: { xs: "100%", lg: "55%" },
+          p: { xs: 1, lg: 5 },
         }}
       >
         <img src={RateUsImage} alt="Ratings" width="400" />
       </Box>
-      <Box sx={{ width: "45%", px: 4 }}>
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "45%" },
+          px: { xs: 0, lg: 4 },
+          mt: { xs: 2, lg: 0 },
+        }}
+      >
         <Paper elevation={6} sx={{ borderRadius: 5, p: 2 }}>
           <Box
             sx={{
