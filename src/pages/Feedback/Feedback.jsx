@@ -52,7 +52,6 @@ function Feedback({ userInfo }) {
     });
   };
 
-  ///////
   const sendReview = () => {
     let apiCall = ReviewService.saveReview(review);
     apiCall.then((response) => {
