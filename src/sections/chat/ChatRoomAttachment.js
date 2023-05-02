@@ -5,8 +5,6 @@ import flatten from 'lodash/flatten';
 import { styled } from '@mui/material/styles';
 import { Box, Button, Divider, Collapse, Typography } from '@mui/material';
 // utils
-// import { fDateTime } from '../../../utils/formatTime';
-// import { getFileFullName, getFileThumb } from '../../../utils/getFileFormat';
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 // components

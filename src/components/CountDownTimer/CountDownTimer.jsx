@@ -5,10 +5,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import PromoterCampaignService from "../../api/services/PromoterCampaignService";
 
-// function refreshPage() {
-//   window.location.reload(false);
-// }
-
 function CountDownTimer({ createdTime, jobId, jobType }) {
 
   const { acceptTimeDuration, completeTimeDuration } = useSelector((state) => state.adminSettings);

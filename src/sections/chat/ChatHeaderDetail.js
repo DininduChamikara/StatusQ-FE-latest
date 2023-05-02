@@ -6,7 +6,6 @@ import { Box, Link, Avatar, Typography, AvatarGroup, IconButton } from '@mui/mat
 import Iconify from '../../components/Iconify';
 import BadgeStatus from '../../components/ChatThemeComp/BadgeStatus';
 // utils
-// import { fToNow } from '../../../utils/formatTime';
 // components
 
 // ----------------------------------------------------------------------

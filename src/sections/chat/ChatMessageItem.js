@@ -5,7 +5,6 @@ import { styled } from '@mui/material/styles';
 import { Avatar, Box, Typography } from '@mui/material';
 import Image from '../../components/ChatThemeComp/Image';
 // components
-// import Image from '../../../components/Image';
 
 // ----------------------------------------------------------------------
 

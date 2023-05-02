@@ -434,7 +434,7 @@ function PaymentApprovel({ open, handleClose, setOpen, jobId }) {
 
                   <Stack spacing={1} direction="row">
                     <Button variant="contained" color="secondary">
-                      Declined
+                      Decline
                     </Button>
                     <Button
                       disabled={
@@ -444,7 +444,7 @@ function PaymentApprovel({ open, handleClose, setOpen, jobId }) {
                       variant="contained"
                       onClick={handleOnClickApprovePayment}
                     >
-                      Approved
+                      Approve
                     </Button>
                   </Stack>
                 </Stack>

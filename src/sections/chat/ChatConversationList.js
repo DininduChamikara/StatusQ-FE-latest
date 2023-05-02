@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 // @mui
 import { List } from '@mui/material';
 // routes
-// import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { SkeletonConversationItem } from '../../components/skeleton';
 //
@@ -32,7 +31,6 @@ export default function ChatConversationList({ conversations, isOpenSidebar, act
         conversationKey = otherParticipant?.username;
       }
     }
-    // navigate(PATH_DASHBOARD.chat.view(conversationKey));
   };
 
   const loading = !conversations.allIds.length;

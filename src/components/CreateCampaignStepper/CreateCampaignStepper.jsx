@@ -314,13 +314,11 @@ function CreateCampaignStepper({ongoingStep, setOngoingStep}) {
     }
 
     if (activeStep === 1) {
-      // console.log(selectedAdvertisements.length);
 
       if (selectedAdvertisements.length > 0) {
         sendRequestToGetPromotersList();
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       } else {
-        // console.log("no selected advertisements")
         dispatch(
           showAlert({
             message: "Please submit your advertisements",

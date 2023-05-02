@@ -10,7 +10,7 @@ function PromoterDeclaration() {
 
   return (
     <Box sx={{ my: 2 }}>
-      <Paper variant="outlined" sx={{ width: "75vw", p: 1, mb: 1 }}>
+      <Paper variant="outlined" sx={{ width: "100%", p: 1, mb: 1 }}>
         <Typography sx={{ fontWeight: "bold", fontSize: "1.2rem", m: 1, color:'primary.dark' }}>
           Promoter Declaration
         </Typography>

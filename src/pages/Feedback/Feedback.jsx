@@ -15,10 +15,6 @@ import ReviewService from "../../api/services/ReviewService";
 import RateUsImage from "../../images/rate_us.png";
 
 function Feedback({ userInfo }) {
-  const current = new Date();
-  const currentDate = `${current.getFullYear()}-${
-    current.getMonth() + 1
-  }-${current.getDate()}`;
 
   let date = new Date().toISOString().split("T")[0];
 

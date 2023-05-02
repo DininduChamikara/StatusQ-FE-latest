@@ -71,9 +71,7 @@ function App() {
             <Route
               path="/client-view/campaign-view"
               element={
-                // <NormalUserProtectedRoute>
                   <CampaignView />
-                // </NormalUserProtectedRoute>
               }
             />
             <Route
@@ -164,9 +162,7 @@ function App() {
             <Route
               path="/chat_complaints"
               element={
-                // <AdminUserProtectedRoute>
                 <AdminComplaints />
-                // </AdminUserProtectedRoute>
               }
             />
           </Route>

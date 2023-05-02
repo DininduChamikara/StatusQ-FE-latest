@@ -11,7 +11,6 @@ const errorHandling = (error) => {
   //refer the SnackBar components in components folder for functionality
   store.dispatch(
     showAlert({
-      // message: response.data.message,
       message: response.data.message,
       isVisible: true,
       severity: "error",
@@ -33,7 +32,6 @@ const responseHandling = (response) => {
   store.dispatch(
     showAlert({
       message: response.data.message,
-      // isVisible: true,
       isVisible: response.data.isVisible,
       severity: response.data.status,
     })

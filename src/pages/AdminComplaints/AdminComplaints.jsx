@@ -11,7 +11,6 @@ function AdminComplaints() {
   return (
     <Box >
       <Container maxWidth={themeStretch ? false : 'xl'}>
-        {/* <Typography>Chat (dacoreate later)</Typography> */}
         <Card sx={{ height: '80vh', display: 'flex' }}>
           <ChatSidebar />
           <ChatWindow />
