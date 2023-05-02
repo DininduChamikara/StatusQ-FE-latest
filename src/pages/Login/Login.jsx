@@ -83,6 +83,7 @@ function Login({ setUserInfo }) {
           if (response) {
             response = response.data;
             if (response.responseCode === "00") {
+              // dispatch the logged users info using login reducer
               dispatch(
                 login({
                   isLoggedIn: true,
@@ -92,7 +93,6 @@ function Login({ setUserInfo }) {
                   email: response.user.email,
                   userType: response.user.userType,
                   profileImageurl: response.user.profileImageurl,
-
                   imgUrl: response.user.imgUrl,
                   contactName: response.user.contactName,
                   contactEmail: response.user.contactEmail,
@@ -106,6 +106,7 @@ function Login({ setUserInfo }) {
                 })
               );
 
+              // get settings details from DB to redux store
               let settingsResponse = AdminSettingsService.getSettings();
               settingsResponse.then((res) => {
                 if (res.data.responseCode === "00") {
@@ -125,6 +126,7 @@ function Login({ setUserInfo }) {
                 }
               });
 
+              // navigate base on the user type
               if (response.user.userType === "NORMAL_USER") {
                 navigate("/home");
               } else if (response.user.userType === "ADMIN_USER") {
@@ -132,12 +134,13 @@ function Login({ setUserInfo }) {
               }
             }
 
+            // get promoter ID if user is a promoter
             let apiCallSecondary = PromoterService.getPromoter(
               response.user._id
             );
 
+            // set promoter ID in redux
             apiCallSecondary.then((res) => {
-              console.log("login promoter id ", res.data._id);
               dispatch(
                 changePromoterId({
                   promoterId: res.data._id,

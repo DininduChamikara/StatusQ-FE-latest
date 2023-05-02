@@ -1,14 +1,10 @@
 import { Box, Grid, useTheme } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import CampaignService from "../../api/services/CampaignService";
+import PaymentService from "../../api/services/PaymentService";
+import EcommerceCampaignEarnings from "../../components/AdminDashboard/EcommerceCampaignEarnings";
 import EcommerceUsersCount from "../../components/AdminDashboard/EcommerceUsersCount";
 import EcommerceWidgetSummary from "../../components/AdminDashboard/EcommerceWidgetSummary";
-import EcommerceCampaignEarnings from "../../components/AdminDashboard/EcommerceCampaignEarnings";
-import EcommerceOverview from "../../components/AdminDashboard/EcommerceOverview";
-import EcommerceCurrentBalance from "../../components/AdminDashboard/EcommerceCurrentBalance";
-import EcommerceBestPromoters from "../../components/AdminDashboard/EcommerceBestPromoters";
-import CampaignService from "../../api/services/CampaignService";
-import { useState } from "react";
-import PaymentService from "../../api/services/PaymentService";
 
 function AdminHome() {
   const theme = useTheme();
@@ -18,7 +14,6 @@ function AdminHome() {
   const [chartDataTotalEarnings, setChartDataTotalEarnings] = useState();
 
   const [chartDataCampaigns, setChartDataCampaigns] = useState();
-  const [chartTitleCampaigns, setChartitleCampaigns] = useState();
 
   useEffect(() => {
     const response = CampaignService.getCampaignsForDashboard();
@@ -58,7 +53,6 @@ function AdminHome() {
     response.then((res) => {
       if (res.data.responseCode === "00") {
         res = res.data.chartData;
-        // console.log(res)
         setChartDataCampaigns(res);
       }
     });
@@ -112,18 +106,6 @@ function AdminHome() {
             chartTitle={"Campaigns Creations"}
           />
         </Grid>
-
-        {/* <Grid item xs={12} md={6} lg={8}>
-          <EcommerceOverview />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4}>
-          <EcommerceCurrentBalance />
-        </Grid> */}
-
-        {/* <Grid item xs={12} md={12} lg={12}>
-          <EcommerceBestPromoters />
-        </Grid> */}
       </Grid>
     </Box>
   );

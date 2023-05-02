@@ -15,12 +15,9 @@ import {
 } from '@mui/material';
 // utils
 import { fCurrency } from '../../utils/formatNumber';
-// _mock_
 // components
-// import Label from '../../../../components/Label';
 import Scrollbar from '../Scrollbar';
 import Label from './Label';
-// import Scrollbar from '../../../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
@@ -65,10 +62,6 @@ export default function EcommerceBestPromoters() {
                       </Box>
                     </Box>
                   </TableCell>
-                  {/* <TableCell>{row.category}</TableCell>
-                  <TableCell>
-                    <Image src={row.flag} alt="country flag" sx={{ maxWidth: 28 }} />
-                  </TableCell> */}
                   <TableCell>{fCurrency(row.total)}</TableCell>
                   <TableCell align="right">
                     <Label

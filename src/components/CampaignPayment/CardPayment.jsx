@@ -1,8 +1,7 @@
+import { Box, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { Grid, Segment } from "semantic-ui-react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import { Box, Input, TextField } from "@mui/material";
 import { useCreditCardValidator } from 'react-creditcard-validator';
 
 function CardPayment() {
@@ -26,7 +25,7 @@ function CardPayment() {
           number={number}
           name={name}
           xpiry={expiry}
-          cvc={cvc}
+          cvc={"***"}
           focused={focus}
         />
       </Box>

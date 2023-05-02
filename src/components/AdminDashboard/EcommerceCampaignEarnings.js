@@ -8,29 +8,7 @@ import { BaseOptionChart } from "../chart";
 
 // ----------------------------------------------------------------------
 
-// const CHART_DATA = [
-//   {
-//     year: 2019,
-//     total: 200,
-//     data: [
-//       { name: 'System Earnings', data: [10, 41, 35, 151, 49, 62, 69, 91, 48] },
-//       { name: 'Campaign Payments', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
-//       { name: 'Promoter Earnings', data: [5, 17, 10, 28, 35, 44, 47, 36, 26] },
-//     ],
-//   },
-//   {
-//     year: 2020,
-//     total: 300,
-//     data: [
-//       { name: 'System Earnings', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
-//       { name: 'Campaign Payments', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
-//       { name: 'Promoter Earnings', data: [26, 27, 40, 48, 25, 54, 17, 26, 36] },
-//     ],
-//   },
-// ];
-
 export default function EcommerceCampaignEarnings({ chartData, chartTitle }) {
-  // const [seriesData, setSeriesData] = useState(chartData && chartData[1].year);
 
   const currentTime = new Date();
   var currentYear = currentTime.getFullYear()
@@ -45,12 +23,10 @@ export default function EcommerceCampaignEarnings({ chartData, chartTitle }) {
       let cy = chartData[1].total;
 
       let cp = (cy - py)*100/py;
-      // console.log((cy - py)*100/py);
       setCompairablePercentage(cp | 0);
     }
   }, [chartData]);
 
-  // console.log(compairablePercentage)
 
   const handleChangeSeriesData = (event) => {
     setSeriesData(Number(event.target.value));

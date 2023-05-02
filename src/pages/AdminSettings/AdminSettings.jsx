@@ -30,7 +30,6 @@ function AdminSettings() {
 
   const { maxAdPostsForCampaign, costPerView, systemFee, minimumThreshold, acceptTimeDuration, completeTimeDuration } = useSelector((state) => state.adminSettings);
 
-
   const [minimumThresholdAmount, setMinimumThresholdAmount] = useState(minimumThreshold);
 
   let date = new Date().toISOString().split("T")[0];

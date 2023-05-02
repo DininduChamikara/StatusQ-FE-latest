@@ -35,7 +35,6 @@ const ChartWrapperStyle = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-// const CHART_DATA = [44, 75];
 
 export default function EcommerceUsersCount() {
   const [promotersCount, setPromotersCount] = useState(0);

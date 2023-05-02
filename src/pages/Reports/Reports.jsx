@@ -26,13 +26,6 @@ function Reports() {
           },
         ]
   );
-  // const [selectedFields, setSelectedFields] = useState([
-  //   {
-  //     id: uuidv4(),
-  //     title: "Campaigns",
-  //     value: "CAMPAIGNS",
-  //   },
-  // ]);
 
   const [reportTablesArr, setReportTablesArr] = useState(["CAMPAIGNS"]);
 

@@ -8,6 +8,7 @@ import LinearProgressBar from "../../components/LinearProgressBar/LinearProgress
 
 function Payments() {
   const { promoterId } = useSelector((state) => state.login);
+  // Withdrowing part need to be added. currently use this LAST WITHDRAWAL DATE
   const LAST_WITHDRAWAL_DATE = "2022-02-22T04:34:30.000Z";
 
   const [earningsAfterLastWithdrawal, setEarningsAfterLastWithdrawal] =

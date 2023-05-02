@@ -37,7 +37,6 @@ function Settings() {
   const [accountNumberU, setAccountNumberU] = useState(accountNumber);
   const [accountHolderNameU, setAccountHolderNameU] = useState(accountHolderName);
 
-  // const [profileImg, setProfileImage] = useState(imgUrl ? imgUrl : uploadImg);
   const [profileImage, setProfileImage] = useState(imgUrl);
 
   const onSelectFile = (event) => {
@@ -264,9 +263,6 @@ function Settings() {
       >
         <Button
           variant="contained"
-          // onClick={() => {
-          //   setSavedCount(savedCount + 1);
-          // }}
           onClick={handleOnClickSave}
         >
           Save Changes
