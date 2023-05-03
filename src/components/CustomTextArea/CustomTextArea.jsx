@@ -96,15 +96,13 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   );
 });
 
-export default function CustomTextArea({ value, onChange, rowsCount, saveClicked }) {
+export default function CustomTextArea({
+  value,
+  onChange,
+  rowsCount,
+  saveClicked,
+}) {
   return (
-    // <CustomInput
-    //   aria-label="Demo input"
-    //   multiline
-    //   placeholder="Type something…"
-    //   value={value}
-    //   onChange={onChange}
-    // />
     <TextField
       aria-label="Demo input"
       multiline
@@ -114,7 +112,6 @@ export default function CustomTextArea({ value, onChange, rowsCount, saveClicked
       placeholder="Type something…"
       value={value}
       disabled={saveClicked}
-      // value={value.slice(0, 2) === "  " ? value.slice(0, -2) : value}
       onChange={onChange}
     />
   );

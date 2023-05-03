@@ -59,10 +59,6 @@ export default function Searchbar() {
               placeholder="Search…"
               startAdornment={
                 <InputAdornment position="start">
-                  {/* <Iconify
-                    icon={"eva:search-fill"}
-                    sx={{ color: "text.disabled", width: 20, height: 20 }}
-                  /> */}
                   <Search />
                 </InputAdornment>
               }

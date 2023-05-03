@@ -110,7 +110,6 @@ export default function EnhancedTable({
   };
 
   const handleChangeRowsPerPage = (event) => {
-    // console.log(event.target.value);
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -164,13 +163,11 @@ export default function EnhancedTable({
           </Table>
 
           {numOfRows === 0 && (
-            // <TableRow>
             <Box sx={{ textAlign: "center" }}>
               <Typography sx={{ textAlign: "center" }}>
                 No Data Found!
               </Typography>
             </Box>
-            // </TableRow>
 
           )}
         </TableContainer>

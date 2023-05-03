@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
-import MyAvatar from "./MyAvatar";
+import { styled } from "@mui/material/styles";
+import PropTypes from "prop-types";
 import cssStyles from "../../../utils/cssStyles";
-import { useSelector } from "react-redux";
+import MyAvatar from "./MyAvatar";
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +15,6 @@ const RootStyle = styled("div")(({ theme }) => ({
     width: "100%",
     height: "100%",
     position: "absolute",
-    // backgroundColor: "#0D4C92",
     backgroundColor: theme.palette.primary.darker,
   },
 }));
@@ -43,8 +41,6 @@ ProfileCover.propTypes = {
 };
 
 export default function ProfileCover({ contactName, firstName, lastName, imgUrl }) {
-
-  // const { contactName, firstName, lastName } = useSelector((state) => state.login);
 
   return (
     <RootStyle>

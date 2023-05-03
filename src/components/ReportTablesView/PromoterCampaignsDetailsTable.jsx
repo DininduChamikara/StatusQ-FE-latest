@@ -57,7 +57,6 @@ const HEAD_CELLS = [
 function createData(
   no,
   jobId,
-  // clientId,
   promoterId,
   campaignId,
   state,
@@ -72,7 +71,6 @@ function createData(
   return {
     no,
     jobId,
-    // clientId,
     promoterId,
     campaignId,
     state,
@@ -101,7 +99,6 @@ function PromoterCampaignsDetailsTable() {
   }
 
   useEffect(() => {
-    // const response = PromoterCampaignService.getAllPromoterCampaigns();
     const response = PromoterCampaignService.getPromoterCampaignsByPost({
       ...requestBody,
       page: page,

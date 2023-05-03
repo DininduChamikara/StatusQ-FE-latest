@@ -77,7 +77,6 @@ function ClientPaymentDetailsTable() {
   const [searchStr, setSearchStr] = useState("");
 
   const viewClickHandler = (jobId) => {
-    // navigate(`./promoter_campaign_view?jobId=${jobId}`);
   };
 
   const requestBody = {
@@ -86,7 +85,6 @@ function ClientPaymentDetailsTable() {
   };
 
   useEffect(() => {
-    // const response = PaymentService.getAllPayments();
     const response = PaymentService.getAllPaymentsByPost({
       ...requestBody,
       page: page,
@@ -120,7 +118,6 @@ function ClientPaymentDetailsTable() {
         }
       }
     });
-    // let res = response.data;
   }, [searchStr, page, rowsPerPage]);
 
   return (
@@ -141,7 +138,6 @@ function ClientPaymentDetailsTable() {
             <>
               <ActionButton
                 text="View"
-                // icon={<BorderColor />}
                 actionClickHandler={() => viewClickHandler(index)}
               />
             </>

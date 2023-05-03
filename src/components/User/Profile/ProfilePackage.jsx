@@ -3,13 +3,10 @@ import {
   AdminPanelSettings,
   Campaign,
   CreditScore,
-  Payments,
-  ShoppingCartCheckout,
+  ShoppingCartCheckout
 } from "@mui/icons-material";
-import { Box, Card, CardHeader, Link, Stack, Typography } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Card, CardHeader, Link, Stack, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PaymentApprovelService from "../../../api/services/PaymentApprovelService";
 import PaymentService from "../../../api/services/PaymentService";
@@ -99,16 +96,6 @@ const ProfilePackage = () => {
 
         {userType !== "ADMIN_USER" && (
           <Stack spacing={2}>
-            {/* <Stack direction="row">
-              <Payments style={{ marginRight: "10px" }} />
-              <Typography variant="body2">
-                <Link component="span" variant="subtitle2" color="text.primary">
-                  Balance : &nbsp;
-                </Link>
-                Rs. 1100.00 (still dummy)
-              </Typography>
-            </Stack> */}
-
             <Stack direction="row">
               <ShoppingCartCheckout style={{ marginRight: "10px" }} />
               <Typography variant="body2">

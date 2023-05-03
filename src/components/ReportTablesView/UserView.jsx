@@ -129,7 +129,6 @@ export default function UserView() {
                 key={tab.value}
                 value={tab.value}
                 icon={tab.icon}
-                //   label={capitalCase(tab.value)}
                 label={tab.value}
               />
             ))}

@@ -1,7 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import React from "react";
 import IndividualReviews from "../Reviews/IndividualReviews";
-import Reviews from "../Reviews/Reviews";
 import UserProfileAbout from "../User/Profile/UserProfileAbout";
 import UserReviewsCount from "./UserReviewsCount";
 

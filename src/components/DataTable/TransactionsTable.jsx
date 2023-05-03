@@ -95,7 +95,6 @@ export default function TransactionTable() {
         }
       }
     });
-    // let res = response.data;
   }, [userId, page, rowsPerPage]);
 
   const navigate = useNavigate();

@@ -1,34 +1,29 @@
 // @mui
-import { useTheme } from "@mui/material/styles";
 import {
-  Box,
-  Card,
-  Table,
   Avatar,
-  TableRow,
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Table,
   TableBody,
   TableCell,
-  TableHead,
-  CardHeader,
-  Typography,
   TableContainer,
-  Button,
+  TableHead,
+  TableRow,
+  Typography,
 } from "@mui/material";
 // utils
-import { fCurrency } from "../../utils/formatNumber";
 // _mock_
 // components
-// import Label from '../../../../components/Label';
-import Scrollbar from "../Scrollbar";
 import { useEffect, useState } from "react";
-import UserService from "../../api/services/UserService";
 import { useNavigate } from "react-router-dom";
-// import Scrollbar from '../../../../components/Scrollbar';
+import UserService from "../../api/services/UserService";
+import Scrollbar from "../Scrollbar";
 
 // ----------------------------------------------------------------------
 
 export default function AdminDetailsTable() {
-
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
@@ -36,16 +31,14 @@ export default function AdminDetailsTable() {
     const response = UserService.getAllUsers();
     response.then((res) => {
       if (res) {
-        // console.log(res);
-        // setUsers(res.data);
         if (res.data.responseCode === "00") {
-          const filteredNormalUsers = res.data.users.filter(user => user.userType === "ADMIN_USER")
-          // setUsers(res.data.users);
+          const filteredNormalUsers = res.data.users.filter(
+            (user) => user.userType === "ADMIN_USER"
+          );
           setUsers(filteredNormalUsers);
         }
       }
     });
-    // let res = response.data;
   }, []);
 
   const viewClickHandler = (userId) => {
@@ -88,12 +81,21 @@ export default function AdminDetailsTable() {
                     </Box>
                   </TableCell>
                   <TableCell>{row._id}</TableCell>
-                  <TableCell>{row.contactPhone ? row.contactPhone : "Not Provided"}</TableCell>
-                  <TableCell align="center">{row.accountStatus ? row.accountStatus : "Open"}</TableCell>
+                  <TableCell>
+                    {row.contactPhone ? row.contactPhone : "Not Provided"}
+                  </TableCell>
                   <TableCell align="center">
-                    <Button onClick={() => {
-                      viewClickHandler(row._id)
-                    }} variant="text">View</Button>
+                    {row.accountStatus ? row.accountStatus : "Open"}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button
+                      onClick={() => {
+                        viewClickHandler(row._id);
+                      }}
+                      variant="text"
+                    >
+                      View
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

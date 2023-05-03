@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Avatar, Box, Paper, Rating, Typography } from "@mui/material";
+import { Box, Paper, Rating, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PromoterReviewService from "../../api/services/PromoterReviewService";
 import PromoterService from "../../api/services/PromoterService";
-import ReviewService from "../../api/services/ReviewService";
 
 function IndividualReviews({ userId }) {
   const [promoterData, setPromoterData] = useState();
@@ -53,7 +52,6 @@ function IndividualReviews({ userId }) {
               <SwiperSlide key={index}>
                 <Paper
                   variant="outlined"
-                  // elevation={6}
                   sx={{
                     borderRadius: 2,
                     p: 2,

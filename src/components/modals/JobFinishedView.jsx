@@ -3,10 +3,9 @@ import {
   AccountBox,
   Close,
   RemoveRedEye,
-  RestartAlt,
   Send,
   StarBorderOutlined,
-  WorkHistoryOutlined,
+  WorkHistoryOutlined
 } from "@mui/icons-material";
 import {
   Box,
@@ -260,7 +259,6 @@ function JobFinishedView({ open, handleClose, setOpen, jobId }) {
 
             <Divider />
           </Card>
-          {/* <Divider orientation="vertical" flexItem /> */}
           <Box sx={{ width: "45%", px: 1 }}>
             <Card
               sx={{

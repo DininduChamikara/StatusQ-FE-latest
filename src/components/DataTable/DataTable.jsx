@@ -33,7 +33,6 @@ export default function DataTable({
       if (selectedPromotersList.indexOf(cellValues.row.promoterId) === -1) {
         selectedPromotersList.push(cellValues.row.promoterId);
         setSelectedPromoterCount(selectedPromoterCount + 1);
-        // setSelectedPromotersList(selectedPromotersList)
       }
     } else {
       setSelectedPromotersList(
@@ -90,7 +89,6 @@ export default function DataTable({
   const [selectedPromoter, setSelectedPromoter] = useState();
 
   React.useEffect(() => {
-    // console.log(promoterListResponse);
     if (promoterListResponse) {
       setRows(
         promoterListResponse.promoterListFinalResponseItemDTO.map(
@@ -102,7 +100,6 @@ export default function DataTable({
       );
       dispatch(
         changeSelectedPromoterForView({
-          // selectedPromoterForView: event.row.promoterId,
           selectedPromoterForView: promoterListResponse.promoterListFinalResponseItemDTO[0],
         })
       );
@@ -113,15 +110,12 @@ export default function DataTable({
   
 
   React.useEffect(() => {
-    // console.log("first promoter is ", promoterListResponse.promoterListFinalResponseItemDTO[0])
     if(promoterListResponse){
       setSelectedPromoter(promoterListResponse.promoterListFinalResponseItemDTO[0])
     }
   }, [promoterListResponse])
 
   const [selecedTableRow, setSelectedTableRow] = useState(1);
-
-  // console.log(rows);
 
   return (
     <div style={{ height: 400, width: "100%" }}>

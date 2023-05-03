@@ -9,9 +9,9 @@ import JobDataView from "../modals/JobDataView";
 import JobFinishedView from "../modals/JobFinishedView";
 import ActionButton from "../Table/ActionButton";
 
-function createData(no, jobId, numOfAds, viewsRequired, budget, datetime,) {
+function createData(no, jobId, numOfAds, viewsRequired, budget, datetime) {
   datetime = new Date(datetime).toDateString();
-  return { no, jobId, numOfAds, viewsRequired, budget, datetime, };
+  return { no, jobId, numOfAds, viewsRequired, budget, datetime };
 }
 
 const HEAD_CELLS = [
@@ -155,81 +155,6 @@ const HEAD_CELLS_FINISHED_JOBS = [
   },
 ];
 
-// const rows = [
-//   createData(
-//     1,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     2,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     3,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     4,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     5,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     6,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     7,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     8,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-//   createData(
-//     9,
-//     "20/12/2022 04:55:00",
-//     "dsfsdhsd6545dsfssds",
-//     "dfsdfsdfsdf1454665",
-//     2,
-//     "Rs. 100"
-//   ),
-// ].sort((a, b) => (a.no < b.no ? -1 : 1));
-
 function JobsView() {
   const [rows, setRows] = useState([]);
   const [ongoingJobsRows, setOngoingJobsRows] = useState([]);
@@ -247,10 +172,10 @@ function JobsView() {
   const [pageOngoing, setPageOngoing] = useState(0);
   const [rowsPerPageOngoing, setRowsPerPageOngoing] = React.useState(10);
 
-   // for finished jobs
-   const [numOfRowsFinished, setNumOfRowsFinished] = useState(0);
-   const [pageFinished, setPageFinished] = useState(0);
-   const [rowsPerPageFinished, setRowsPerPageFinished] = React.useState(10);
+  // for finished jobs
+  const [numOfRowsFinished, setNumOfRowsFinished] = useState(0);
+  const [pageFinished, setPageFinished] = useState(0);
+  const [rowsPerPageFinished, setRowsPerPageFinished] = React.useState(10);
 
   const navigate = useNavigate();
 
@@ -271,8 +196,8 @@ function JobsView() {
   const requestBody = {
     promoterId: promoterId,
     page: 0,
-    pageCount: 10, 
-  }
+    pageCount: 10,
+  };
 
   // for available jobs
   useEffect(() => {
@@ -285,7 +210,9 @@ function JobsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          const filteredAvailableJobs = res.data.promoterCampaigns.filter( element => element.state ===  "AVAILABLE" );
+          const filteredAvailableJobs = res.data.promoterCampaigns.filter(
+            (element) => element.state === "AVAILABLE"
+          );
           setRows(
             filteredAvailableJobs.map((item, index) => {
               return createData(
@@ -294,12 +221,14 @@ function JobsView() {
                 item.adsCount ? item.adsCount : 0,
                 item.requiredViews ? item.requiredViews : 0,
                 item.budget ? item.budget : 0,
-                item.dateTime ? item.dateTime : "",
+                item.dateTime ? item.dateTime : ""
               );
             })
           );
 
-          setNumOfRows(filteredAvailableJobs ? filteredAvailableJobs.length : 0);
+          setNumOfRows(
+            filteredAvailableJobs ? filteredAvailableJobs.length : 0
+          );
         }
       }
     });
@@ -316,7 +245,9 @@ function JobsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          const filteredOngoingJobs = res.data.promoterCampaigns.filter( element => element.state ===  "ACCEPTED" );
+          const filteredOngoingJobs = res.data.promoterCampaigns.filter(
+            (element) => element.state === "ACCEPTED"
+          );
           setOngoingJobsRows(
             filteredOngoingJobs.map((item, index) => {
               return createData(
@@ -325,11 +256,13 @@ function JobsView() {
                 item.adsCount ? item.adsCount : 0,
                 item.requiredViews ? item.requiredViews : 0,
                 item.budget ? item.budget : 0,
-                item.acceptedTime ? item.acceptedTime : "",
+                item.acceptedTime ? item.acceptedTime : ""
               );
             })
           );
-          setNumOfRowsOngoing(filteredOngoingJobs ? filteredOngoingJobs.length : 0);
+          setNumOfRowsOngoing(
+            filteredOngoingJobs ? filteredOngoingJobs.length : 0
+          );
         }
       }
     });
@@ -345,7 +278,9 @@ function JobsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          const filteredFinishedJobs = res.data.promoterCampaigns.filter( element => element.state ===  "COMPLETED" );
+          const filteredFinishedJobs = res.data.promoterCampaigns.filter(
+            (element) => element.state === "COMPLETED"
+          );
           setFinishedJobsRows(
             filteredFinishedJobs.map((item, index) => {
               return createData(
@@ -354,7 +289,7 @@ function JobsView() {
                 item.adsCount ? item.adsCount : 0,
                 item.requiredViews ? item.requiredViews : 0,
                 item.budget ? item.budget : 0,
-                item.completedTime ? item.completedTime : "",
+                item.completedTime ? item.completedTime : ""
               );
             })
           );
@@ -365,7 +300,6 @@ function JobsView() {
   }, [promoterId, open, openOngoing, openFinished]);
 
   const viewClickHandler = (jobId) => {
-    // navigate(`edit?listname=${listName}`);
     setJobId(jobId);
     handleOpen();
   };
@@ -373,12 +307,12 @@ function JobsView() {
   const completeClickHandler = (jobId) => {
     setJobId(jobId);
     handleOpenOngoing();
-  }
+  };
 
   const viewFinishedClickHandler = (jobId) => {
     setJobId(jobId);
     handleOpenFinished();
-  }
+  };
 
   return (
     <Box>
@@ -407,10 +341,8 @@ function JobsView() {
               <>
                 <ActionButton
                   text="Visit Job"
-                  // icon={<BorderColor />}
                   actionClickHandler={() => viewClickHandler(index)}
                 />
-                {/* <ActionButton text="" icon={<RemoveCircle />} /> */}
               </>
             );
           }}
@@ -433,10 +365,8 @@ function JobsView() {
               <>
                 <ActionButton
                   text="Complete"
-                  // icon={<BorderColor />}
                   actionClickHandler={() => completeClickHandler(index)}
                 />
-                {/* <ActionButton text="" icon={<RemoveCircle />} /> */}
               </>
             );
           }}
@@ -459,19 +389,32 @@ function JobsView() {
               <>
                 <ActionButton
                   text="View"
-                  // icon={<BorderColor />}
                   actionClickHandler={() => viewFinishedClickHandler(index)}
                 />
-                {/* <ActionButton text="" icon={<RemoveCircle />} /> */}
               </>
             );
           }}
           isToolbarVisible={true}
         />
       </Paper>
-      <JobDataView open={open} onClose={handleClose} setOpen={setOpen} jobId={jobId} />
-      <JobCompleteView open={openOngoing} onClose={handleCloseOngoing} setOpen={setOpenOngoing} jobId={jobId} />
-      <JobFinishedView open={openFinished} onClose={handleCloseFinished} setOpen={setOpenFinished} jobId={jobId} />
+      <JobDataView
+        open={open}
+        onClose={handleClose}
+        setOpen={setOpen}
+        jobId={jobId}
+      />
+      <JobCompleteView
+        open={openOngoing}
+        onClose={handleCloseOngoing}
+        setOpen={setOpenOngoing}
+        jobId={jobId}
+      />
+      <JobFinishedView
+        open={openFinished}
+        onClose={handleCloseFinished}
+        setOpen={setOpenFinished}
+        jobId={jobId}
+      />
     </Box>
   );
 }

@@ -1,7 +1,5 @@
-import { Box, Card, CardHeader } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PromoterService from "../../api/services/PromoterService";
 import ActionButton from "../Table/ActionButton";
@@ -104,7 +102,6 @@ function PromoterDetailsTable() {
   };
 
   useEffect(() => {
-    // const response = PromoterService.getAllPromoters();
     const response = PromoterService.getAllPromotersByPost({
       ...requestBody,
       page: page,
@@ -113,7 +110,6 @@ function PromoterDetailsTable() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          //   console.log(res.data);
           let response = res.data.promoters;
 
           response = response.filter((item) => item._id.includes(searchStr) || item.nameWithInit.toLowerCase().includes(searchStr.toLowerCase()));
@@ -136,7 +132,6 @@ function PromoterDetailsTable() {
         }
       }
     });
-    // let res = response.data;
   }, [searchStr, page, rowsPerPage]);
 
   return (
@@ -158,7 +153,6 @@ function PromoterDetailsTable() {
             <>
               <ActionButton
                 text="View"
-                // icon={<BorderColor />}
                 actionClickHandler={() => viewClickHandler(index)}
               />
             </>

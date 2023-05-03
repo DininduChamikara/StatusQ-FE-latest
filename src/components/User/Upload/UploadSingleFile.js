@@ -71,18 +71,6 @@ export default function UploadSingleFile({
         <BlockContent />
 
         {file &&
-          // <Image
-          //   alt="file preview"
-          //   src={isString(file) ? file : file.preview}
-          //   sx={{
-          //     top: 8,
-          //     left: 8,
-          //     borderRadius: 1,
-          //     position: "absolute",
-          //     width: "calc(100% - 16px)",
-          //     height: "calc(100% - 16px)",
-          //   }}
-          // />
           Image}
       </DropZoneStyle>
 

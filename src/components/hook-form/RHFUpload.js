@@ -8,7 +8,6 @@ import UploadSingleFile from "../../components/User/Upload/UploadSingleFile";
 import UploadMultiFile from "../../components/User/Upload/UploadMultiFile";
 
 // type
-// import { UploadAvatar, UploadMultiFile, UploadSingleFile } from "../upload";
 
 // ----------------------------------------------------------------------
 

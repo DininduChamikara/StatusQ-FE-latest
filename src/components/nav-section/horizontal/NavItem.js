@@ -152,14 +152,6 @@ function NavItemContent({ icon, title, children, subItem }) {
       )}
       {title}
       {children &&
-        // <Iconify
-        //   icon={subItem ? 'eva:chevron-right-fill' : 'eva:chevron-down-fill'}
-        //   sx={{
-        //     ml: 0.5,
-        //     width: ICON.NAVBAR_ITEM_HORIZONTAL,
-        //     height: ICON.NAVBAR_ITEM_HORIZONTAL,
-        //   }}
-        // />
         "icon"}
     </>
   );

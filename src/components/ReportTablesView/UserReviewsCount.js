@@ -4,10 +4,8 @@ import ReactApexChart from "react-apexcharts";
 import { useTheme, styled } from "@mui/material/styles";
 import { Card, CardHeader } from "@mui/material";
 // utils
-// import { fNumber } from '../../../../utils/formatNumber';
 import { fNumber } from "../../utils/formatNumber";
 //
-// import { BaseOptionChart } from '../../../../components/chart';
 import { BaseOptionChart } from "../chart";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -36,8 +34,6 @@ const ChartWrapperStyle = styled("div")(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-
-// const CHART_DATA = [20, 25, 15, 10, 5];
 
 export default function UserReviewsCount({ userId }) {
   const [promoterData, setPromoterData] = useState();
@@ -114,7 +110,6 @@ export default function UserReviewsCount({ userId }) {
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart
           type="donut"
-          // series={CHART_DATA}
           series={chartData}
           options={chartOptions}
           height={280}

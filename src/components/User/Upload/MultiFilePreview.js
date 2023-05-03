@@ -1,22 +1,18 @@
-import PropTypes from "prop-types";
+import { AnimatePresence, m } from "framer-motion";
 import isString from "lodash/isString";
-import { m, AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
 // @mui
-import { alpha } from "@mui/material/styles";
 import {
-  List,
-  Stack,
   Button,
   IconButton,
-  ListItemText,
+  List,
   ListItem,
+  ListItemText,
+  Stack,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 // utils
 import { fData } from "../../../utils/formatNumber";
-//
-// import Image from "../Image";
-// import Iconify from "../Iconify";
-// import { varFade } from '../animate';
 
 // ----------------------------------------------------------------------
 
@@ -63,7 +59,6 @@ export default function MultiFilePreview({
                 <ListItem
                   key={key}
                   component={m.div}
-                  // {...varFade().inRight}
                   sx={{
                     p: 0,
                     m: 0.5,
@@ -76,11 +71,6 @@ export default function MultiFilePreview({
                     border: (theme) => `solid 1px ${theme.palette.divider}`,
                   }}
                 >
-                  {/* <Image
-                    alt="preview"
-                    src={isString(file) ? file : preview}
-                    ratio="1/1"
-                  /> */}
                   Image
                   <IconButton
                     size="small"
@@ -98,7 +88,6 @@ export default function MultiFilePreview({
                       },
                     }}
                   >
-                    {/* <Iconify icon={"eva:close-fill"} /> */}
                     Icon
                   </IconButton>
                 </ListItem>
@@ -109,7 +98,6 @@ export default function MultiFilePreview({
               <ListItem
                 key={key}
                 component={m.div}
-                // {...varFade().inRight}
                 sx={{
                   my: 1,
                   px: 2,
@@ -118,10 +106,6 @@ export default function MultiFilePreview({
                   border: (theme) => `solid 1px ${theme.palette.divider}`,
                 }}
               >
-                {/* <Iconify
-                  icon={"eva:file-fill"}
-                  sx={{ width: 28, height: 28, color: "text.secondary", mr: 2 }}
-                /> */}
                 Icon
                 <ListItemText
                   primary={isString(file) ? file : name}
@@ -134,7 +118,6 @@ export default function MultiFilePreview({
                   size="small"
                   onClick={() => onRemove(file)}
                 >
-                  {/* <Iconify icon={"eva:close-fill"} /> */}
                   Icon
                 </IconButton>
               </ListItem>

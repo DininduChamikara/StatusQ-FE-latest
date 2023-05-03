@@ -3,7 +3,6 @@ import React from "react";
 
 function DiscreteSlider({views, setViews}) {
   function valuetext(value) {
-    // return `${value}°C`;
     setViews(value);
     return value;
   }
@@ -21,7 +20,6 @@ function DiscreteSlider({views, setViews}) {
       <Slider
         aria-label="Temperature"
         defaultValue={defaultValue}
-        // defaultValue={views}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         step={10}
