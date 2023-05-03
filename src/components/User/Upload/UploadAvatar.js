@@ -4,8 +4,6 @@ import { useDropzone } from "react-dropzone";
 // @mui
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-// import Image from "../Image";
-// import Iconify from "../Iconify";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import RejectionFiles from "./RejectionFiles";
 
@@ -59,7 +57,6 @@ const PlaceholderStyle = styled("div")(({ theme }) => ({
 
 UploadAvatar.propTypes = {
   error: PropTypes.bool,
-  // file: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   helperText: PropTypes.node,
   sx: PropTypes.object,
 };
@@ -105,13 +102,6 @@ export default function UploadAvatar({
             }}
             {...getInputProps()}
           />
-          {/* {file && (
-            <img
-              alt="avatar"
-              src={isString(file) ? file : file.preview}
-              sx={{ zIndex: 8 }}
-            />
-          )} */}
 
           {uploadedImg && (
             <img
@@ -139,10 +129,6 @@ export default function UploadAvatar({
               icon={"ic:round-add-a-photo"}
               sx={{ width: 24, height: 24, mb: 1 }}
             />
-
-            {/* <Typography variant="caption">
-              {file ? "Update photo" : "Upload photo"}
-            </Typography> */}
 
             <Typography variant="caption">
               {uploadedImg ? "Update photo" : "Upload photo"}

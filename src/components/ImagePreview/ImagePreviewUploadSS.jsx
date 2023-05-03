@@ -1,4 +1,4 @@
-import { Close, HighlightOff } from "@mui/icons-material";
+import { HighlightOff } from "@mui/icons-material";
 import { Box, Divider, IconButton, Paper, Typography } from "@mui/material";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -4,15 +4,18 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function CustomTextField({ title, value, setValue, editOptionVisible, savedCount }) {
+function CustomTextField({
+  title,
+  value,
+  setValue,
+  editOptionVisible,
+  savedCount,
+}) {
+  const [editEnable, setEditEnable] = useState(false);
 
-    const [editEnable, setEditEnable] = useState(false);
-
-    useEffect(() => {
-        setEditEnable(false);
-    }, [savedCount])
-
- 
+  useEffect(() => {
+    setEditEnable(false);
+  }, [savedCount]);
 
   const handleOnChangeText = (event) => {
     setValue(event.target.value);

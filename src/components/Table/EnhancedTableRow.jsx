@@ -12,9 +12,8 @@ function EnhancedTableRow({
   actionSpan = 0,
   actions = null,
   hideMoreOptions = false,
-  ignoreIndex = undefined
+  ignoreIndex = undefined,
 }) {
-
   const [openMenu, setOpenMenuActions] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -28,41 +27,56 @@ function EnhancedTableRow({
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
       {data.map((item, id) => {
-
-
         if (ignoreIndex) {
-
           if (id !== ignoreIndex)
-
             return (
-              <TableCell padding="none" sx={{
-                "&.MuiTableCell-paddingNone": {
-                  padding: '.1rem 1rem'
-                }
-              }} component="td" key={id} scope="row" align={align}>
+              <TableCell
+                padding="none"
+                sx={{
+                  "&.MuiTableCell-paddingNone": {
+                    padding: ".1rem 1rem",
+                  },
+                }}
+                component="td"
+                key={id}
+                scope="row"
+                align={align}
+              >
                 {item}
               </TableCell>
             );
         } else
-
           return (
-            <TableCell padding="none" sx={{
-              "&.MuiTableCell-paddingNone": {
-                padding: '.1rem 1rem'
-              }
-            }} component="td" key={id} scope="row" align={align}>
+            <TableCell
+              padding="none"
+              sx={{
+                "&.MuiTableCell-paddingNone": {
+                  padding: ".1rem 1rem",
+                },
+              }}
+              component="td"
+              key={id}
+              scope="row"
+              align={align}
+            >
               {item}
             </TableCell>
           );
-
       })}
       {/* render buttons if defined */}
       {(actionButtons.length > 0 || actions) && (
-        <TableCell padding="none" sx={{
-          "&.MuiTableCell-paddingNone": {
-            padding: '.1rem 1rem'
-          }
-        }} colSpan={actionSpan} component="td" scope="row" align="center">
+        <TableCell
+          padding="none"
+          sx={{
+            "&.MuiTableCell-paddingNone": {
+              padding: ".1rem 1rem",
+            },
+          }}
+          colSpan={actionSpan}
+          component="td"
+          scope="row"
+          align="center"
+        >
           {actionButtons.map((action, id) => {
             return (
               <ActionButton
@@ -91,9 +105,9 @@ function EnhancedTableRow({
                         // onDeleteRow();
                         handleCloseMenu();
                       }}
-                      sx={{ color: 'error.main' }}
+                      sx={{ color: "error.main" }}
                     >
-                      <Iconify icon={'eva:trash-2-outline'} />
+                      <Iconify icon={"eva:trash-2-outline"} />
                       Delete
                     </MenuItem>
 
@@ -103,7 +117,7 @@ function EnhancedTableRow({
                         handleCloseMenu();
                       }}
                     >
-                      <Iconify icon={'eva:eye-fill'} />
+                      <Iconify icon={"eva:eye-fill"} />
                       View
                     </MenuItem>
 
@@ -113,66 +127,16 @@ function EnhancedTableRow({
                         handleCloseMenu();
                       }}
                     >
-                      <Iconify icon={'eva:edit-fill'} />
+                      <Iconify icon={"eva:edit-fill"} />
                       Edit
                     </MenuItem>
                   </>
                 }
               />
             )}
-
           </Box>
-
-
-
         </TableCell>
-
       )}
-
-      {/* <TableCell align="right" >
-        <Box sx={{ position: "relative" }}>
-          <TableMoreMenu
-            open={openPopOver}
-            onOpen={() => setOpenPopOver(true)}
-            onClose={() => setOpenPopOver(false)}
-            actions={
-              <>
-                <MenuItem
-                  onClick={() => {
-                    // onDeleteRow();
-                    setOpenPopOver(false)
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  Delete
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => {
-                    // onViewRow();
-                    setOpenPopOver(false)
-                  }}
-                >
-                  <Iconify icon={'eva:eye-fill'} />
-                  View
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => {
-                    // onEditRow();
-                    setOpenPopOver(false)
-                  }}
-                >
-                  <Iconify icon={'eva:edit-fill'} />
-                  Edit
-                </MenuItem>
-              </>
-            }
-          />
-        </Box>
-
-      </TableCell> */}
     </TableRow>
   );
 }

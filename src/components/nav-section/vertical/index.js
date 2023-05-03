@@ -31,9 +31,7 @@ export default function NavSectionVertical({
   isCollapse = false,
   ...other
 }) {
-  // const userInfo = useSelector((state) => state.login.userProperties);
-
-  // const userRole = useSelector((state) => state.login.userRole.name);
+  
   const userType = useSelector((state) => state.login.userType);
 
   return (

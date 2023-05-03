@@ -185,7 +185,6 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
                               {item.file ? (
                                 <Box>
                                   <img
-                                    // onClick={downloadImage(item.file, index)}
                                     style={{ borderRadius: "5%" }}
                                     src={item.file}
                                     width={"100%"}
@@ -247,7 +246,6 @@ function JobDataView({ open, handleClose, setOpen, jobId }) {
               </Button>
             </Box>
           </Card>
-          {/* <Divider orientation="vertical" flexItem /> */}
           <Box sx={{ width: "40%", px: 1 }}>
             <Card
               sx={{

@@ -1,15 +1,9 @@
-// import * as Yup from "yup";
-// import { useSnackbar } from "notistack";
-// form
-// import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 // @mui
 import { Box, Button, Card, Stack } from "@mui/material";
 import { useState } from "react";
 import FormProvider from "../../hook-form/FormProvider";
 import RHFTextField from "../../hook-form/RHFTextField";
-// import { store } from "../../../app/store";
-// import { showAlert } from "../../../reducers/alertSlice";
 import UserService from "../../../api/services/UserService";
 import { useSelector } from "react-redux";
 
@@ -109,7 +103,6 @@ export default function AccountChangePassword() {
   };
 
   const methods = useForm({
-    // resolver: yupResolver(ChangePassWordSchema),
     password,
   });
 

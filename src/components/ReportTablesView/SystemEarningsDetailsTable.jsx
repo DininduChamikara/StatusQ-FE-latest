@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -87,7 +87,6 @@ function SystemEarningsDetailsTable() {
   };
 
   useEffect(() => {
-    // const response = CampaignService.getAllCampaigns();
     const response = CampaignService.getAllCampaignsByPost({
       ...requestBody,
       page: page,
@@ -96,7 +95,6 @@ function SystemEarningsDetailsTable() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          //   console.log(res.data);
           let response = res.data.campaigns;
           let filteredResponse;
 
@@ -125,7 +123,6 @@ function SystemEarningsDetailsTable() {
         }
       }
     });
-    // let res = response.data;
   }, [userId, searchStr, alignment, page, rowsPerPage]);
 
   const viewClickHandler = (campaignId) => {
@@ -150,7 +147,6 @@ function SystemEarningsDetailsTable() {
             <>
               <ActionButton
                 text="View Campaign"
-                // icon={<BorderColor />}
                 actionClickHandler={() => viewClickHandler(index)}
               />
             </>

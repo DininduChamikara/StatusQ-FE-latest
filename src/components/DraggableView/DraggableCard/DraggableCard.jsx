@@ -1,13 +1,8 @@
-import { Close } from "@mui/icons-material";
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
-// const DraggableCard = (props) => {
 const DraggableCard = ({ task }) => {
-  // const theme = useTheme()
-
-  // console.log("draggable card props ", props);
 
   return (
     <Tooltip title="Drag & Drop" followCursor>

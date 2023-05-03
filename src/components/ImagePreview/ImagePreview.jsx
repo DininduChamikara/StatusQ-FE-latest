@@ -15,8 +15,6 @@ function ImagePreview() {
 
   const { maxAdPostsForCampaign } = useSelector((state) => state.adminSettings);
 
-  // const [saveClicked, setSaveClicked] = useState(false);
-
   const [advertisementObjArr, setAdvertisementObjArr] = useState([]);
   const [advertisements, setAdvertisements] = useState([]);
 

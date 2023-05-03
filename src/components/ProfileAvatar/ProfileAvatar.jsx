@@ -1,9 +1,8 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 import Stack from "@mui/material/Stack";
-import ProfileImage from "../../images/profile.jpg";
+import { styled } from "@mui/material/styles";
+import * as React from "react";
 import { useSelector } from "react-redux";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({

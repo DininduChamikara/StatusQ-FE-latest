@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 // form
 import { useForm } from "react-hook-form";
 // @mui
@@ -12,15 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 
-// import TimezoneSelect, { allTimezones } from "react-timezone-select";
-import { fData } from "../../../utils/formatNumber";
-import FormProvider from "../../hook-form/FormProvider";
-import RHFTextField from "../../hook-form/RHFTextField";
-import { RHFUploadAvatar } from "../../hook-form/RHFUpload";
 import { useDispatch, useSelector } from "react-redux";
 import UserService from "../../../api/services/UserService";
-import { changeProfileImage, login } from "../../../store/reducers/login.slice";
+import { login } from "../../../store/reducers/login.slice";
+import { fData } from "../../../utils/formatNumber";
+import FormProvider from "../../hook-form/FormProvider";
 import RHFSelect from "../../hook-form/RHFSelect";
+import RHFTextField from "../../hook-form/RHFTextField";
+import { RHFUploadAvatar } from "../../hook-form/RHFUpload";
 
 const banks = [
   "Bank of Ceylon",
@@ -98,7 +97,6 @@ export default function AccountGeneral() {
   const dispatch = useDispatch();
 
   const onSubmit = async () => {
-    // let apiCall = UserService.saveSettings(userInfo);
     let apiCall = UserService.saveSettings({
       ...userInfo,
       imgUrl: profileImage,
@@ -259,13 +257,6 @@ export default function AccountGeneral() {
                     },
                   }}
                 >
-                  {/* <RHFTextField
-                    name="bankName"
-                    label="Bank Name"
-                    value={userInfo.bankName}
-                    onChange={handleUserInput}
-                  /> */}
-
                   <RHFSelect
                     onChange={handleUserInput}
                     name="bankName"

@@ -2,16 +2,11 @@ import PropTypes from "prop-types";
 // @mui
 import { Card, CardHeader, Link, Stack, Typography } from "@mui/material";
 // components
-// import Iconify from '../../../../components/Iconify';
 import AttachEmailOutlinedIcon from '@mui/icons-material/AttachEmailOutlined';
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import PaymentApprovelService from "../../../api/services/PaymentApprovelService";
-import { useState } from "react";
-import PaymentService from "../../../api/services/PaymentService";
 
 ProfileAbout.propTypes = {
   profile: PropTypes.object,
@@ -40,7 +35,6 @@ export default function ProfileAbout() {
               Sign-In Email : &nbsp;
             </Link>
             {email ? email : ""}
-            {/* test@gmail.com */}
           </Typography>
         </Stack>
 

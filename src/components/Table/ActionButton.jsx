@@ -15,13 +15,11 @@ function ActionButton({ text, actionClickHandler, icon }) {
         </Button>
       )}
 
-      {/* Test Adding by Dinindu */}
       {icon && (
         <IconButton
           onClick={actionClickHandler}
         >
           {icon}
-          {/* <Close/> */}
         </IconButton>
       )}
 

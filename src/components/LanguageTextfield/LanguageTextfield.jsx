@@ -43,14 +43,12 @@ const LanguageTextfield = ({
     }
     setTypedText(event.target.value);
 
-    // Dinindu test
     if(index !== -1){
       let adzArray = [];
       adzArray = advertisements;
       adzArray[index].description = event.target.value;
 
       setAdvertisements(adzArray)
-      // advertisements[index].description = event.target.value;
       
     }
    
@@ -108,11 +106,8 @@ const LanguageTextfield = ({
       maxResult
     ).then(function (response) {
       let text = JSON.parse(JSON.stringify(sourceText));
-      //console.log(response[0][0]);
       text = response[0][0];
       setTranslatedText(text);
-      // console.log(input, index, text);
-      // console.log(text);
     });
   }
 

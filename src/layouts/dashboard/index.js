@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 // @mui
-import { styled } from '@mui/material/styles';
 import { Box, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 // hooks
-import useSettings from '../../hooks/useSettings';
 import useResponsive from '../../hooks/useResponsive';
-import useCollapseDrawer from '../../hooks/useCollapseDrawer';
+import useSettings from '../../hooks/useSettings';
 // config
 import { HEADER, NAVBAR } from '../../config';
 //
-import DashboardHeader from './header';
-import NavbarVertical from './navbar/NavbarVertical';
-import NavbarHorizontal from './navbar/NavbarHorizontal';
 import palette from '../../theme/palette';
+import DashboardHeader from './header';
+import NavbarHorizontal from './navbar/NavbarHorizontal';
+import NavbarVertical from './navbar/NavbarVertical';
 
 // ----------------------------------------------------------------------
 

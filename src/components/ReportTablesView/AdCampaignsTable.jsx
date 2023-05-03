@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -103,7 +103,6 @@ function AdCampaignsTable() {
   };
 
   useEffect(() => {
-    // const response = CampaignService.getAllCampaigns();
     const response = CampaignService.getAllCampaignsByPost({
       ...requestBody,
       page: page,
@@ -112,7 +111,6 @@ function AdCampaignsTable() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          //   console.log(res.data);
           let response = res.data.campaigns;
           let filteredResponse;
 
@@ -143,7 +141,6 @@ function AdCampaignsTable() {
         }
       }
     });
-    // let res = response.data;
   }, [userId, searchStr, alignment, page, rowsPerPage]);
 
   const viewClickHandler = (campaignId) => {
@@ -168,7 +165,6 @@ function AdCampaignsTable() {
             <>
               <ActionButton
                 text="View"
-                // icon={<BorderColor />}
                 actionClickHandler={() => viewClickHandler(index)}
               />
             </>

@@ -1,10 +1,8 @@
 import { Box, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { selectedReports } from "../../store/reducers/reports.slice";
 import Scrollbar from "../Scrollbar";
 import DraggableCard from "./DraggableCard/DraggableCard";
 
@@ -39,11 +37,6 @@ function DraggableView({ isDragDisabled, setSelectedFields }) {
           title: "Client Payments",
           value: "CLIENT_PAYMENT",
         },
-        // {
-        //   id: uuidv4(),
-        //   title: "Promoter Payments",
-        //   value: "PROMOTER_PAYMENTS",
-        // },
         {
           id: uuidv4(),
           title: "System Earnings",
@@ -69,15 +62,6 @@ function DraggableView({ isDragDisabled, setSelectedFields }) {
   const { draggableViewData } = useSelector((state) => state.selectedReports);
 
   const [data, setData] = useState(mockData);
-  // const [data, setData] = useState(draggableViewData);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     selectedReports({
-  //       draggableViewData: data,
-  //     })
-  //   );
-  // }, [data]);
 
   useEffect(() => {
     if (isDragDisabled) {

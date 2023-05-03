@@ -1,7 +1,5 @@
-import { Paper, Typography } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Paper } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CampaignService from "../../api/services/CampaignService";
@@ -67,12 +65,29 @@ const HEAD_CELLS = [
   },
 ];
 
-function createData(no, campaignId, createdTime, platform, viewsFromEach, promoterSelectionCount, campaignCost, state) {
-  return { no, campaignId, createdTime, platform, viewsFromEach, promoterSelectionCount, campaignCost, state };
+function createData(
+  no,
+  campaignId,
+  createdTime,
+  platform,
+  viewsFromEach,
+  promoterSelectionCount,
+  campaignCost,
+  state
+) {
+  return {
+    no,
+    campaignId,
+    createdTime,
+    platform,
+    viewsFromEach,
+    promoterSelectionCount,
+    campaignCost,
+    state,
+  };
 }
 
 function MyCampaignsView() {
-
   const navigate = useNavigate();
 
   const [rows, setRows] = useState([]);
@@ -87,12 +102,9 @@ function MyCampaignsView() {
     clientId: userId,
     page: 0,
     pageCount: 10,
-  }
+  };
 
   useEffect(() => {
-    // console.log("number of rows ",numOfRows)
-    // console.log("page", page)
-    // const response = CampaignService.getCampaignsByClient(userId);
     const response = CampaignService.campaignsByClient({
       ...ongoingCampaignsRequest,
       page: page,
@@ -101,7 +113,6 @@ function MyCampaignsView() {
     response.then((res) => {
       if (res) {
         if (res.data.responseCode === "00") {
-          // console.log(res.data);
           let resp = res.data.campaigns;
 
           setRows(
@@ -112,7 +123,9 @@ function MyCampaignsView() {
                 item.createdTime ? item.createdTime : "",
                 item.platform ? item.platform : "",
                 item.viewsFromEach ? item.viewsFromEach : 0,
-                item.selectedPromoterIdList ? item.selectedPromoterIdList.length : 0,
+                item.selectedPromoterIdList
+                  ? item.selectedPromoterIdList.length
+                  : 0,
                 item.campaignCost ? item.campaignCost : 0,
                 item.state ? item.state : ""
               );
@@ -122,14 +135,10 @@ function MyCampaignsView() {
         }
       }
     });
-    // let res = response.data;
   }, [userId, page, rowsPerPage]);
 
   const viewClickHandler = (campaignId) => {
-    // console.log(campaignId)
     navigate(`/client-view/campaign-view?campaignId=${campaignId}`);
-    // setJobId(jobId);
-    // handleOpen();
   };
 
   return (
@@ -142,7 +151,6 @@ function MyCampaignsView() {
         alignItems: "center",
       }}
     >
-
       <EnhancedTable
         headCells={HEAD_CELLS}
         rows={rows}
@@ -159,7 +167,6 @@ function MyCampaignsView() {
             <>
               <ActionButton
                 text="View"
-                // icon={<BorderColor />}
                 actionClickHandler={() => viewClickHandler(index)}
               />
             </>

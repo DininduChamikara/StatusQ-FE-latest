@@ -60,7 +60,6 @@ export default function PaymentReceivedTable() {
   };
 
   useEffect(() => {
-    // const response = PaymentService.getPayments(userId);
     const response = PaymentApprovelService.getPaymentApprovelByPromoterId({
       ...getPaymentApprovelsRequestBody,
       page: page,
@@ -85,7 +84,6 @@ export default function PaymentReceivedTable() {
         }
       }
     });
-    // let res = response.data;
   }, [promoterId, page, rowsPerPage]);
 
   const navigate = useNavigate();

@@ -6,7 +6,6 @@ const UserProfileRatings = () => {
     <Card sx={{ height: "100%", paddingBottom: 0 }}>
       <CardHeader title="Reviews & Ratings" />
       <Grid item xs={12} md={6} lg={6}>
-        {/* <ReviewCountChart/> */}
       </Grid>
     </Card>
   );

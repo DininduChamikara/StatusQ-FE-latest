@@ -10,12 +10,6 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import KeyIcon from "@mui/icons-material/Key";
 import AccountChangePassword from "../User/Account/AccountChangePassword";
 import AccountGeneral from "../User/Account/AccountGeneral";
-// import AccountGeneral from "../User/Account/AccountGeneral";
-// import AccountChangePassword from "../User/Account/AccountChangePassword";
-
-// sections
-
-// ----------------------------------------------------------------------
 
 export default function UserAccount() {
 
@@ -67,7 +61,5 @@ export default function UserAccount() {
         return isMatched && <Box key={tab.value}>{tab.component}</Box>;
       })}
     </Box>
-
-    // </Page>
   );
 }

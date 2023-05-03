@@ -12,7 +12,6 @@ import { NAVBAR } from '../../../config';
 import { NavSectionVertical } from '../../../components/nav-section';
 //
 import navConfig from './NavConfig';
-// import NavbarDocs from './NavbarDocs';
 import Scrollbar from '../../../components/Scrollbar';
 import CollapseButton from './CollapseButton';
 
@@ -44,8 +43,6 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar, isCollap
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
-
-  // const [isCollapse, setIsCollapse] = useState(false);
 
   useEffect(() => {
     if (isOpenSidebar) {

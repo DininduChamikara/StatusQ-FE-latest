@@ -1,14 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useTheme } from "@emotion/react";
 import { Avatar, Box, Paper, Rating, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReviewService from "../../api/services/ReviewService";
-import testImage from "../../images/profile.jpg";
 
 function Reviews() {
-  // const theme = useTheme()
 
   const [reviewResponses, setReviewResponses] = useState([]);
 
@@ -43,7 +40,6 @@ function Reviews() {
               <SwiperSlide key={index}>
                 <Paper
                   variant="outlined"
-                  // elevation={6}
                   sx={{
                     borderRadius: 2,
                     p: 2,

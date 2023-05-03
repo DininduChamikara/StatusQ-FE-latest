@@ -123,7 +123,6 @@ function PersonalInfoForm() {
   ]);
 
   const dispatch = useDispatch();
-  // const { promoterStepperActive } = useSelector((state) => state.activeStep);
 
   useEffect(() => {
     dispatch(
