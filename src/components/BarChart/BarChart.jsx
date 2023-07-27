@@ -40,8 +40,6 @@ function BarChart({barChartData}) {
     ],
   };
 
-  console.log("bar data", data)
-
   const chartOptions = {
     scales: {
       xAxes: [
@@ -60,7 +58,7 @@ function BarChart({barChartData}) {
   };
 
   return (
-    <Box>
+    <Box data-testid="barChart">
       <Bar data={data} options={chartOptions} />
     </Box>
   );

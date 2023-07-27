@@ -94,7 +94,7 @@ function CountDownTimer({ createdTime, jobId, jobType }) {
   return (
     <Box>
       {remainingTime ? (
-        <Chip label={remainingTime}></Chip>
+        <Chip data-testid="remaining-time-chip" label={remainingTime}></Chip>
       ) : (
         <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
           <Chip label={"00:00:00"}></Chip>
